@@ -13,7 +13,7 @@ const app = express();
 // initialize winston logger
 const logger = winston();
 // intialize database connection
-databaseConfig();
+await databaseConfig();
 // initialize routes
 routes(app);
 

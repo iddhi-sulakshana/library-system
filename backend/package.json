@@ -4,7 +4,7 @@
     "description": "",
     "main": "server.js",
     "scripts": {
-        "start": "node server.js",
+        "start": "nodemon server.js",
         "test": "jest --watchAll --detectOpenHandles"
     },
     "keywords": [],
@@ -26,6 +26,7 @@
         "@babel/preset-env": "^7.23.5",
         "babel-jest": "^29.7.0",
         "jest": "^29.7.0",
+        "nodemon": "^3.0.2",
         "supertest": "^6.3.3"
     },
     "jest": {
