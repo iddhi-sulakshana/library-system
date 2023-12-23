@@ -1,7 +1,8 @@
 import { Box, Sheet, Stack, Typography } from "@mui/joy";
 import React, { useState } from "react";
+import { formatTimestamp } from "../../utils";
 
-function ChatBubble({ content, variant, timestamp, sender }) {
+function ChatBubble({ message, variant, timestamp, sender }) {
     const isSent = variant === "sent";
 
     return (
@@ -13,15 +14,13 @@ function ChatBubble({ content, variant, timestamp, sender }) {
                 sx={{ mb: 0.25 }}
             >
                 <Typography level="body-xs">
-                    {sender === "You" ? "" : sender.name.split(" ")[0]}
+                    {sender === "You" ? "" : sender.split(" ")[0]}
                 </Typography>
-                <Typography level="body-xs">{timestamp}</Typography>
+                <Typography level="body-xs">
+                    {formatTimestamp(timestamp)}
+                </Typography>
             </Stack>
-            <Box
-                sx={{ position: "relative" }}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-            >
+            <Box sx={{ position: "relative" }}>
                 <Sheet
                     color={isSent ? "primary" : "neutral"}
                     variant={isSent ? "solid" : "soft"}
@@ -43,7 +42,7 @@ function ChatBubble({ content, variant, timestamp, sender }) {
                                 : "var(--joy-palette-text-primary)",
                         }}
                     >
-                        {content}
+                        {message}
                     </Typography>
                 </Sheet>
             </Box>

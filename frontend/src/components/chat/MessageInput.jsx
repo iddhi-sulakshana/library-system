@@ -24,8 +24,8 @@ function MessageInput({ textAreaValue, setTextAreaValue, onTextSubmit }) {
                         setTextAreaValue(e.target.value);
                     }}
                     value={textAreaValue}
-                    minRows={3}
-                    maxRows={10}
+                    minRows={2}
+                    maxRows={2}
                     endDecorator={
                         <Stack
                             alignItems="flex-end"
@@ -38,7 +38,7 @@ function MessageInput({ textAreaValue, setTextAreaValue, onTextSubmit }) {
                             }}
                         >
                             <Button
-                                size="lg"
+                                size="md"
                                 color="primary"
                                 endDecorator={<SendRoundedIcon />}
                                 onClick={handleClick}

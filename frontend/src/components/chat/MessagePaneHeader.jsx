@@ -1,8 +1,43 @@
 import React from "react";
-import { Avatar, Chip, Stack, Typography } from "@mui/joy";
+import { Avatar, Button, Chip, Stack, Typography } from "@mui/joy";
 import CircleIcon from "@mui/icons-material/Circle";
+import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
+import axios from "axios";
+import { getURL } from "../../utils";
+import { useUserContext } from "../../contexts/UserContext";
 
-function MessagePaneHeader({ sender }) {
+function MessagePaneHeader({
+    selectedChat,
+    setSelectedChat,
+    refresh,
+    setRefresh,
+}) {
+    const sender = selectedChat?.participant;
+    const [loading, setLoading] = React.useState(false);
+    const { id } = useUserContext();
+    // delete selected chat
+    const onDelete = () => {
+        if (loading) return;
+        setLoading(true);
+        axios
+            .request({
+                method: "DELETE",
+                headers: {
+                    user: id,
+                },
+                url: getURL("chat/" + selectedChat._id),
+            })
+            .then(() => {
+                setSelectedChat(null);
+                setRefresh(!refresh);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
     return (
         <Stack
             direction="row"
@@ -14,11 +49,7 @@ function MessagePaneHeader({ sender }) {
             }}
             p={2}
         >
-            <Stack
-                direction="row"
-                spacing={{ xs: 1, md: 2 }}
-                alignItems="center"
-            >
+            <Stack direction="row" spacing={2} alignItems="center">
                 {/* Display User Picture */}
                 <Avatar size="lg" src={sender.avatar} />
                 {/* Display User Online Status and Name */}
@@ -50,6 +81,17 @@ function MessagePaneHeader({ sender }) {
                 >
                     {sender.name} {sender.isAdmin && "(Admin)"}
                 </Typography>
+            </Stack>
+
+            <Stack direction="row" spacing={2} alignItems="center">
+                <Button
+                    variant="plain"
+                    color="danger"
+                    onClick={onDelete}
+                    loading={loading}
+                >
+                    <DeleteOutlineRoundedIcon />
+                </Button>
             </Stack>
         </Stack>
     );

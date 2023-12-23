@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { chats } from "./data";
 import { Sheet } from "@mui/joy";
 import ChatsPane from "./ChatsPane";
 import MessagePane from "./MessagePane";
+import useGetChats from "../../hooks/useGetChats";
 
 function Messages() {
     // React state for selected chat to keep track of which chat is selected
-    const [selectedChat, setSelectedChat] = useState(chats[0]);
+    const [refresh, setRefresh] = useState(false);
+    const { chats, loading, error } = useGetChats(refresh);
+    const [selectedChat, setSelectedChat] = useState(null);
     return (
         <Sheet
             sx={{
@@ -22,12 +24,25 @@ function Messages() {
         >
             {/* Chats pane to display all the chats */}
             <ChatsPane
-                chats={chats}
-                selectedChatId={selectedChat.id}
+                selectedChatId={selectedChat}
                 setSelectedChat={setSelectedChat}
+                refresh={refresh}
+                setRefresh={setRefresh}
+                chats={chats}
+                loading={loading}
+                error={error}
             />
             {/* Message pane to display the selected chat messages */}
-            <MessagePane chat={selectedChat} />
+            <MessagePane
+                selectedChat={
+                    chats &&
+                    chats.length !== 0 &&
+                    chats.filter((chat) => chat._id === selectedChat)[0]
+                }
+                setSelectedChat={setSelectedChat}
+                refresh={refresh}
+                setRefresh={setRefresh}
+            />
         </Sheet>
     );
 }

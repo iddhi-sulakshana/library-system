@@ -9,23 +9,23 @@ import {
     Typography,
 } from "@mui/joy";
 import AvatarWithStatus from "./AvatarWithStatus";
+import { formatTimestamp } from "../../utils";
 
 function ChatListItem({
-    id,
-    sender,
-    messages,
+    _id,
+    participant,
+    latestMessage,
     selectedChatId,
     setSelectedChat,
 }) {
     // Check if the chat is selected
-    const isSelected = selectedChatId === id;
-    console.log(sender.isAdmin);
+    const isSelected = selectedChatId === _id;
     return (
         <React.Fragment>
             <ListItem>
                 <ListItemButton
                     onClick={() => {
-                        setSelectedChat({ id, sender, messages });
+                        setSelectedChat(_id);
                     }}
                     selected={isSelected}
                     color="neutral"
@@ -38,26 +38,29 @@ function ChatListItem({
                     <Stack direction="row" spacing={1.5}>
                         {/* Chat User Icon */}
                         <AvatarWithStatus
-                            online={sender.online}
-                            src={sender.avatar}
+                            online={participant.online}
+                            src={participant.avatar}
                         />
                         <Box sx={{ flex: 1 }}>
                             {/* Display Chat User Name */}
                             <Typography level="title-sm">
-                                {sender.name} {sender.isAdmin && "(Admin)"}
+                                {participant.name}{" "}
+                                {participant.isAdmin && "(Admin)"}
                             </Typography>
                             {/* Display the last message of the chat */}
                             <Typography
                                 level="body-sm"
                                 sx={{
                                     display: "-webkit-box",
-                                    WebkitLineClamp: "1",
+                                    WebkitLineClamp: "2",
                                     WebkitBoxOrient: "vertical",
                                     overflow: "hidden",
                                     textOverflow: "ellipsis",
                                 }}
                             >
-                                {messages[0].content}
+                                {latestMessage.message
+                                    ? latestMessage.message
+                                    : "No messages yet"}
                             </Typography>
                         </Box>
                         <Box
@@ -66,20 +69,11 @@ function ChatListItem({
                                 textAlign: "right",
                             }}
                         >
-                            {/* Display unread status */}
-                            {messages[0].unread && (
-                                <CircleIcon
-                                    sx={{ fontSize: 12 }}
-                                    color="primary"
-                                />
-                            )}
                             {/* Display Sent Time */}
-                            <Typography
-                                level="body-xs"
-                                display={{ xs: "none", md: "block" }}
-                                noWrap
-                            >
-                                5 mins ago
+                            <Typography level="body-xs" display="block" noWrap>
+                                {latestMessage.timestamp
+                                    ? formatTimestamp(latestMessage.timestamp)
+                                    : ""}
                             </Typography>
                         </Box>
                     </Stack>

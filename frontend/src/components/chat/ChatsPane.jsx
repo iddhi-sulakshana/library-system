@@ -1,8 +1,20 @@
-import { Chip, List, Sheet, Stack, Typography } from "@mui/joy";
-import React from "react";
+import { Box, Button, Chip, List, Sheet, Typography } from "@mui/joy";
+import React, { useState } from "react";
 import ChatListItem from "./ChatListItem";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import NewChatModal from "./NewChatModal";
+import useGetChats from "../../hooks/useGetChats";
 
-function ChatsPane({ chats, selectedChatId, setSelectedChat }) {
+function ChatsPane({
+    selectedChatId,
+    setSelectedChat,
+    refresh,
+    setRefresh,
+    chats,
+    loading,
+    error,
+}) {
+    const [open, setOpen] = useState(false);
     return (
         <Sheet
             sx={{
@@ -13,46 +25,62 @@ function ChatsPane({ chats, selectedChatId, setSelectedChat }) {
                 overflowY: "auto",
             }}
         >
-            {/* Chats Pane Title */}
-            <Typography
-                fontSize="lg"
-                component="h1"
-                fontWeight="lg"
-                endDecorator={
-                    <Chip
-                        variant="soft"
-                        color="primary"
-                        size="md"
-                        slotProps={{ root: { component: "span" } }}
-                    >
-                        4
-                    </Chip>
-                }
-                p={2}
-                pb={3}
+            <Box
                 sx={{
+                    pt: 2,
+                    px: 2,
+                    pb: 3.5,
                     borderBottom: "1px solid",
                     borderColor: "divider",
+                    display: "flex",
+                    justifyContent: "space-between",
                 }}
             >
-                Messages
-            </Typography>
+                {/* Chats Pane Title */}
+                <Typography fontSize="lg" component="h1" fontWeight="lg">
+                    Messages
+                </Typography>
+                <Button
+                    size="md"
+                    variant="outlined"
+                    endDecorator={<AddRoundedIcon />}
+                    onClick={() => setOpen(true)}
+                >
+                    New Chat
+                </Button>
+                <NewChatModal
+                    open={open}
+                    setOpen={setOpen}
+                    setSelectedChat={setSelectedChat}
+                    refresh={refresh}
+                    setRefresh={setRefresh}
+                />
+            </Box>
             {/* List of chats */}
             <List
                 sx={{
                     py: 0,
-                    "--ListItem-paddingY": "0.75rem",
+                    "--ListItem-paddingY": "1rem",
                     "--ListItem-paddingX": "1rem",
                 }}
             >
-                {chats.map((chat) => (
-                    <ChatListItem
-                        key={chat.id}
-                        {...chat}
-                        selectedChatId={selectedChatId}
-                        setSelectedChat={setSelectedChat}
-                    />
-                ))}
+                {loading && <Typography>Loading chats...</Typography>}
+                {error && <Typography>Error loading chats...</Typography>}
+                {!loading && !error && chats.length === 0 && (
+                    <Typography>No chats found...</Typography>
+                )}
+                {!loading &&
+                    !error &&
+                    chats &&
+                    chats.length !== 0 &&
+                    chats.map((chat) => (
+                        <ChatListItem
+                            key={chat._id}
+                            {...chat}
+                            selectedChatId={selectedChatId}
+                            setSelectedChat={setSelectedChat}
+                        />
+                    ))}
             </List>
         </Sheet>
     );
