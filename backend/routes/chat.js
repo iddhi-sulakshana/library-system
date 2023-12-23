@@ -3,20 +3,29 @@ import { ChatUser } from "../models/ChatUser.js";
 import { Chat, validateChat } from "../models/Chat.js";
 import { Message, validateMessage } from "../models/Message.js";
 import allChats from "../models/pipelines/allChats.js";
-import mongoose from "mongoose";
 import allMessages from "../models/pipelines/allMessages.js";
 
 const router = Router();
 
-// Get all the chat users
+// Get all the chat users already not in the chat
 router.get("/users", async (req, res) => {
-    const chats = await ChatUser.find();
-    res.send(chats);
+    const { user } = req.headers;
+    // Find all chats where the current user is a participant
+    const chats = await Chat.find({ participants: user });
+    // Extract the participants from the chats
+    const participants = chats.flatMap((chat) => chat.participants);
+    const users = await ChatUser.find({
+        _id: { $nin: [...participants, user] },
+    });
+    if (users.length === 0) {
+        return res.status(404).send("No users found");
+    }
+    res.send(users);
 });
 
 // get all the chats for participant by participants id and last message
 router.get("/all", async (req, res) => {
-    const { user } = req.body;
+    const { user } = req.headers;
     const chats = await Chat.aggregate(allChats(user));
     if (chats.length === 0) {
         return res.status(404).send("No chats found");
@@ -26,8 +35,9 @@ router.get("/all", async (req, res) => {
 
 // get all the messages for chat by chat id
 router.get("/messages/:id", async (req, res) => {
-    const { user } = req.body;
-    const messages = await Chat.aggregate(allMessages(user, req.params.id));
+    const { user } = req.headers;
+    const { id } = req.params;
+    const messages = await Chat.aggregate(allMessages(user, id));
     if (messages.length === 0) {
         return res.status(404).send("No messages found");
     }
@@ -36,7 +46,13 @@ router.get("/messages/:id", async (req, res) => {
 
 //  Create a new chat with participants
 router.post("/new", async (req, res) => {
-    const { user, participant } = req.body;
+    const { user } = req.headers;
+    const { participant } = req.body;
+    // check if the participant is exist
+    const participantExist = await ChatUser.findById(participant);
+    if (!participantExist) {
+        return res.status(404).send("Participant not found");
+    }
     // Check if the chat already exists
     const chat = await Chat.findOne({
         participants: { $all: [user, participant] },
@@ -58,7 +74,6 @@ router.post("/new", async (req, res) => {
     try {
         await newChat.save();
     } catch (err) {
-        console.log(err);
         return res.status(500).send("Internal Server Error");
     }
     // Send a response
@@ -67,7 +82,8 @@ router.post("/new", async (req, res) => {
 
 // Add messages to the chat
 router.put("/message", async (req, res) => {
-    const { user, chatId, message } = req.body;
+    const { user } = req.headers;
+    const { chatId, message } = req.body;
     // Check if the chat exists
     const chat = await Chat.findById(chatId);
     if (!chat) {
@@ -110,7 +126,7 @@ router.put("/message", async (req, res) => {
 
 // delete a chat with its messages
 router.delete("/:id", async (req, res) => {
-    const { user } = req.body;
+    const { user } = req.headers;
     // Check if the chat exists
     const chat = await Chat.findById(req.params.id);
     if (!chat) {

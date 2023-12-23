@@ -5,6 +5,7 @@ export default function allMessages(user, id) {
         {
             $match: {
                 _id: new mongoose.Types.ObjectId(id),
+                participants: { $in: [new mongoose.Types.ObjectId(user)] },
             },
         },
         {
