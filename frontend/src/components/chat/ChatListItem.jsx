@@ -19,6 +19,7 @@ function ChatListItem({
 }) {
     // Check if the chat is selected
     const isSelected = selectedChatId === id;
+    console.log(sender.isAdmin);
     return (
         <React.Fragment>
             <ListItem>
@@ -43,7 +44,7 @@ function ChatListItem({
                         <Box sx={{ flex: 1 }}>
                             {/* Display Chat User Name */}
                             <Typography level="title-sm">
-                                {sender.name}
+                                {sender.name} {sender.isAdmin && "(Admin)"}
                             </Typography>
                             {/* Display the last message of the chat */}
                             <Typography

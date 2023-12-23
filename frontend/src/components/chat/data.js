@@ -3,44 +3,51 @@ export const users = [
     {
         name: "Steve E.",
         username: "@steveEberger",
-        avatar: "/static/images/avatar/2.jpg",
+        avatar: "https://robohash.org/2isjen,fjpg",
         online: true,
+        isAdmin: true,
     },
     {
         name: "Katherine Moss",
         username: "@kathy",
-        avatar: "/static/images/avatar/3.jpg",
+        avatar: "https://robohash.org/3isjen,fjpg",
         online: false,
+        isAdmin: true,
     },
     {
         name: "Phoenix Baker",
         username: "@phoenix",
-        avatar: "/static/images/avatar/1.jpg",
+        avatar: "https://robohash.org/1isjen,fjpg",
         online: true,
+        isAdmin: false,
     },
     {
         name: "Eleanor Pena",
         username: "@eleanor",
-        avatar: "/static/images/avatar/4.jpg",
+        avatar: "https://robohash.org/4isjen,fjpg",
         online: false,
+        isAdmin: false,
     },
     {
         name: "Kenny Peterson",
         username: "@kenny",
-        avatar: "/static/images/avatar/5.jpg",
+        avatar: "https://robohash.org/5isjen,fjpg",
         online: true,
+        isAdmin: false,
     },
     {
         name: "Al Sanders",
         username: "@al",
-        avatar: "/static/images/avatar/6.jpg",
+        avatar: "https://robohash.org/6isjen,fjpg",
         online: true,
+        isAdmin: false,
     },
     {
         name: "Melissa Van Der Berg",
         username: "@melissa",
-        avatar: "/static/images/avatar/7.jpg",
+        avatar: "https://robohash.org/7isjen,fjpg",
         online: false,
+        isAdmin: false,
     },
 ];
 
@@ -52,30 +59,30 @@ export const chats = [
             {
                 id: "1",
                 content: "Hi Olivia, I am currently working on the project.",
-                timestamp: "Wednesday 9:00am",
+                timestamp: "9:00",
                 sender: users[0],
             },
             {
                 id: "2",
                 content: "That sounds great, Mabel! Keep up the good work.",
-                timestamp: "Wednesday 9:10am",
+                timestamp: "9:10",
                 sender: "You",
             },
             {
                 id: "3",
-                timestamp: "Wednesday 11:30am",
+                timestamp: "11:30",
                 sender: users[0],
                 content: "I will send the draft by end of the day.",
             },
             {
                 id: "4",
-                timestamp: "Wednesday 2:00pm",
+                timestamp: "2:00",
                 sender: "You",
                 content: "Sure, I will be waiting for it.",
             },
             {
                 id: "5",
-                timestamp: "Wednesday 4:30pm",
+                timestamp: "4:30",
                 sender: users[0],
                 content: "Just a heads up, I am about to send the draft.",
             },
@@ -83,19 +90,19 @@ export const chats = [
                 id: "6",
                 content:
                     "Thanks Olivia! Almost there. I'll work on making those changes you suggested and will shoot it over.",
-                timestamp: "Thursday 10:16am",
+                timestamp: "10:16",
                 sender: users[0],
             },
             {
                 id: "7",
                 content:
                     "Hey Olivia, I've finished with the requirements doc! I made some notes in the gdoc as well for Phoenix to look over.",
-                timestamp: "Thursday 11:40am",
+                timestamp: "11:40",
                 sender: users[0],
             },
             {
                 id: "3",
-                timestamp: "Thursday 11:40am",
+                timestamp: "11:40",
                 sender: users[0],
                 content: "Tech requirements.pdf",
                 attachment: {
@@ -106,27 +113,27 @@ export const chats = [
             },
             {
                 id: "8",
-                timestamp: "Thursday 11:41am",
+                timestamp: "11:41",
                 sender: "You",
                 content: "Awesome! Thanks. I'll look at this today.",
             },
             {
                 id: "9",
-                timestamp: "Thursday 11:44am",
+                timestamp: "11:44",
                 sender: users[0],
                 content:
                     "No rush though — we still have to wait for Lana's designs.",
             },
             {
                 id: "10",
-                timestamp: "Today 2:20pm",
+                timestamp: "2:20",
                 sender: users[0],
                 content:
                     "Hey Olivia, can you please review the latest design when you can?",
             },
             {
                 id: "11",
-                timestamp: "Just now",
+                timestamp: "2:21",
                 sender: "You",
                 content:
                     "Sure thing, I'll have a look today. They're looking great!",
@@ -140,38 +147,38 @@ export const chats = [
             {
                 id: "1",
                 content: "Hi Olivia, I am thinking about taking a vacation.",
-                timestamp: "Wednesday 9:00am",
+                timestamp: "9:00",
                 sender: users[1],
             },
             {
                 id: "2",
                 content:
                     "That sounds like a great idea, Katherine! Any idea where you want to go?",
-                timestamp: "Wednesday 9:05am",
+                timestamp: "9:05",
                 sender: "You",
             },
             {
                 id: "3",
                 content: "I am considering a trip to the beach.",
-                timestamp: "Wednesday 9:30am",
+                timestamp: "9:30",
                 sender: users[1],
             },
             {
                 id: "4",
                 content: "The beach sounds perfect this time of year!",
-                timestamp: "Wednesday 9:35am",
+                timestamp: "9:35",
                 sender: "You",
             },
             {
                 id: "5",
                 content: "Yes, I agree. It will be a much-needed break.",
-                timestamp: "Wednesday 10:00am",
+                timestamp: "10:00",
                 sender: users[1],
             },
             {
                 id: "6",
                 content: "Make sure to take lots of pictures!",
-                timestamp: "Wednesday 10:05am",
+                timestamp: "10:05",
                 sender: "You",
             },
         ],
@@ -183,7 +190,7 @@ export const chats = [
             {
                 id: "1",
                 content: "Hey!",
-                timestamp: "5 mins ago",
+                timestamp: "10:05",
                 sender: users[2],
                 unread: true,
             },
@@ -197,35 +204,35 @@ export const chats = [
                 id: "1",
                 content:
                     "Hey Olivia, I was thinking about doing some home improvement work.",
-                timestamp: "Wednesday 9:00am",
+                timestamp: "9:00",
                 sender: users[3],
             },
             {
                 id: "2",
                 content:
                     "That sounds interesting! What kind of improvements are you considering?",
-                timestamp: "Wednesday 9:05am",
+                timestamp: "9:05",
                 sender: "You",
             },
             {
                 id: "3",
                 content:
                     "I am planning to repaint the walls and replace the old furniture.",
-                timestamp: "Wednesday 9:15am",
+                timestamp: "9:15",
                 sender: users[3],
             },
             {
                 id: "4",
                 content:
                     "That will definitely give your house a fresh look. Do you need help with anything?",
-                timestamp: "Wednesday 9:20am",
+                timestamp: "9:20",
                 sender: "You",
             },
             {
                 id: "5",
                 content:
                     "I might need some help with picking the right paint colors. Can we discuss this over the weekend?",
-                timestamp: "Wednesday 9:30am",
+                timestamp: "9:30",
                 sender: users[3],
             },
         ],
@@ -238,7 +245,7 @@ export const chats = [
             {
                 id: "1",
                 content: "Sup",
-                timestamp: "5 mins ago",
+                timestamp: "10:05",
                 sender: users[4],
                 unread: true,
             },
@@ -251,7 +258,7 @@ export const chats = [
             {
                 id: "1",
                 content: "Heyo",
-                timestamp: "5 mins ago",
+                timestamp: "10:06",
                 sender: "You",
                 unread: true,
             },
@@ -266,7 +273,7 @@ export const chats = [
                 id: "1",
                 content:
                     "Hey Olivia, I've finished with the requirements doc! I made some notes in the gdoc as well for Phoenix to look over.",
-                timestamp: "5 mins ago",
+                timestamp: "10:07",
                 sender: users[6],
                 unread: true,
             },

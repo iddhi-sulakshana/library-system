@@ -1,6 +1,5 @@
 import React from "react";
-import { Avatar, Chip, IconButton, Stack, Typography } from "@mui/joy";
-import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import { Avatar, Chip, Stack, Typography } from "@mui/joy";
 import CircleIcon from "@mui/icons-material/Circle";
 
 function MessagePaneHeader({ sender }) {
@@ -49,7 +48,7 @@ function MessagePaneHeader({ sender }) {
                         </Chip>
                     }
                 >
-                    {sender.name}
+                    {sender.name} {sender.isAdmin && "(Admin)"}
                 </Typography>
             </Stack>
         </Stack>

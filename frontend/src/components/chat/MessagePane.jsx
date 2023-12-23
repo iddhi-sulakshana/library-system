@@ -1,8 +1,9 @@
-import { Avatar, Box, Sheet, Stack } from "@mui/joy";
+import { Box, Sheet, Stack } from "@mui/joy";
 import React, { useState } from "react";
 import MessagePaneHeader from "./MessagePaneHeader";
 import ChatBubble from "./ChatBubble";
 import MessageInput from "./MessageInput";
+import AvatarWithStatus from "./AvatarWithStatus";
 
 function MessagePane({ chat }) {
     // React state for chat messages to keep track of the messages in current chat
@@ -61,7 +62,7 @@ function MessagePane({ chat }) {
                                 flexDirection={isYou ? "row-reverse" : "row"}
                             >
                                 {message.sender !== "You" && (
-                                    <Avatar
+                                    <AvatarWithStatus
                                         online={message.sender.online}
                                         src={message.sender.avatar}
                                     />

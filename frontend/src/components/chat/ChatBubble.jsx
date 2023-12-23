@@ -8,12 +8,12 @@ function ChatBubble({ content, variant, timestamp, sender }) {
         <Box sx={{ maxWidth: "60%", minWidth: "auto" }}>
             <Stack
                 direction="row"
-                justifyContent="space-between"
+                justifyContent={sender === "You" ? "flex-end" : "flex-start"}
                 spacing={2}
                 sx={{ mb: 0.25 }}
             >
                 <Typography level="body-xs">
-                    {sender === "You" ? "" : sender.name}
+                    {sender === "You" ? "" : sender.name.split(" ")[0]}
                 </Typography>
                 <Typography level="body-xs">{timestamp}</Typography>
             </Stack>
