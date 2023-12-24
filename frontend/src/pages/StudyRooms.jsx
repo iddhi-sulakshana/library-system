@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import io from "socket.io-client";
 import StudyRoomCard from "./StudyRoomCard";
 
 function StudyRooms() {
@@ -21,6 +22,19 @@ function StudyRooms() {
         console.error("Error fetching available rooms:", error);
       }
     };
+
+    const socket = io("http://localhost:3000");
+    socket.on("roomBooked", (data) => {
+      setRooms((prevState) => {
+        const index = prevState.findIndex((room) => room._id === data._id);
+        if (index !== -1) {
+          prevState[index].bookedSlots = data.bookedSlots;
+        } else {
+          return [...prevState, data];
+        }
+        return [...prevState];
+      });
+    });
 
     fetchStudyRooms();
   }, [selectedTimeSlot]);
