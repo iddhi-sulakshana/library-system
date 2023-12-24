@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 
 function StudyRoomReservations({ userId }) {
   const [reservations, setReservations] = useState([]);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,36 +46,43 @@ function StudyRoomReservations({ userId }) {
   return (
     <div className="container mt-5">
       <h2 className="mb-4">Your Reservations</h2>
-      <div className="row">
-        {reservations.map((reservation) => (
-          <div key={reservation._id} className="col-md-4 mb-4">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">
-                  Reservation ID: {reservation._id}
-                </h5>
-                <p className="card-text">Room ID: {reservation.roomId}</p>
-                <p className="card-text">Start Time: {reservation.startTime}</p>
-                <p className="card-text">End Time: {reservation.endTime}</p>
-                <div className="mt-3">
-                  <button
-                    className="btn btn-primary me-2"
-                    onClick={() => handleUpdate(reservation)}
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => handleDelete(reservation._id)}
-                  >
-                    Delete
-                  </button>
+
+      {reservations.length === 0 ? (
+        <div className="alert alert-info">No reservations found.</div>
+      ) : (
+        <div className="row">
+          {reservations.map((reservation) => (
+            <div key={reservation._id} className="col-md-4 mb-4">
+              <div className="card">
+                <div className="card-body">
+                  <h5 className="card-title">
+                    Reservation ID: {reservation._id}
+                  </h5>
+                  <p className="card-text">Room ID: {reservation.roomId}</p>
+                  <p className="card-text">
+                    Start Time: {reservation.startTime}
+                  </p>
+                  <p className="card-text">End Time: {reservation.endTime}</p>
+                  <div className="mt-3">
+                    <button
+                      className="btn btn-primary me-2"
+                      onClick={() => handleUpdate(reservation)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDelete(reservation._id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
