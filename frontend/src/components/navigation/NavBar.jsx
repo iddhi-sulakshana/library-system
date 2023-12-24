@@ -10,6 +10,12 @@ function NavBar() {
             <Link to="/example" style={{ paddingRight: 5 }}>
                 Example
             </Link>
+            <Link to="/addpage" style={{ paddingRight: 5 }}>
+                AddPage
+            </Link>
+            <Link to="/borrowbook" style={{ paddingRight: 5 }}>
+                BorrowBook
+            </Link>
         </div>
     );
 }
