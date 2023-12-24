@@ -22,4 +22,17 @@ router.post("/add", async (req, res) => {
     }
 });
 
+router.delete("/:id", async (req, res) => {
+    try {
+        const book = await booksmodel.findOneAndDelete({ bookId: req.params.id });
+        if (!book) return res.status(404).send("No book found");
+        res.send("Deleted successfully, " +book.name);
+
+    } catch (ex) {
+        return res.status(400).send(ex.message);
+        console.log(ex);
+    }
+});
+
+
 export default router;

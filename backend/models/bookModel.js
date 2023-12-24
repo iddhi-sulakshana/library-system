@@ -10,6 +10,7 @@ const schema = new Joi.object({
     author: Joi.string().required(),
     price: Joi.number().required(),
     description: Joi.string().required(),
+    imagePath: Joi.string().required(),
     category: Joi.string().required(),
 });
 // function for validating the schema
