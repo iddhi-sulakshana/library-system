@@ -8,17 +8,19 @@ function StudyRooms() {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [selectedRoom, setSelectedRoom] = useState();
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/studyrooms")
-      .then((response) => {
+    const fetchStudyRooms = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/studyrooms");
         setRooms(response.data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching available rooms:", error);
-      });
+      }
+    };
+
+    fetchStudyRooms();
   }, [selectedTimeSlot]);
 
   const isSlotOverlapping = (slot, selectedStartHour, selectedEndHour) => {
