@@ -23,18 +23,18 @@ function StudyRooms() {
       }
     };
 
-    const socket = io("http://localhost:3000");
-    socket.on("roomBooked", (data) => {
-      setRooms((prevState) => {
-        const index = prevState.findIndex((room) => room._id === data._id);
-        if (index !== -1) {
-          prevState[index].bookedSlots = data.bookedSlots;
-        } else {
-          return [...prevState, data];
-        }
-        return [...prevState];
-      });
-    });
+    // const socket = io("http://localhost:3000");
+    // socket.on("roomBooked", (data) => {
+    //   setRooms((prevState) => {
+    //     const index = prevState.findIndex((room) => room._id === data._id);
+    //     if (index !== -1) {
+    //       prevState[index].bookedSlots = data.bookedSlots;
+    //     } else {
+    //       return [...prevState, data];
+    //     }
+    //     return [...prevState];
+    //   });
+    // });
 
     fetchStudyRooms();
   }, [selectedTimeSlot]);

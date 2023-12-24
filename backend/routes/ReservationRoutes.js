@@ -1,5 +1,7 @@
 import express from "express";
+import winston from "winston";
 import Reservation from "../models/Reservation.js";
+import StudyRoom from "../models/StudyRoom.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -45,9 +47,15 @@ router.post("/", async (req, res) => {
 
     await room.save();
 
+    // if (io) {
+    //   io.emit("roomBooked", room);
+    // } else {
+    //   winston.error("Socket.io is not initialized!");
+    // }
+
     res.status(201).send({ message: "Reservation created successfully!" });
   } catch (error) {
-    console.error("Error creating reservation:", error);
+    winston.error("Error creating reservation:", error);
     res.status(500).send({ error: "Internal Server Error" });
   }
 });
@@ -95,7 +103,7 @@ router.put("/", async (req, res) => {
 
     res.status(200).send({ message: "Reservation updated successfully!" });
   } catch (error) {
-    console.error("Error updating reservation:", error);
+    winston.error("Error updating reservation:", error);
     res.status(500).send({ error: "Internal Server Error" });
   }
 });
@@ -129,7 +137,7 @@ router.delete("/:bookingId", async (req, res) => {
 
     res.status(200).send({ message: "Reservation deleted successfully!" });
   } catch (error) {
-    console.error("Error deleting reservation:", error);
+    winston.error("Error deleting reservation:", error);
     res.status(500).send({ error: "Internal Server Error" });
   }
 });
@@ -147,7 +155,7 @@ router.get("/user/:userId", async (req, res) => {
 
     res.send(reservations);
   } catch (error) {
-    console.error("Error fetching user reservations:", error);
+    winston.error("Error fetching user reservations:", error);
     res.status(500).send({ error: "Internal Server Error" });
   }
 });
