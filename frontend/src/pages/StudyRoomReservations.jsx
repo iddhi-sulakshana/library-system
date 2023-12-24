@@ -12,10 +12,9 @@ function StudyRoomReservations({ userId }) {
     const fetchUserReservations = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/reservations/user/${userId}`
+          `http://localhost:3000/api/reservations/user/${userId}`
         );
         setReservations(response.data);
-        console.log(response.data);
       } catch (error) {
         console.error("Error fetching user reservations:", error);
       }
@@ -34,7 +33,9 @@ function StudyRoomReservations({ userId }) {
     setReservations(reservations.filter((r) => r._id !== reservationId));
 
     try {
-      await axios.delete("http://localhost:3000/reservations/" + reservationId);
+      await axios.delete(
+        "http://localhost:3000/api/reservations/" + reservationId
+      );
       console.log(`Successfully deleted reservation with ID: ${reservationId}`);
     } catch (err) {
       console.log(err.message);

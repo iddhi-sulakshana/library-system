@@ -13,7 +13,9 @@ function StudyRooms() {
   useEffect(() => {
     const fetchStudyRooms = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/studyrooms");
+        const response = await axios.get(
+          "http://localhost:3000/api/studyrooms"
+        );
         setRooms(response.data);
       } catch (error) {
         console.error("Error fetching available rooms:", error);
@@ -42,20 +44,27 @@ function StudyRooms() {
 
   const handleBook = (room) => {
     setSelectedRoom(room);
-    let path = `/reserve/${selectedRoom.roomId}-${selectedRoom.roomId._id}`;
+    let path = `/reserve/${room.roomId}-${room._id}`;
     navigate(path, { state: { isInitialBooking: true } });
   };
 
   return (
     <div className="container mt-5">
-      <h2 className="mb-4">Available Study Rooms</h2>
-      <select onChange={(e) => setSelectedTimeSlot(e.target.value)}>
-        <option value="">Select Time</option>
-        <option value="08">8:00 - 10:00</option>
-        <option value="10">10:00 - 12:00</option>
-        <option value="12">12:00 - 14:00</option>
-        <option value="14">14:00 - 16:00</option>
-      </select>
+      <h1 className="mb-4 ms-3">Available Study Rooms</h1>
+      <div className="row mb-4 ms-1">
+        <div className="col-lg-2">
+          <select
+            className="form-select"
+            onChange={(e) => setSelectedTimeSlot(e.target.value)}
+          >
+            <option value="">Select Time</option>
+            <option value="08">8:00 - 10:00</option>
+            <option value="10">10:00 - 12:00</option>
+            <option value="12">12:00 - 14:00</option>
+            <option value="14">14:00 - 16:00</option>
+          </select>
+        </div>
+      </div>
 
       <div className="row">
         {rooms.map((room) => (

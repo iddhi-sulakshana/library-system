@@ -15,7 +15,7 @@ function StudyRoomReservationForm() {
   const navigate = useNavigate();
 
   // add user id here
-  const path = `/user-reservations/`;
+  const path = `/reservations/`;
 
   const location = useLocation();
   const isInitialBooking = location.state
@@ -26,7 +26,7 @@ function StudyRoomReservationForm() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/studyrooms/${studyRoomId}/reservedTimes`)
+      .get(`http://localhost:3000/api/studyrooms/${studyRoomId}/reservedTimes`)
       .then((response) => {
         setBookedTimes(response.data);
       })
@@ -47,7 +47,6 @@ function StudyRoomReservationForm() {
 
   const handleRadioChange = (startTime, endTime) => {
     setSelectedSlot([startTime, endTime]);
-    console.log(selectedSlot);
   };
 
   const handleFormSubmit = async (e) => {
@@ -61,7 +60,6 @@ function StudyRoomReservationForm() {
       Date.UTC(year, month - 1, day, selectedSlot[1])
     );
 
-    console.log(startTimeDate, endTimeDate);
     const formData = {
       ...(isInitialBooking ? { userId: userID } : { bookingId: bookingId }),
       roomId: roomNumber,
@@ -74,13 +72,13 @@ function StudyRoomReservationForm() {
       if (isInitialBooking) {
         request = "POST";
         response = await axios.post(
-          "http://localhost:3000/reservations",
+          "http://localhost:3000/api/reservations",
           formData
         );
       } else {
         request = "PUT";
         response = await axios.put(
-          "http://localhost:3000/reservations",
+          "http://localhost:3000/api/reservations",
           formData
         );
       }
