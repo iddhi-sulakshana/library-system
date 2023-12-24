@@ -1,8 +1,8 @@
-import { Schema } from "mongoose";
+import { Schema, Types } from "mongoose";
 export default new Schema({
   bookingId: {
-    type: mongoose.Schema.Types.ObjectId,
-    default: new mongoose.Types.ObjectId(),
+    type: Schema.Types.ObjectId,
+    default: new Types.ObjectId(),
   },
   userId: {
     type: Number,
@@ -13,7 +13,7 @@ export default new Schema({
     required: true,
   },
   studyRoomId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "StudyRoom",
     required: true,
   },
