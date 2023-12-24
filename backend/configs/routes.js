@@ -2,9 +2,11 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import error from "../middlewares/error.js";
-
 // import routes from the routes folder
 import example from "../routes/example.js";
+import userRoutes from "../routes/UserRoutes.js";
+import bookRoutes from "../routes/BookRoutes.js";
+import borrowbookRoutes from "../routes/BorrowBookRoutes.js";
 
 export default function (app) {
     // enable cross origin resource sharing middleware
@@ -27,6 +29,9 @@ export default function (app) {
 
     // assign route paths
     app.use("/example", example);
+    app.use("/api/users", userRoutes);
+    app.use("/api/books", bookRoutes);
+    app.use("/api/borrowbook", borrowbookRoutes);
 
     // initialize error middleware
     app.use(error);
