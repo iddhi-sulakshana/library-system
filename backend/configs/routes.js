@@ -5,7 +5,6 @@ import error from "../middlewares/error.js";
 
 // import routes from the routes folder
 import example from "../routes/example.js";
-import chat from "../routes/chat.js";
 
 export default function (app) {
     // enable cross origin resource sharing middleware
