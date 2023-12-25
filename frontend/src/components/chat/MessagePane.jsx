@@ -1,44 +1,37 @@
-import { Box, Sheet, Stack, Typography } from "@mui/joy";
-import React, { useState } from "react";
+import { Box, Sheet, Stack } from "@mui/joy";
+import React, { useEffect, useState } from "react";
 import MessagePaneHeader from "./MessagePaneHeader";
 import ChatBubble from "./ChatBubble";
 import MessageInput from "./MessageInput";
 import AvatarWithStatus from "./AvatarWithStatus";
-import useGetMessages from "../../hooks/useGetMessages";
-import axios from "axios";
-import { useUserContext } from "../../contexts/UserContext";
-import { getURL } from "../../utils";
+import { getSocket } from "../../hooks/chatSocket";
 
-function MessagePane({ selectedChat, setSelectedChat, refresh, setRefresh }) {
-    const { id } = useUserContext();
-    const { messages, loading, error } = useGetMessages(
-        selectedChat?._id,
-        refresh
-    );
+function MessagePane({ selectedChat, setSelectedChat, update, setUpdate }) {
+    const [messages, setMessages] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        if (!selectedChat) return;
+        setLoading(true);
+        setError(null);
+        const socket = getSocket();
+        socket.on("get_messages", (data) => {
+            setMessages(data);
+            setLoading(false);
+        });
+    }, [update, selectedChat]);
+
     // React state for text area value to keep track of the text area value
     const [textAreaValue, setTextAreaValue] = useState("");
     // Function to handle text submit to add new message to the chat
     const onTextSubmit = () => {
         // Send the message to the server
-        axios
-            .request({
-                method: "PUT",
-                url: getURL("chat/message"),
-                headers: {
-                    user: id,
-                },
-                data: {
-                    chatId: selectedChat._id,
-                    message: textAreaValue,
-                },
-            })
-            .then(() => {
-                // Refresh the messages
-                setRefresh(!refresh);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        const socket = getSocket();
+        socket.emit("new_message", {
+            chatId: selectedChat._id,
+            message: textAreaValue,
+        });
     };
     if (!selectedChat) {
         return (
@@ -77,8 +70,8 @@ function MessagePane({ selectedChat, setSelectedChat, refresh, setRefresh }) {
             <MessagePaneHeader
                 selectedChat={selectedChat}
                 setSelectedChat={setSelectedChat}
-                refresh={refresh}
-                setRefresh={setRefresh}
+                update={update}
+                setUpdate={setUpdate}
             />
             {/* Display Chat Messages */}
             <Box
@@ -148,9 +141,6 @@ function MessagePane({ selectedChat, setSelectedChat, refresh, setRefresh }) {
                                 >
                                     {message.sender !== "You" && (
                                         <AvatarWithStatus
-                                            online={
-                                                selectedChat.participant.online
-                                            }
                                             src={
                                                 selectedChat.participant.avatar
                                             }

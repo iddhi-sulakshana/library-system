@@ -9,7 +9,6 @@ export default new Schema(
                 type: Schema.Types.ObjectId,
                 ref: "ChatUser",
                 required: true,
-                unique: true,
             },
         ],
         messages: [

@@ -5,38 +5,22 @@ import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import axios from "axios";
 import { getURL } from "../../utils";
 import { useUserContext } from "../../contexts/UserContext";
+import { getSocket } from "../../hooks/chatSocket";
 
 function MessagePaneHeader({
     selectedChat,
     setSelectedChat,
-    refresh,
-    setRefresh,
+    update,
+    setUpdate,
 }) {
     const sender = selectedChat?.participant;
-    const [loading, setLoading] = React.useState(false);
     const { id } = useUserContext();
     // delete selected chat
     const onDelete = () => {
-        if (loading) return;
-        setLoading(true);
-        axios
-            .request({
-                method: "DELETE",
-                headers: {
-                    user: id,
-                },
-                url: getURL("chat/" + selectedChat._id),
-            })
-            .then(() => {
-                setSelectedChat(null);
-                setRefresh(!refresh);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+        // delete using socket
+        const socket = getSocket();
+        socket.emit("delete_chat", selectedChat._id);
+        setUpdate(!update);
     };
     return (
         <Stack
@@ -51,7 +35,7 @@ function MessagePaneHeader({
         >
             <Stack direction="row" spacing={2} alignItems="center">
                 {/* Display User Picture */}
-                <Avatar size="lg" src={sender.avatar} />
+                <Avatar size="lg" src={sender?.avatar} />
                 {/* Display User Online Status and Name */}
                 <Typography
                     fontWeight="lg"
@@ -59,37 +43,32 @@ function MessagePaneHeader({
                     component="h2"
                     noWrap
                     endDecorator={
-                        <Chip
-                            variant="outlined"
-                            size="sm"
-                            color="neutral"
-                            sx={{
-                                borderRadius: "sm",
-                            }}
-                            startDecorator={
-                                <CircleIcon
-                                    sx={{ fontSize: 8 }}
-                                    color={
-                                        sender.online ? "success" : "warning"
-                                    }
-                                />
-                            }
-                        >
-                            {sender.online ? "Online" : "Offline"}
-                        </Chip>
+                        sender?.isAdmin && (
+                            <Chip
+                                variant="outlined"
+                                size="sm"
+                                color="neutral"
+                                sx={{
+                                    borderRadius: "sm",
+                                }}
+                                startDecorator={
+                                    <CircleIcon
+                                        sx={{ fontSize: 8 }}
+                                        color="success"
+                                    />
+                                }
+                            >
+                                Admin
+                            </Chip>
+                        )
                     }
                 >
-                    {sender.name} {sender.isAdmin && "(Admin)"}
+                    {sender?.name}
                 </Typography>
             </Stack>
 
             <Stack direction="row" spacing={2} alignItems="center">
-                <Button
-                    variant="plain"
-                    color="danger"
-                    onClick={onDelete}
-                    loading={loading}
-                >
+                <Button variant="plain" color="danger" onClick={onDelete}>
                     <DeleteOutlineRoundedIcon />
                 </Button>
             </Stack>

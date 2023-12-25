@@ -1,5 +1,4 @@
 import {
-    Avatar,
     DialogContent,
     DialogTitle,
     List,
@@ -10,42 +9,53 @@ import {
     Modal,
     ModalClose,
     ModalDialog,
-    Sheet,
-    Skeleton,
     Typography,
 } from "@mui/joy";
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
-import useGetUsers from "../../hooks/useGetUsers";
 import AvatarWithStatus from "./AvatarWithStatus";
-import axios from "axios";
 import { useUserContext } from "../../contexts/UserContext";
-import { getURL } from "../../utils";
+import { getSocket } from "../../hooks/chatSocket";
 
-function NewChatModal({ open, setOpen, setSelectedChat, refresh, setRefresh }) {
+function NewChatModal({ open, setOpen, setSelectedChat }) {
     const { id } = useUserContext();
-    const { users, loading, error } = useGetUsers(refresh);
+    const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    // get all the users from the socket
+    useEffect(() => {
+        if (!open || !id) return;
+        setLoading(true);
+        setError(null);
+        const socket = getSocket();
+
+        if (!socket) {
+            setError(true);
+            setLoading(false);
+            return;
+        }
+        if (!socket.connected) {
+            setError(true);
+            setLoading(false);
+            return;
+        }
+        socket.emit("users");
+        socket.on("get_users", (data) => {
+            setUsers(data);
+            setLoading(false);
+        });
+    }, [open]);
+
+    if (!id) {
+        return <Fragment></Fragment>;
+    }
+
     const onClickUser = async (participant) => {
-        axios
-            .request({
-                method: "POST",
-                url: getURL("chat/new"),
-                headers: {
-                    user: id,
-                },
-                data: {
-                    participant,
-                },
-            })
-            .then(() => {
-                setOpen(false);
-                setRefresh(!refresh);
-                setSelectedChat(participant);
-            })
-            .catch((err) => {
-                console.error(err);
-                setRefresh(!refresh);
-            });
+        setOpen(false);
+        // set new chat using socket
+        const socket = getSocket();
+        socket.emit("new_chat", participant);
+        setSelectedChat(participant);
     };
     return (
         <Modal open={open} onClose={() => setOpen(false)}>
@@ -69,7 +79,6 @@ function NewChatModal({ open, setOpen, setSelectedChat, refresh, setRefresh }) {
                                     >
                                         <ListItemDecorator sx={{ pr: 2 }}>
                                             <AvatarWithStatus
-                                                online={user.online}
                                                 src={user.avatar}
                                             />
                                         </ListItemDecorator>

@@ -1,20 +1,43 @@
 import { Box, Button, Chip, List, Sheet, Typography } from "@mui/joy";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChatListItem from "./ChatListItem";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import NewChatModal from "./NewChatModal";
-import useGetChats from "../../hooks/useGetChats";
+import { getSocket } from "../../hooks/chatSocket";
 
 function ChatsPane({
     selectedChatId,
     setSelectedChat,
-    refresh,
-    setRefresh,
     chats,
-    loading,
-    error,
+    setChats,
+    update,
+    setUpdate,
 }) {
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    // get chats from socket
+    useEffect(() => {
+        setLoading(true);
+        setError(null);
+        const socket = getSocket();
+        if (!socket) {
+            setError(true);
+            setLoading(false);
+            return;
+        }
+        if (!socket.connected) {
+            setError(true);
+            setLoading(false);
+            return;
+        }
+        setError(null);
+        socket.emit("chats");
+        socket.on("get_chats", (data) => {
+            setChats(data);
+            setLoading(false);
+        });
+    }, [update]);
     return (
         <Sheet
             sx={{
@@ -52,8 +75,8 @@ function ChatsPane({
                     open={open}
                     setOpen={setOpen}
                     setSelectedChat={setSelectedChat}
-                    refresh={refresh}
-                    setRefresh={setRefresh}
+                    update={update}
+                    setUpdate={setUpdate}
                 />
             </Box>
             {/* List of chats */}
