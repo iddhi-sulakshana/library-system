@@ -18,7 +18,7 @@ export default function () {
     // Setting a default value for the DB environment if not specified
     process.env.DB = process.env.DB
         ? process.env.DB
-        : "mongodb://localhost:27017";
+        : "mongodb+srv://admin:1234@abcmovie.jkwlq7i.mongodb.net/?retryWrites=true&w=majority";
 
     // / Logging information if running in the development environment
     if (process.env.NODE_ENV === "development") {
