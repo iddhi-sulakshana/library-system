@@ -1,0 +1,24 @@
+name: Node.js Backend Automate Testing
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Git checkout
+      uses: actions/checkout@v3
+    - name: Use Node.js 20
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.10.0
+      with: 
+        mongodb-version: 6.0
+    - run: npm i
+      working-directory: backend
+    - run: npm test
+      working-directory: backend
