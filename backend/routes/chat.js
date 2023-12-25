@@ -195,19 +195,16 @@ const testData = [
     {
         name: "Jhon Doe",
         avatar: "https://robohash.org/" + Math.random(),
-        online: true,
         isAdmin: true,
     },
     {
         name: "Jane Doe",
         avatar: "https://robohash.org/" + Math.random(),
-        online: true,
         isAdmin: false,
     },
     {
         name: "John Smith",
         avatar: "https://robohash.org/" + Math.random(),
-        online: true,
         isAdmin: false,
     },
 ];

@@ -9,7 +9,6 @@ const schema = new Joi.object({
     _id: Joi.string().regex(/^[0-9a-fA-F]{24}$/),
     name: Joi.string().required(),
     avatar: Joi.string().optional(),
-    online: Joi.boolean().optional().default(false),
     isAdmin: Joi.boolean().optional().default(false),
 });
 // function for validating the schema

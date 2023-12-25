@@ -11,11 +11,6 @@ export default new Schema(
             type: String,
             required: false,
         },
-        online: {
-            type: Boolean,
-            required: false,
-            default: false,
-        },
         isAdmin: {
             type: Boolean,
             required: false,
