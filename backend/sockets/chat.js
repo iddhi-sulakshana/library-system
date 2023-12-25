@@ -9,7 +9,6 @@ export default function chatSocket(io) {
     io.of("/socket/chat")
         .on("connection", async (socket) => {
             const user = socket.handshake.headers.user;
-            console.log("Socket Connected");
 
             // Implementation
             // initial update for the user
@@ -148,10 +147,6 @@ export default function chatSocket(io) {
             });
 
             // End Implementation
-
-            socket.on("disconnect", async () => {
-                console.log("Socket Disconnected");
-            });
         })
         .use(socketMiddleware);
 }

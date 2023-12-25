@@ -21,7 +21,7 @@ routes(app);
 const server = initWebSocket(app);
 
 // run the server
-server.listen(process.env.PORT || 3000, () => {
+server.listen(process.env.PORT, () => {
     logger.info(
         `Server is listening on: http://localhost:${process.env.PORT || 3000}`
     );
