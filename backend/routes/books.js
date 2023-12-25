@@ -2,6 +2,29 @@ import { Router } from "express";
 import { booksmodel, validateBook } from "../models/bookModel.js";
 const router = Router();
 
+
+router.get("/", async (req, res) => {
+    try {
+        const books = await booksmodel.find();
+        res.send(books);
+    } catch (ex) {
+        return res.status(400).send(ex.message);
+        console.log(ex);
+    }
+});
+
+router.get("/:id", async (req, res) => {
+    try {
+        const book = await booksmodel.findOne({ bookId: req.params.id });
+        if (!book) return res.status(404).send("No book found");
+        res.send(book);
+
+    } catch (ex) {
+        return res.status(400).send(ex.message);
+        console.log(ex);
+    }
+});
+
 router.post("/add", async (req, res) => {
     try {
         const error = validateBook(req.body);
