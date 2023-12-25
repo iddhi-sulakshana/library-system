@@ -1,9 +1,10 @@
 import { Chat } from "../../models/Chat.js";
 import { ChatUser } from "../../models/ChatUser.js";
 import { Message } from "../../models/Message.js";
-import server from "../serverSocket.js";
+import server, { db } from "../serverSocket.js";
 import { io } from "socket.io-client";
 import { testUsers } from "./testData.js";
+import mongoose from "mongoose";
 
 const timeoutTime = 15000;
 const longTimeoutTime = 20000;
@@ -41,6 +42,7 @@ describe("Chat Integration Test [WebSocket]", () => {
     // close the websocket server after running the tests
     afterAll((done) => {
         serverSocket.close(done);
+        mongoose.disconnect();
     });
     describe("Check Socket Connection", () => {
         it(
