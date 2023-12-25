@@ -1,10 +1,14 @@
 import request from "supertest";
 import server from "../server.js";
 import { Example } from "../../models/example.js";
+import mongoose from "mongoose";
 
 describe("Example Routes Integration Tests", () => {
     afterEach(async () => {
         await Example.deleteMany();
+    });
+    afterAll(() => {
+        mongoose.disconnect();
     });
     describe("POST /example", () => {
         it("should create a new example instance", async () => {
