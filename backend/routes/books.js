@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { booksmodel, validateBook } from "../models/bookModel.js";
-const router = Router();
+import { productsModel } from "../models/productModel.js";
 
+const router = Router();
 
 router.get("/", async (req, res) => {
     try {
@@ -36,7 +37,13 @@ router.post("/add", async (req, res) => {
 
         const book = new booksmodel(req.body);
         await book.save();
-        
+        const response = await book.save();
+
+        const product = new productsModel({
+            name: response.name,
+            bookId: response.bookId,
+        });
+        await product.save();        
         res.status(200).send("Book added successfully");
 
     } catch (ex) {
@@ -49,6 +56,10 @@ router.delete("/:id", async (req, res) => {
     try {
         const book = await booksmodel.findOneAndDelete({ bookId: req.params.id });
         if (!book) return res.status(404).send("No book found");
+
+        const product = await productsModel.deleteMany({ bookId: req.params.id });
+        if (!product) return res.status(404).send("Issue with product deletion");
+
         res.send("Deleted successfully, " +book.name);
 
     } catch (ex) {

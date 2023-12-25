@@ -33,12 +33,10 @@ export default function (app) {
   // assign route paths
   app.use("/example", example);
   app.use("/api/users", userRoutes);
-  app.use("/api/books", bookRoutes);
+  app.use("/api/books", books);
   app.use("/api/borrowbook", borrowbookRoutes);
   app.use("/api/studyrooms", studyRoomRoutes);
   app.use("/api/reservations", reservationRoutes);
-    // assign route paths
-    app.use("/books", books);
 
 
   // initialize error middleware
