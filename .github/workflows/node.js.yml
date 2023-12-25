@@ -20,6 +20,5 @@ jobs:
         mongodb-version: 6.0
     - name: Change Directory
       run: cd ./backend
-    - run: npm ci
-    - run: npm run build --if-present
+    - run: npm i
     - run: npm test
