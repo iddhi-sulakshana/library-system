@@ -27,7 +27,6 @@ export default function (app) {
 
     // assign route paths
     app.use("/example", example);
-    app.use("/api/chat", chat);
 
     // initialize error middleware
     app.use(error);
