@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { model } from "mongoose";
-import chatUserSchema from "./schemas/chatUser.js";
+import chatUserSchema from "./schemas/ChatUser.js";
 
 // Creating a Mongoose model
 const ChatUser = model("ChatUser", chatUserSchema);
