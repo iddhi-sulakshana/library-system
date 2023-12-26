@@ -5,6 +5,7 @@ import envConfig from "./configs/environment.js";
 import winston from "./configs/logger.js";
 import databaseConfig from "./configs/database.js";
 import routes from "./configs/routes.js";
+import initWebSocket from "./configs/websocket.js";
 import migrate from "./models/migrate.js";
 
 // initialize environment variables
@@ -19,11 +20,13 @@ await databaseConfig();
 await migrate();
 // initialize routes
 routes(app);
+// initialize websocket
+const server = initWebSocket(app);
 
-// run the server application
-app.listen(process.env.PORT || 3000, () => {
+// run the server
+server.listen(process.env.PORT, () => {
     logger.info(
-        `Server listening on: http://localhost:${process.env.PORT || 3000}`
+        `Server is listening on: http://localhost:${process.env.PORT || 3000}`
     );
 });
 

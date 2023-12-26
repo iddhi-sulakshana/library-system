@@ -7,6 +7,9 @@ const envPath = path.join(path.resolve(), "../.env");
 dotenv.config({ path: envPath });
 
 export default function () {
+    // Setting a default value for the PORT if not specified
+    process.env.PORT = process.env.PORT ? process.env.PORT : 3000;
+
     // Setting a default value for the NODE_ENV if not specified
     process.env.NODE_ENV = process.env.NODE_ENV
         ? process.env.NODE_ENV

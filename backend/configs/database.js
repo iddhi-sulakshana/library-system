@@ -6,7 +6,7 @@ export default async function () {
     
     // Constructing the MongoDB connection string based on the environment
     const databaseString = process.env.NODE_ENV
-        ? `${process.env.DB}_${process.env.NODE_ENV}`
+        ? `${process.env.DB}/${process.env.NODE_ENV}?retryWrites=true&w=majority`
         : process.env.DB;
 
     winston.info("Connecting to MongoDB at " + databaseString);
