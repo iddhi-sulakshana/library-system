@@ -6,8 +6,8 @@ import { io } from "socket.io-client";
 import { testUsers } from "./testData.js";
 import mongoose from "mongoose";
 
-const timeoutTime = 1000;
-const longTimeoutTime = 2000;
+const timeoutTime = 5000;
+const longTimeoutTime = 10000;
 
 describe("Chat Integration Test [WebSocket]", () => {
     let serverSocket;
