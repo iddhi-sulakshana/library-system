@@ -6,15 +6,15 @@ import { io } from "socket.io-client";
 import { testUsers } from "./testData.js";
 import mongoose from "mongoose";
 
-const timeoutTime = 15000;
-const longTimeoutTime = 20000;
+const timeoutTime = 1000;
+const longTimeoutTime = 2000;
 
 describe("Chat Integration Test [WebSocket]", () => {
     let serverSocket;
     let clientSocket;
     let users;
     let chatId;
-    const path = `http://localhost:${process.env.port}/socket/chat`;
+    const path = `http://localhost:${process.env.PORT}/socket/chat`;
     const options = {
         transports: ["polling", "websocket"],
         extraHeaders: {
@@ -23,7 +23,7 @@ describe("Chat Integration Test [WebSocket]", () => {
     };
     // setup the websocket server before running the tests
     beforeAll((done) => {
-        serverSocket = server.listen(process.env.port, async () => {
+        serverSocket = server.listen(process.env.PORT, async () => {
             await Promise.all([
                 Chat.deleteMany({}),
                 ChatUser.deleteMany({}),
