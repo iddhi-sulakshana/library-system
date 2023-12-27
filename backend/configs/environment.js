@@ -7,6 +7,9 @@ const envPath = path.join(path.resolve(), "../.env");
 dotenv.config({ path: envPath });
 
 export default function () {
+    // Setting a default value for the PORT if not specified
+    process.env.PORT = process.env.PORT ? process.env.PORT : 3000;
+
     // Setting a default value for the NODE_ENV if not specified
     process.env.NODE_ENV = process.env.NODE_ENV
         ? process.env.NODE_ENV
@@ -15,7 +18,7 @@ export default function () {
     // Setting a default value for the DB environment if not specified
     process.env.DB = process.env.DB
         ? process.env.DB
-        : "mongodb+srv://admin:1234@abcmovie.jkwlq7i.mongodb.net/?retryWrites=true&w=majority";
+        : "mongodb://localhost:27017";
 
     // / Logging information if running in the development environment
     if (process.env.NODE_ENV === "development") {
