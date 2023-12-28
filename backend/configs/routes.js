@@ -9,8 +9,8 @@ import bookRoutes from "../routes/BookRoutes.js";
 import borrowbookRoutes from "../routes/BorrowBookRoutes.js";
 import studyRoomRoutes from "../routes/StudyRoomRoutes.js";
 import reservationRoutes from "../routes/ReservationRoutes.js";
-import userRoute from './routes/userRoute';
-import authRoute from './routes/authRoutes';
+import userRoute from '../routes/userRoute.js';
+import authRoute from '../routes/authRoutes.js';
 
 export default function (app) {
   // enable cross origin resource sharing middleware

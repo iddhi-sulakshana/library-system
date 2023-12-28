@@ -1,5 +1,5 @@
 import express from 'express';
-import UserModel from '../models/users';
+import UserModel from '../models/users.js';
 
 const router = express.Router();
 // router.get("/", tokenMiddleware, (req, res)=>{
@@ -79,4 +79,4 @@ router.delete('/:email', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
