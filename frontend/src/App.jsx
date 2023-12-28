@@ -8,6 +8,10 @@ import StudyRooms from "./pages/StudyRooms";
 import StudyRoomReservations from "./pages/StudyRoomReservations";
 import StudyRoomReservationForm from "./components/Forms/StudyRoomReservationForm";
 import Chat from "./pages/Chat";
+import SignUpForm from './components/SignUPForm/SignUpForm';
+import LoginForm from './components/LoginForm/LoginForm';
+import Profile from './components/profile/profile';
+import EditProfile from './components/profile/editProfile';
 
 function App() {
     return (
@@ -29,6 +33,10 @@ function App() {
                     element={<StudyRoomReservationForm />}
                 />
                 <Route path="/chat" element={<Chat />} />
+                <Route path="/signup" element={<SignUpForm />} />
+                <Route path="/Login" element={<LoginForm />} />
+                <Route path="/Profile/:email" element={<Profile />} />
+                <Route path='/editProfile/:email' element={<EditProfile />} />
             </Routes>
         </>
     );
