@@ -36,6 +36,8 @@ export default function (app) {
   app.use("/api/borrowbook", borrowbookRoutes);
   app.use("/api/studyrooms", studyRoomRoutes);
   app.use("/api/reservations", reservationRoutes);
+  app.use('/api/login', authRoutes)
+  app.use('/api/register', userRoutes);
 
   // initialize error middleware
   app.use(error);

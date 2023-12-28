@@ -1,0 +1,89 @@
+.wrappers{
+    width: 100%;
+    background: rgba(0, 4, 0, 0.3);
+    border: 2px solid rgba(255,255,255,.2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 20px ;
+    flex-direction: row;
+}
+.wrappers h1 {
+    text-align: center;
+    color: #fff;
+    font-size: 40px;
+}
+.wrapper-profile{
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+
+}
+.profile-picture {
+    background: url('../../assets/userimg.jpg')no-repeat;
+    background-size: cover;
+    background-size: cover;
+    background-position: center;
+    width: 300px;
+    height: 300px;
+    border-radius: 10%;
+    border: 2px solid #fff;
+    overflow: hidden; 
+}
+.profile-info{
+    margin-left: 20px;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.button-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+button{
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px ;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 20px 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+.delete-profile{
+    background: #ff0000;
+    color: #fff;
+}
+
+.edit-profile{
+    background: #fff;
+    color: #000;
+}
+
+.wrapper .input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 30px 0;
+
+}
+
+input {
+    width: 100%;
+    height: 80%;
+    background: transparent;
+    outline: none;
+    border: 2px solid rgba(255,255,255,.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px 20px
+}
+
+input::placeholder {
+    color: #fff;
+    font-size: 18px;
+}

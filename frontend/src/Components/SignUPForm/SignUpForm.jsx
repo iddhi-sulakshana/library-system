@@ -1,33 +1,33 @@
 import { useState } from 'react';
 import { FaUser, FaLock } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md';
 import validateForm from '../FormValidation';
 import axios from 'axios';
+import'../Form.css';
 import { useNavigate } from 'react-router-dom';
-import '../Form.css';
 
-const LoginForm = () => {
+const SignUpForm = () => {
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
     password: '',
+    confirmPassword: '',
   });
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newErrors = validateForm(formData, 'login');
+    const newErrors = validateForm(formData, 'signup');
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      axios.post('http://localhost:3001/api/login', { email: formData.email, password: formData.password})
+      axios.post('http://localhost:3001/api/register', {name: formData.name, email: formData.email, password: formData.password})
       // Form is valid, proceed with submission
       .then (result => {console.log('Form submitted:', result)
-      // save intothe locastorage || appcontext
-      // usetoken
-      if (result.data === 'Success') {
-        navigate(`/profile/${formData.email}`);
-      }
+    
+      navigate('/login');
     })
       .catch (err => console.log('Error', err.message));
     } else {
@@ -38,8 +38,18 @@ const [errors, setErrors] = useState({});
 
   return (
     <div className='wrapper'>
-      <form onSubmit={handleSubmit}>
-        <h1>Login</h1>
+      <form onSubmit={handleSubmit} action ='/' method='POST'>
+        <h1>Sign up</h1>
+        <div className='input-box'>
+          <input
+            type='text'
+            placeholder='Name'
+            required
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          />
+          <FaUser className='icon' />
+          {errors.name && <p className='error-message'>{errors.name}</p>}
+        </div>
         <div className='input-box'>
           <input
             type='text'
@@ -47,7 +57,7 @@ const [errors, setErrors] = useState({});
             required
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
           />
-          <FaUser className='icon' />
+          <MdEmail className='icon' />
           {errors.email && <p className='error-message'>{errors.email}</p>}
         </div>
         <div className='input-box'>
@@ -60,11 +70,25 @@ const [errors, setErrors] = useState({});
           <FaLock className='icon' />
           {errors.password && <p className='error-message'>{errors.password}</p>}
         </div>
-        <button type='submit'>Login</button>
+        <div className='input-box'>
+          <input
+            type='password'
+            placeholder='Confirm Password'
+            required
+            onChange={(e) =>
+              setFormData({ ...formData, confirmPassword: e.target.value })
+            }
+          />
+          <FaLock className='icon' />
+          {errors.confirmPassword && (
+            <p className='error-message'>{errors.confirmPassword}</p>
+          )}
+        </div>
+        <button type='submit'>Sign up</button>
 
         <div className='register-link'>
           <p>
-            Don&apos;t have an account ? <a href='/'>Register</a>
+            Already have an account ? <a href='/login'>Login</a>
           </p>
         </div>
       </form>
@@ -72,4 +96,4 @@ const [errors, setErrors] = useState({});
   );
 };
 
-export default LoginForm;
+export default SignUpForm;
