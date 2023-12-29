@@ -2,7 +2,7 @@ import { Schema } from "mongoose";
 
 export default new Schema({
     bookid: {
-        type: String,
+        type: Number,
         required: true,
         unique: true,
     },

@@ -14,6 +14,17 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get("/page/:id", async (req, res) => {
+
+    try {
+        const currentPage = parseInt(req.params.id);
+        const books = await booksmodel.find().skip((currentPage - 1) * 10).limit(10);
+        res.send(books);
+    } catch (ex) {
+        return res.status(400).send(ex.message);
+        console.log(ex);
+    }
+}); 
 router.get("/:id", async (req, res) => {
     try {
         const book = await booksmodel.findOne({ bookId: req.params.id });
