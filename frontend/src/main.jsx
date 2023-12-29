@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { ExampleProvider } from "./contexts/ExampleContext.jsx";
 import { ExampleDataProvider } from "./contexts/ExampleDataContext.jsx";
 import { UserProvider } from "./contexts/UserContext.jsx";
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
