@@ -8,6 +8,7 @@ import StudyRooms from "./pages/StudyRooms";
 import StudyRoomReservations from "./pages/StudyRoomReservations";
 import StudyRoomReservationForm from "./components/Forms/StudyRoomReservationForm";
 import Chat from "./pages/Chat";
+import BooksList from "./pages/BooksList";
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
             <NavBar />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/booklist" element={<BooksList/>} />
                 <Route path="/example" element={<Example />} />
                 <Route path="/addpage" element={<AddPage />} />
                 <Route path="/borrowbook" element={<BorrowBook />} />

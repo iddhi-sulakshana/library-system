@@ -18,7 +18,7 @@ router.get("/page/:id", async (req, res) => {
 
     try {
         const currentPage = parseInt(req.params.id);
-        const books = await booksmodel.find().skip((currentPage - 1) * 10).limit(10);
+        const books = await booksmodel.find().skip((currentPage - 1) * 5).limit(5);
         res.send(books);
     } catch (ex) {
         return res.status(400).send(ex.message);
