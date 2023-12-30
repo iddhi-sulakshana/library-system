@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const BooksList = () => {
@@ -10,7 +11,7 @@ const BooksList = () => {
 
   const getBooks = async () => {
     try {
-      const response = await axios.get(window.host + "/api/books/page/2");
+      const response = await axios.get(window.host + "/api/books");
       setBooks(response.data);
     } catch (err) {
       console.error(err.message);
@@ -29,12 +30,12 @@ const BooksList = () => {
             </p>
           </div>
           <div className='mt-4 sm:mt-0 sm:ml-16 sm:flex-none'>
-            <button
-              type='button'
+            <Link
+            to={'/addbook'}
               className='inline-flex items-center justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:w-auto'
             >
               Add user
-            </button>
+            </Link>
           </div>
         </div>
         <div className='mt-14 flex flex-col'>
@@ -84,6 +85,12 @@ const BooksList = () => {
                         scope='col'
                         className='px-3 py-3.5 text-left text-sm font-semibold text-gray-900'
                       >
+                        Current Available
+                      </th>
+                      <th
+                        scope='col'
+                        className='px-3 py-3.5 text-left text-sm font-semibold text-gray-900'
+                      >
                         Actions
                       </th>
                     </tr>
@@ -108,6 +115,9 @@ const BooksList = () => {
                         </td>
                         <td className='whitespace-nowrap px-3 py-4 text-sm text-gray-500'>
                           {book.price}
+                        </td>
+                        <td className='whitespace-nowrap px-3 py-4 text-sm text-gray-500'>
+                          in progress
                         </td>
                         <td className='relative space-x-3 whitespace-nowrap py-4 pl-3 text-sm font-medium'>
                           <button

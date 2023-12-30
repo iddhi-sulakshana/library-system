@@ -9,6 +9,7 @@ import StudyRoomReservations from "./pages/StudyRoomReservations";
 import StudyRoomReservationForm from "./components/Forms/StudyRoomReservationForm";
 import Chat from "./pages/Chat";
 import BooksList from "./pages/BooksList";
+import AddBook from "./pages/AddBook";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/booklist" element={<BooksList/>} />
+                <Route path="/addbook" element={<AddBook />} />
                 <Route path="/example" element={<Example />} />
                 <Route path="/addpage" element={<AddPage />} />
                 <Route path="/borrowbook" element={<BorrowBook />} />
