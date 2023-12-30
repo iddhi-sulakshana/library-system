@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import iziToast from "izitoast";
 
 const BooksList = () => {
   const [books, setBooks] = useState([]);
@@ -17,6 +19,35 @@ const BooksList = () => {
       console.error(err.message);
     }
   };
+
+  const deleteBook = async (id, bookname) => {
+    try {
+      // Show SweetAlert confirmation dialog
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        html: `<strong>${bookname}</strong> will not be available in the library anymore!`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      });
+      // If user confirms, proceed with deletion
+      if (result.isConfirmed) {
+        await axios.delete(window.host + `/api/books/${id}`);
+        iziToast.success({
+          title: 'Success!',
+          message: 'Book deleted successfully.',
+          position: 'topRight'
+        });
+      }
+    } catch (err) {
+      // Handle error, e.g., show an error message
+      console.error(err.message);
+      Swal.fire('Error!', 'An error occurred while deleting the book.', 'error');
+    }
+  };
+  
   return (
     <div className='mx-10 mt-10'>
       <div className='px-4 sm:px-6 lg:px-8'>
@@ -135,6 +166,7 @@ const BooksList = () => {
                           <button
                             type='button'
                             className='inline-flex items-center rounded border border-transparent bg-red-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2'
+                            onClick={() => deleteBook(book.bookId, book.name)}
                           >
                             Delete
                           </button>
