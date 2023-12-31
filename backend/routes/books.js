@@ -85,7 +85,6 @@ router.post("/add", upload.single('file'), async (req, res) => {
 
         const book = new booksmodel(reqData);
         await book.save();
-        const response = await book.save();
 
         // in progress
 
@@ -94,7 +93,7 @@ router.post("/add", upload.single('file'), async (req, res) => {
         //     bookId: response.bookId,
         // });
         // await product.save();
-        
+
         res.status(200).send("Book added successfully");
 
     } catch (ex) {
@@ -102,6 +101,50 @@ router.post("/add", upload.single('file'), async (req, res) => {
         console.log(ex);
     }
 });
+
+router.put("/:id", upload.single('file'), async (req, res) => {
+
+    const imgPath = req.file ? uniqueFilename : req.body.fileName;
+    // Creating a JSON object
+    const reqData = {
+        name: req.body.name,
+        imagePath: imgPath,
+        author: req.body.author,
+        price: req.body.price,
+        description: req.body.description,
+        category: req.body.category,
+    };
+
+    try {
+        console.log(reqData);
+        const error = validateBook(reqData);
+
+        console.log(error);
+
+        if (error) {
+            res.status(403).send(error);
+            return;
+        }
+        //update one book
+        await booksmodel.findOneAndUpdate({ bookId: req.params.id }, reqData);
+
+        // in progress
+
+        // const product = new productsModel({
+        //     name: response.name,
+        //     bookId: response.bookId,
+        // });
+        // await product.save();
+
+        res.status(200).send("Book Updated successfully");
+
+    } catch (ex) {
+        return res.status(400).send(ex.message);
+        console.log(ex);
+    }
+});
+
+
 
 router.delete("/:id", async (req, res) => {
     try {
