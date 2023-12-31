@@ -32,6 +32,12 @@ function NavBar() {
             <Link to="/chat" style={{ paddingRight: 5 }}>
                 Chat
             </Link>
+            <Link to="/signup" style={{ paddingRight: 5 }}>
+                SignUp
+            </Link>
+            <Link to="/login" style={{ paddingRight: 5 }}>
+                Login
+            </Link>
             {/* input filed for setting the user id */}
             <input
                 ref={inputRef}
