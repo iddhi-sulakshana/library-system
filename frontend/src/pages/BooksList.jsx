@@ -63,7 +63,7 @@ const BooksList = () => {
           <div className='mt-4 sm:mt-0 sm:ml-16 sm:flex-none'>
             <Link
             to={'/addbook'}
-              className='inline-flex items-center justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:w-auto'
+              className='no-underline inline-flex items-center justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:w-auto'
             >
               Add user
             </Link>
@@ -159,7 +159,7 @@ const BooksList = () => {
                           </button>
                           <Link
                             to={`/updatebook/${book.bookId}`}
-                            className='inline-flex items-center rounded border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+                            className='inline-flex items-center rounded border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 no-underline'
                                             
                           >
                             Update
