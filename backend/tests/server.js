@@ -7,7 +7,7 @@ import routes from "../configs/routes.js";
 envConfig();
 // initialize database connection
 const databaseString = process.env.NODE_ENV
-    ? `${process.env.DB}/${process.env.NODE_ENV}?retryWrites=true&w=majority`
+    ? `${process.env.DB}_${process.env.NODE_ENV}?retryWrites=true&w=majority`
     : process.env.DB;
 // connect to database
 mongoose.connect(databaseString).catch((ex) => {

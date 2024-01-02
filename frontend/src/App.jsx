@@ -8,6 +8,9 @@ import StudyRooms from "./pages/StudyRooms";
 import StudyRoomReservations from "./pages/StudyRoomReservations";
 import StudyRoomReservationForm from "./components/Forms/StudyRoomReservationForm";
 import Chat from "./pages/Chat";
+import BooksList from "./pages/BooksList";
+import AddBook from "./pages/AddBook";
+import UpdateBook from "./pages/UpdateBook";
 import SignUpForm from './components/SignUPForm/SignUpForm';
 import LoginForm from './components/LoginForm/LoginForm';
 import Profile from './components/profile/profile';
@@ -19,6 +22,9 @@ function App() {
             <NavBar />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/booklist" element={<BooksList/>} />
+                <Route path="/addbook" element={<AddBook />} />
+                <Route path="/updatebook/:id" element={<UpdateBook/>} />
                 <Route path="/example" element={<Example />} />
                 <Route path="/addpage" element={<AddPage />} />
                 <Route path="/borrowbook" element={<BorrowBook />} />

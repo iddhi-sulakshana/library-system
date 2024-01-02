@@ -1,10 +1,13 @@
 import { Schema } from "mongoose";
 
+// model for example model
 export default new Schema({
-    bookid: {
+    bookId: {
         type: Number,
         required: true,
-        unique: true,
+        default: function () {
+            return Math.floor(Math.random() * 1000000);
+        },
     },
     name: {
         type: String,
@@ -18,8 +21,15 @@ export default new Schema({
         type: Number,
         required: true,
     },
-
-    book_image: {
+    description: {
+        type: String,
+        required: true,
+    },
+    imagePath: {
+        type: String,
+        required: true,
+    },
+    category: {
         type: String,
         required: true,
     },

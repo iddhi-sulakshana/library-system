@@ -7,9 +7,12 @@ function NavBar() {
     // reference to the input
     const inputRef = React.useRef();
     return (
-        <div style={{ paddingBottom: 10 }}>
+        <div style={{ paddingBottom: 10 }} className="space-x-8">
             <Link to="/" style={{ paddingRight: 5 }}>
                 Home
+            </Link>
+            <Link to="/booklist" style={{ paddingRight: 5 }}>
+                Manage-Books
             </Link>
             <Link to="/example" style={{ paddingRight: 5 }}>
                 Example

@@ -1,26 +1,19 @@
 import { Schema } from "mongoose";
 
+// model for example model
 export default new Schema({
-    bookid: {
+    prodId: {
         type: Number,
         required: true,
-        unique: true,
+        default: () => Math.floor(Math.random() * 1000000),
     },
     name: {
         type: String,
         required: true,
     },
-    author: {
-        type: String,
-        required: true,
-    },
-    price: {
+    bookId : {
         type: Number,
         required: true,
-    },
-
-    book_image: {
-        type: String,
-        required: true,
+        ref: "books",
     },
 });
