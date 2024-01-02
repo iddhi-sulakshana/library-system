@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { model } from "mongoose";
-import bookModel from './schemas/bookSchema.js';
+import bookModel from "./schemas/bookSchema.js";
 
 // Creating a Mongoose model
 const booksmodel = model("books", bookModel);

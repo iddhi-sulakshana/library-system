@@ -5,29 +5,31 @@ export default new Schema({
     bookId: {
         type: Number,
         required: true,
-        default: () => Math.floor(Math.random() * 1000000),
+        default: function () {
+            return Math.floor(Math.random() * 1000000);
+        },
     },
     name: {
         type: String,
         required: true,
     },
-    author : {
+    author: {
         type: String,
         required: true,
     },
-    price : {
+    price: {
         type: Number,
         required: true,
     },
-    description : {
+    description: {
         type: String,
         required: true,
     },
-    imagePath : {
+    imagePath: {
         type: String,
         required: true,
     },
-    category : {
+    category: {
         type: String,
         required: true,
     },

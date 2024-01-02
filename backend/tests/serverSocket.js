@@ -8,7 +8,7 @@ envConfig();
 const app = express();
 // initialize database connection
 const databaseString = process.env.NODE_ENV
-    ? `${process.env.DB}/${process.env.NODE_ENV}?retryWrites=true&w=majority`
+    ? `${process.env.DB}_${process.env.NODE_ENV}?retryWrites=true&w=majority`
     : process.env.DB;
 
 mongoose.connect(databaseString).catch((ex) => {
