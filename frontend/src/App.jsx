@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Example from "./pages/Example";
 import Home from "./pages/home";
-import NavBar from "./components/navigation/NavBar";
 import BorrowBook from "./components/Forms/BorrowBook";
 import StudyRooms from "./pages/StudyRooms";
 import StudyRoomReservations from "./pages/StudyRoomReservations";
@@ -16,6 +15,8 @@ import Profile from "./components/profile/profile";
 import EditProfile from "./components/profile/editProfile";
 import StaffSignIn from "./pages/StaffSignIn";
 import StaffDashboard from "./pages/StaffDashboard";
+import Navbar from "./components/navigation/NavBar";
+
 import { useUserContext } from "./contexts/UserContext";
 import React, { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
@@ -31,7 +32,8 @@ function App() {
     }, [id]);
     return (
         <>
-            <NavBar />
+        <Navbar/>
+            
             <Routes>
                 {/* all users routes */}
                 <Route path="/" element={<Home />} />
