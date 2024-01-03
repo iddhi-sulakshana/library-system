@@ -2,9 +2,11 @@ import { useState } from "react";
 import axios from "axios";
 import iziToast from "izitoast";
 import { getURL } from "../utils";
+import { useUserContext } from "../contexts/UserContext";
 
 const AddBook = () => {
     const [selectedFile, setSelectedFile] = useState(null);
+    const { id } = useUserContext();
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -75,6 +77,7 @@ const AddBook = () => {
             await axios.post(getURL("books/add"), formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
+                    "x-auth-token": id,
                 },
             });
             //clear form
