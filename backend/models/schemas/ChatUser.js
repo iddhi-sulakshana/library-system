@@ -3,6 +3,10 @@ import { Schema } from "mongoose";
 // Schema for ChatUser model
 export default new Schema(
     {
+        _id: {
+            type: Schema.Types.ObjectId,
+            required: true,
+        },
         name: {
             type: String,
             required: true,
@@ -10,6 +14,9 @@ export default new Schema(
         avatar: {
             type: String,
             required: false,
+            default: function () {
+                return Math.random().toString(36).substring(2, 15);
+            },
         },
         isAdmin: {
             type: Boolean,

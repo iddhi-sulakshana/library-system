@@ -1,10 +1,9 @@
 import express from "express";
 import UserModel from "../models/users.js";
+import { ChatUser } from "../models/ChatUser.js";
+import user_auth from "../middlewares/user_auth.js";
 
 const router = express.Router();
-// router.get("/", tokenMiddleware, (req, res)=>{
-
-// })
 
 router.post("/", async (req, res) => {
     try {
@@ -16,6 +15,13 @@ router.post("/", async (req, res) => {
 
         const user = await UserModel.create(userData);
 
+        // create chat user
+        const chatUser = new ChatUser({
+            _id: user._id,
+            name: user.name,
+            isAdmin: false,
+        });
+        await chatUser.save();
         res.json(user);
     } catch (error) {
         console.error("Error saving to the database:", error);
@@ -23,23 +29,15 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.get("/:email", async (req, res) => {
-    try {
-        const email = req.params.email;
-        const user = await UserModel.findOne({ email });
-        res.json(user);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
+router.get("/", user_auth, async (req, res) => {
+    req.user.password = undefined;
+    return res.json(req.user);
 });
 
-router.put("/:email", async (req, res) => {
-    const email = req.params.email;
-
+router.put("/", user_auth, async (req, res) => {
     try {
         // Find the user by email
-        const user = await UserModel.findOne({ email });
+        const user = await UserModel.findById(req.user._id);
 
         if (!user) {
             return res.status(404).json({ error: "User not found" });
@@ -61,12 +59,10 @@ router.put("/:email", async (req, res) => {
 });
 
 // Delete user route
-router.delete("/:email", async (req, res) => {
-    const email = req.params.email;
-
+router.delete("/", user_auth, async (req, res) => {
     try {
         // Find the user by email and delete
-        const deletedUser = await UserModel.findOneAndDelete({ email });
+        const deletedUser = await UserModel.findByIdAndDelete(req.user._id);
 
         if (!deletedUser) {
             return res.status(404).json({ error: "User not found" });
