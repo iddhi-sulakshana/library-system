@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { formatDate, getURL } from "../../utils";
 
 const BorrowBookTable = () => {
     const history = useNavigate();
@@ -16,8 +17,9 @@ const BorrowBookTable = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3000/api/borrowbook/borrowbookregister`)
+            .get(getURL("borrowbook"))
             .then((response) => {
+                console.log(response.data);
                 setBorrowBookData(response.data);
             })
 
@@ -28,9 +30,7 @@ const BorrowBookTable = () => {
 
     const handleDelete = (_id) => {
         axios
-            .delete(
-                `http://localhost:3000/api/borrowbook/borrowbookregister/${_id}`
-            )
+            .delete(getURL(`borrowbook/${_id}`))
             .then((response) => {
                 // Update the state after successful deletion
                 const updatedData = BorrowBookData.filter(
@@ -91,12 +91,8 @@ const BorrowBookTable = () => {
             <table className="table table-responsive">
                 <thead>
                     <tr>
-                        <th>BorrowBook ID</th>
-                        <th>User Name</th>
-                        <th>Book ID</th>
-                        <th>User Address</th>
                         <th>User Email</th>
-                        <th>Phone No</th>
+                        <th>Book ID</th>
                         <th>Tack Date</th>
                         <th>Delivery Date</th>
                         <th>Fine Status</th>
@@ -106,26 +102,22 @@ const BorrowBookTable = () => {
                 <tbody>
                     {BorrowBookData.map((row, index) => (
                         <tr key={index}>
-                            <td>{row.id}</td>
-                            <td>{row.username}</td>
-                            <td>{row.bookid}</td>
-                            <td>{row.address}</td>
-                            <td>{row.email}</td>
-                            <td>{row.pno}</td>
-                            <td>{row.tackdate}</td>
-                            <td>{row.deliverydate}</td>
+                            <td>{row.userid.email}</td>
+                            <td>{row.bookid.bookId}</td>
+                            <td>{formatDate(row.tackdate)}</td>
+                            <td>{formatDate(row.deliverydate)}</td>
                             <td>{calculateFine(row.deliverydate)}</td>
                             <td>
                                 <button
                                     type="button"
-                                    class="btn btn-outline-danger"
+                                    className="btn btn-outline-danger"
                                     onClick={() => handleDelete(row._id)}
                                 >
                                     Return Book
                                 </button>
                                 <button
                                     type="button"
-                                    class="btn btn-outline-warning"
+                                    className="btn btn-outline-warning"
                                     onClick={() => handleUpdate(row)}
                                 >
                                     Update

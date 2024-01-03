@@ -3,7 +3,6 @@ import Example from "./pages/Example";
 import Home from "./pages/home";
 import NavBar from "./components/navigation/NavBar";
 import BorrowBook from "./components/Forms/BorrowBook";
-import AddPage from "./pages/AddPage";
 import StudyRooms from "./pages/StudyRooms";
 import StudyRoomReservations from "./pages/StudyRoomReservations";
 import StudyRoomReservationForm from "./components/Forms/StudyRoomReservationForm";
@@ -11,10 +10,13 @@ import Chat from "./pages/Chat";
 import BooksList from "./pages/BooksList";
 import AddBook from "./pages/AddBook";
 import UpdateBook from "./pages/UpdateBook";
-import SignUpForm from './components/SignUPForm/SignUpForm';
-import LoginForm from './components/LoginForm/LoginForm';
-import Profile from './components/profile/profile';
-import EditProfile from './components/profile/editProfile';
+import SignUpForm from "./components/SignUPForm/SignUpForm";
+import LoginForm from "./components/LoginForm/LoginForm";
+import Profile from "./components/profile/profile";
+import EditProfile from "./components/profile/editProfile";
+import StaffSignIn from "./pages/StaffSignIn";
+import StaffDashboard from "./pages/StaffDashboard";
+
 
 function App() {
     return (
@@ -22,11 +24,10 @@ function App() {
             <NavBar />
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/booklist" element={<BooksList/>} />
+                <Route path="/booklist" element={<BooksList />} />
                 <Route path="/addbook" element={<AddBook />} />
-                <Route path="/updatebook/:id" element={<UpdateBook/>} />
+                <Route path="/updatebook/:id" element={<UpdateBook />} />
                 <Route path="/example" element={<Example />} />
-                <Route path="/addpage" element={<AddPage />} />
                 <Route path="/borrowbook" element={<BorrowBook />} />
                 <Route path="/studyrooms" element={<StudyRooms />} />
                 <Route
@@ -42,7 +43,9 @@ function App() {
                 <Route path="/signup" element={<SignUpForm />} />
                 <Route path="/Login" element={<LoginForm />} />
                 <Route path="/Profile/:email" element={<Profile />} />
-                <Route path='/editProfile/:email' element={<EditProfile />} />
+                <Route path="/editProfile/:email" element={<EditProfile />} />
+                <Route path="/ssign" element={<StaffSignIn />} />
+                <Route path="/sdash" element={<StaffDashboard />} />
             </Routes>
         </>
     );

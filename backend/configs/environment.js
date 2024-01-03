@@ -15,6 +15,11 @@ export default function () {
         ? process.env.NODE_ENV
         : "development";
 
+    // Setting a default value for the JWT_PRIVATE_KEY if not specified
+    process.env.JWT_PRIVATE_KEY = process.env.JWT_PRIVATE_KEY
+    ? process.env.JWT_PRIVATE_KEY
+    : "jwtPrivateKey";
+
     // Setting a default value for the DB environment if not specified
     process.env.DB = process.env.DB
         ? process.env.DB
