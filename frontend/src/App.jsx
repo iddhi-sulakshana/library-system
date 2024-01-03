@@ -17,7 +17,6 @@ import EditProfile from "./components/profile/editProfile";
 import StaffSignIn from "./pages/StaffSignIn";
 import StaffDashboard from "./pages/StaffDashboard";
 
-
 function App() {
     return (
         <>
@@ -42,7 +41,7 @@ function App() {
                 <Route path="/chat" element={<Chat />} />
                 <Route path="/signup" element={<SignUpForm />} />
                 <Route path="/Login" element={<LoginForm />} />
-                <Route path="/Profile/:email" element={<Profile />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/editProfile/:email" element={<EditProfile />} />
                 <Route path="/ssign" element={<StaffSignIn />} />
                 <Route path="/sdash" element={<StaffDashboard />} />

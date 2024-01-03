@@ -4,7 +4,7 @@ import { MdEmail } from "react-icons/md";
 import validateForm from "../FormValidation";
 import axios from "axios";
 import "../Form.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getURL } from "../../utils";
 
 const SignUpForm = () => {
@@ -122,7 +122,8 @@ const SignUpForm = () => {
 
                     <div className="register-link">
                         <p>
-                            Already have an account ? <a href="/login">Login</a>
+                            Already have an account ?{" "}
+                            <Link to="/login">Login</Link>
                         </p>
                     </div>
                 </form>

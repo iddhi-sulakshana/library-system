@@ -1,7 +1,7 @@
 import React from "react";
 import { Badge, Avatar } from "@mui/joy";
 
-function AvatarWithStatus({ online = false, ...other }) {
+function AvatarWithStatus({ online = false, src, ...other }) {
     return (
         <div>
             <Badge
@@ -11,7 +11,11 @@ function AvatarWithStatus({ online = false, ...other }) {
                 anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
                 badgeInset="4px 4px"
             >
-                <Avatar size="sm" {...other} />
+                <Avatar
+                    size="sm"
+                    src={`https://robohash.org/${src}`}
+                    {...other}
+                />
             </Badge>
         </div>
     );

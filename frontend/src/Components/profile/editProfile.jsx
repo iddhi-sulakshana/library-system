@@ -3,24 +3,36 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import validateEdit from "./validateEdit";
 import { getURL } from "../../utils";
+import { useUserContext } from "../../contexts/UserContext";
 
 const EditProfile = () => {
     const navigate = useNavigate();
     const { email } = useParams();
     const [userData, setUserData] = useState({});
     const [errors, setErrors] = useState({});
+    const { id } = useUserContext();
 
     useEffect(() => {
+        if (!id) {
+            navigate("/login");
+        }
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(getURL(`users/${email}`));
+                // headers =  token
+                const response = await axios.request({
+                    method: "GET",
+                    headers: {
+                        "x-auth-token": id,
+                    },
+                    url: getURL("users"),
+                });
                 setUserData(response.data);
             } catch (error) {
                 console.error(error.message);
             }
         };
         fetchUserData();
-    }, [email]);
+    }, [id, navigate]);
 
     function handleChange(event) {
         setUserData({
@@ -35,12 +47,20 @@ const EditProfile = () => {
 
         if (Object.keys(validationErrors).length === 0) {
             try {
-                const response = await axios.put(
-                    getURL(`users/${email}`),
-                    userData
-                );
-                console.log(response.data);
-                navigate(`/profile/${userData.email}`);
+                axios
+                    .request({
+                        method: "PUT",
+                        headers: {
+                            "x-auth-token": id,
+                        },
+                        data: userData,
+                        url: getURL(`users`),
+                    })
+                    .then((result) => {
+                        alert("Form submitted:", result);
+
+                        navigate(`/profile`);
+                    });
             } catch (error) {
                 console.error(error.message);
             }
