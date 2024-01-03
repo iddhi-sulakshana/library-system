@@ -3,7 +3,7 @@ import { model } from "mongoose";
 import bookModel from "./schemas/bookSchema.js";
 
 // Creating a Mongoose model
-const booksmodel = model("books", bookModel);
+const booksmodel = model("Book", bookModel);
 // Creating a Joi validation schema
 const schema = new Joi.object({
     name: Joi.string().required(),
