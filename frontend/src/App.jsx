@@ -14,6 +14,9 @@ import SignUpForm from "./components/SignUPForm/SignUpForm";
 import LoginForm from "./components/LoginForm/LoginForm";
 import Profile from "./components/profile/profile";
 import EditProfile from "./components/profile/editProfile";
+import StaffSignIn from "./pages/StaffSignIn";
+import StaffDashboard from "./pages/StaffDashboard";
+
 
 function App() {
     return (
@@ -41,6 +44,8 @@ function App() {
                 <Route path="/Login" element={<LoginForm />} />
                 <Route path="/Profile/:email" element={<Profile />} />
                 <Route path="/editProfile/:email" element={<EditProfile />} />
+                <Route path="/ssign" element={<StaffSignIn />} />
+                <Route path="/sdash" element={<StaffDashboard />} />
             </Routes>
         </>
     );
