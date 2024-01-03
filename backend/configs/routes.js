@@ -10,6 +10,7 @@ import studyRoomRoutes from "../routes/StudyRoomRoutes.js";
 import reservationRoutes from "../routes/ReservationRoutes.js";
 import books from "../routes/books.js";
 import authRoute from "../routes/authRoutes.js";
+import staff from "../routes/staff.js";
 
 export default function (app) {
     // enable cross origin resource sharing middleware
@@ -38,6 +39,7 @@ export default function (app) {
     app.use("/api/studyrooms", studyRoomRoutes);
     app.use("/api/reservations", reservationRoutes);
     app.use("/api/login", authRoute);
+    app.use("/api/staff", staff);
 
     // initialize error middleware
     app.use(error);
