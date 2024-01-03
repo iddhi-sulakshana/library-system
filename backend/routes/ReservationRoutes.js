@@ -2,6 +2,7 @@ import express from "express";
 import winston from "winston";
 import Reservation from "../models/Reservation.js";
 import StudyRoom from "../models/StudyRoom.js";
+import { ioServer } from "../configs/websocket.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
