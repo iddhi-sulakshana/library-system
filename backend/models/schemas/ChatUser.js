@@ -3,10 +3,6 @@ import { Schema } from "mongoose";
 // Schema for ChatUser model
 export default new Schema(
     {
-        _id: {
-            type: Schema.Types.ObjectId,
-            required: true,
-        },
         name: {
             type: String,
             required: true,
