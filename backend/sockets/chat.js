@@ -1,4 +1,3 @@
-import morgan from "morgan";
 import socketMiddleware from "../middlewares/chatSocket.js";
 import { Chat, validateChat } from "../models/Chat.js";
 import { ChatUser } from "../models/ChatUser.js";
@@ -8,6 +7,7 @@ import { Message, validateMessage } from "../models/Message.js";
 export default function chatSocket(io) {
     io.of("/socket/chat")
         .on("connection", async (socket) => {
+            console.log("Socket Connected");
             const user = socket.handshake.headers.user;
 
             // Implementation
@@ -145,8 +145,6 @@ export default function chatSocket(io) {
                 socket.emit("update", "true");
                 socket.broadcast.emit("update", "true");
             });
-
-            // End Implementation
         })
         .use(socketMiddleware);
 }

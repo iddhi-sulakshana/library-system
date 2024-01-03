@@ -1,17 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
 import validateForm from "../FormValidation";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../Form.css";
 import { getURL } from "../../utils.js";
+import { useUserContext } from "../../contexts/UserContext.jsx";
 
 const LoginForm = () => {
+    const { id, setId } = useUserContext();
     const [formData, setFormData] = useState({
         email: "",
         password: "",
     });
     const navigate = useNavigate();
+    useEffect(() => {
+        if (id) {
+            navigate("/profile");
+        }
+    }, [id, navigate]);
 
     const [errors, setErrors] = useState({});
 
@@ -29,13 +36,13 @@ const LoginForm = () => {
                 // Form is valid, proceed with submission
                 .then((result) => {
                     console.log("Form submitted:", result);
+
                     // save intothe locastorage || appcontext
                     // usetoken
-                    if (result.data === "Success") {
-                        navigate(`/profile/${formData.email}`);
-                    }
+                    setId(result.headers["x-auth-token"]);
+                    navigate(`/profile`);
                 })
-                .catch((err) => console.log("Error", err.message));
+                .catch((err) => alert(err.response.data));
         } else {
             // Form is invalid, handle errors or show an alert
             console.log("Form validation failed");
@@ -86,7 +93,7 @@ const LoginForm = () => {
                     <div className="register-link">
                         <p>
                             Don&apos;t have an account ?{" "}
-                            <a href="/">Register</a>
+                            <Link to="/signup">Register</Link>
                         </p>
                     </div>
                 </form>

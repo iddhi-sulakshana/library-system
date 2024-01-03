@@ -11,7 +11,6 @@ export default function initWebSocket(app) {
             allowedHeaders: ["user"],
         },
     });
-
     // initialize chat socket
     chatSocket(io);
     return httpServer;

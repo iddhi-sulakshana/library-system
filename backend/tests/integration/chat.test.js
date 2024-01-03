@@ -5,9 +5,10 @@ import server, { db } from "../serverSocket.js";
 import { io } from "socket.io-client";
 import { testUsers } from "./testData.js";
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 
-const timeoutTime = 5000;
-const longTimeoutTime = 10000;
+const timeoutTime = 1000;
+const longTimeoutTime = 2000;
 
 describe("Chat Integration Test [WebSocket]", () => {
     let serverSocket;
@@ -34,7 +35,12 @@ describe("Chat Integration Test [WebSocket]", () => {
         });
     }, 12000);
     beforeEach(() => {
-        options.extraHeaders.user = users[0]?._id;
+        // generate jwt token
+        const token = jwt.sign(
+            { _id: users[0]?._id },
+            process.env.JWT_PRIVATE_KEY
+        );
+        options.extraHeaders.user = token;
     });
     afterEach(() => {
         delete options.extraHeaders.user;
