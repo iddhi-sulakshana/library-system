@@ -1,10 +1,10 @@
-.wrappers{
+.wrappers {
     width: 100%;
     background: rgba(0, 4, 0, 0.3);
-    border: 2px solid rgba(255,255,255,.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     color: #fff;
     border-radius: 10px;
-    padding: 30px 20px ;
+    padding: 30px 20px;
     flex-direction: row;
 }
 .wrappers h1 {
@@ -12,14 +12,13 @@
     color: #fff;
     font-size: 40px;
 }
-.wrapper-profile{
+.wrapper-profile {
     display: flex;
     flex-direction: row;
-    align-items: center; 
-
+    align-items: center;
 }
 .profile-picture {
-    background: url('../../assets/userimg.jpg')no-repeat;
+    background: url("../../assets/userimg.jpg") no-repeat;
     background-size: cover;
     background-size: cover;
     background-position: center;
@@ -27,9 +26,9 @@
     height: 300px;
     border-radius: 10%;
     border: 2px solid #fff;
-    overflow: hidden; 
+    overflow: hidden;
 }
-.profile-info{
+.profile-info {
     margin-left: 20px;
     width: 100%;
     flex-direction: column;
@@ -37,28 +36,28 @@
     justify-content: center;
 }
 
-.button-section{
+.button-section {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
 
-button{
+button {
     border: none;
     border-radius: 5px;
-    padding: 10px 20px ;
+    padding: 10px 20px;
     font-size: 20px;
     cursor: pointer;
     margin: 20px 20px;
     transition: all 0.3s ease-in-out;
 }
 
-.delete-profile{
+.delete-profile {
     background: #ff0000;
     color: #fff;
 }
 
-.edit-profile{
+.edit-profile {
     background: #fff;
     color: #000;
 }
@@ -68,7 +67,6 @@ button{
     width: 100%;
     height: 50px;
     margin: 30px 0;
-
 }
 
 input {
@@ -76,11 +74,11 @@ input {
     height: 80%;
     background: transparent;
     outline: none;
-    border: 2px solid rgba(255,255,255,.2);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 40px;
     font-size: 16px;
     color: #fff;
-    padding: 20px 45px 20px 20px
+    padding: 20px 45px 20px 20px;
 }
 
 input::placeholder {

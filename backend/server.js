@@ -6,7 +6,6 @@ import winston from "./configs/logger.js";
 import databaseConfig from "./configs/database.js";
 import routes from "./configs/routes.js";
 import initWebSocket from "./configs/websocket.js";
-import migrate from "./models/migrate.js";
 
 // initialize environment variables
 envConfig();
@@ -16,8 +15,6 @@ const app = express();
 const logger = winston();
 // intialize database connection
 await databaseConfig();
-// initialize db with collections migrations
-await migrate();
 // initialize routes
 routes(app);
 // initialize websocket

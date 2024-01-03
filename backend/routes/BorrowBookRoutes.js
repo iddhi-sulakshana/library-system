@@ -1,14 +1,14 @@
 import express from "express";
-import Book from "../models/Book.js";
-import User from "../models/User.js";
+import { booksmodel as Book } from "../models/bookModel.js";
+import User from "../models/users.js";
 import BorrowBook from "../models/BorrowBook.js";
 const router = express.Router();
 
-router.post("/borrowbookregister", async (req, res) => {
+router.post("/", async (req, res) => {
     try {
         // Check if both user and book exist
-        const existingUser = await User.findOne({ id: req.body.id });
-        const existingBook = await Book.findOne({ bookid: req.body.bookid });
+        const existingUser = await User.findOne({ email: req.body.email });
+        const existingBook = await Book.findOne({ bookId: req.body.bookid });
 
         if (existingUser && existingBook) {
             // Check if a document with the same userid already exists
@@ -23,7 +23,12 @@ router.post("/borrowbookregister", async (req, res) => {
             }
 
             // Continue with the original code
-            const newBorrowBook = new BorrowBook(req.body);
+            const newBorrowBook = new BorrowBook({
+                userid: existingUser._id,
+                bookid: existingBook._id,
+                tackdate: req.body.tackdate,
+                deliverydate: req.body.deliverydate,
+            });
             await newBorrowBook.save();
 
             return res.status(201).send(newBorrowBook);
@@ -38,11 +43,15 @@ router.post("/borrowbookregister", async (req, res) => {
     }
 });
 
-router.get("/borrowbookregister", async (req, res) => {
+router.get("/", async (req, res) => {
     try {
         // Check if both user and book exist
-
-        const Borrow = await BorrowBook.find();
+        // remove userid.password
+        const Borrow = await BorrowBook.find({})
+            .populate("userid", {
+                password: 0,
+            })
+            .populate("bookid");
 
         return res.status(201).json(Borrow);
     } catch (error) {
@@ -52,12 +61,12 @@ router.get("/borrowbookregister", async (req, res) => {
 });
 
 // Check the availability of a book based on its ID
-router.get("/bookavailability/:bookid", async (req, res) => {
+router.get("/availability/:bookid", async (req, res) => {
     try {
-        const bookid = req.params.bookid;
+        const bookId = req.params.bookid;
 
         // Check if the book with the given ID exists
-        const existingBook = await Book.findOne({ bookid });
+        const existingBook = await Book.findOne({ bookId });
 
         if (!existingBook) {
             return res
@@ -66,7 +75,7 @@ router.get("/bookavailability/:bookid", async (req, res) => {
         }
 
         // Check if the book is already borrowed
-        const existingBorrow = await BorrowBook.findOne({ bookid });
+        const existingBorrow = await BorrowBook.findOne({ bookId });
 
         if (existingBorrow) {
             return res.status(200).json({
@@ -87,7 +96,7 @@ router.get("/bookavailability/:bookid", async (req, res) => {
 });
 
 // Inside your backend route file
-router.delete("/borrowbookregister/:_id", async (req, res) => {
+router.delete("/:_id", async (req, res) => {
     try {
         const deletedBorrowBook = await BorrowBook.findByIdAndDelete(
             req.params._id
@@ -103,7 +112,7 @@ router.delete("/borrowbookregister/:_id", async (req, res) => {
 });
 
 // Add a route for updating a BorrowBook record
-router.put("/update/:_id", async (req, res) => {
+router.put("/:_id", async (req, res) => {
     try {
         // Check if the BorrowBook with the given ID exists
         const existingBorrowBook = await BorrowBook.findById(req.params._id);
