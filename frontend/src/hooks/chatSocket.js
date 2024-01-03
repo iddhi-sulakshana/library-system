@@ -1,4 +1,5 @@
 import { io } from "socket.io-client";
+import { getRootURL } from "../utils";
 
 // variable to store the socket
 let socket;
@@ -13,7 +14,7 @@ export const initSocket = (user, update, setUpdate) => {
         console.log("User not present");
         return;
     }
-    socket = io("http://localhost:3000/socket/chat", {
+    socket = io(getRootURL("socket/chat"), {
         transports: ["polling", "websocket"],
         extraHeaders: {
             user: user,
