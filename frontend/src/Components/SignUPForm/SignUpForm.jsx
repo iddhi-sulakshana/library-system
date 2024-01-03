@@ -33,7 +33,6 @@ const SignUpForm = () => {
                 // Form is valid, proceed with submission
                 .then((result) => {
                     console.log("Form submitted:", result);
-
                     navigate("/login");
                 })
                 .catch((err) => console.log("Error", err.message));

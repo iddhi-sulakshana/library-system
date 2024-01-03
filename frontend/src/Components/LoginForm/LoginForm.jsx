@@ -36,13 +36,11 @@ const LoginForm = () => {
                 // Form is valid, proceed with submission
                 .then((result) => {
                     console.log("Form submitted:", result);
-                    setId(result.headers["x-auth-token"]);
 
                     // save intothe locastorage || appcontext
                     // usetoken
-                    if (result.data === "Success") {
-                        navigate(`/profile`);
-                    }
+                    setId(result.headers["x-auth-token"]);
+                    navigate(`/profile`);
                 })
                 .catch((err) => alert(err.response.data));
         } else {

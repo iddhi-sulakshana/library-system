@@ -100,31 +100,32 @@ const BorrowBookTable = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {BorrowBookData.map((row, index) => (
-                        <tr key={index}>
-                            <td>{row.userid.email}</td>
-                            <td>{row.bookid.bookId}</td>
-                            <td>{formatDate(row.tackdate)}</td>
-                            <td>{formatDate(row.deliverydate)}</td>
-                            <td>{calculateFine(row.deliverydate)}</td>
-                            <td>
-                                <button
-                                    type="button"
-                                    className="btn btn-outline-danger"
-                                    onClick={() => handleDelete(row._id)}
-                                >
-                                    Return Book
-                                </button>
-                                <button
-                                    type="button"
-                                    className="btn btn-outline-warning"
-                                    onClick={() => handleUpdate(row)}
-                                >
-                                    Update
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
+                    {BorrowBookData &&
+                        BorrowBookData.map((row, index) => (
+                            <tr key={index}>
+                                <td>{row.userid.email}</td>
+                                <td>{row.bookid.bookId}</td>
+                                <td>{formatDate(row.tackdate)}</td>
+                                <td>{formatDate(row.deliverydate)}</td>
+                                <td>{calculateFine(row.deliverydate)}</td>
+                                <td>
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-danger"
+                                        onClick={() => handleDelete(row._id)}
+                                    >
+                                        Return Book
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="btn btn-outline-warning"
+                                        onClick={() => handleUpdate(row)}
+                                    >
+                                        Update
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                 </tbody>
             </table>
         </div>
