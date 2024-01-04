@@ -16,9 +16,13 @@ router.post("/login", async (req, res) => {
     const isValidPassword = await validPassword(password, staff.password);
     if (!isValidPassword) return res.status(400).send("Invalid password");
     staff.password = undefined;
-    const token = jwt.sign({ _id: staff._id }, process.env.JWT_PRIVATE_KEY, {
-        expiresIn: "1h",
-    });
+    const token = jwt.sign(
+        { _id: staff._id, isAdmin: true },
+        process.env.JWT_PRIVATE_KEY,
+        {
+            expiresIn: "1h",
+        }
+    );
 
     res.set("Access-Control-Expose-Headers", "x-auth-token");
     res.header("x-auth-token", token).send("Successfully logged in");

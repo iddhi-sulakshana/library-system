@@ -38,14 +38,14 @@ function ChatListItem({
                     <Stack direction="row" spacing={1.5}>
                         {/* Chat User Icon */}
                         <AvatarWithStatus
-                            online={participant.online}
-                            src={participant.avatar}
+                            online={participant?.online}
+                            src={participant?.avatar}
                         />
                         <Box sx={{ flex: 1 }}>
                             {/* Display Chat User Name */}
                             <Typography level="title-sm">
-                                {participant.name}{" "}
-                                {participant.isAdmin && "(Admin)"}
+                                {participant?.name}{" "}
+                                {participant?.isAdmin && "(Admin)"}
                             </Typography>
                             {/* Display the last message of the chat */}
                             <Typography

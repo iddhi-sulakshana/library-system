@@ -37,7 +37,7 @@ function MessagePane({ selectedChat, setSelectedChat, update, setUpdate }) {
         return (
             <Sheet
                 sx={{
-                    height: "90dvh",
+                    height: "85dvh",
                     display: "flex",
                     flexDirection: "column",
                     backgroundColor: "background.level1",
@@ -60,7 +60,7 @@ function MessagePane({ selectedChat, setSelectedChat, update, setUpdate }) {
     return (
         <Sheet
             sx={{
-                height: "90dvh",
+                height: "85dvh",
                 display: "flex",
                 flexDirection: "column",
                 backgroundColor: "background.level1",

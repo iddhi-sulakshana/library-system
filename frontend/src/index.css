@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
 body {
     font-synthesis: none;
     text-rendering: optimizeLegibility;

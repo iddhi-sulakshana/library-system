@@ -2,6 +2,7 @@ import express from "express";
 import winston from "winston";
 import Reservation from "../models/Reservation.js";
 import StudyRoom from "../models/StudyRoom.js";
+import { ioServer } from "../configs/websocket.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -37,7 +38,7 @@ router.post("/", async (req, res) => {
     }
 
     reservation.studyRoomId = room._id;
-    await reservation.save();
+    const result = await reservation.save();
 
     room.bookedSlots.push({
       bookId: reservation._id,
@@ -53,7 +54,10 @@ router.post("/", async (req, res) => {
     //   winston.error("Socket.io is not initialized!");
     // }
 
-    res.status(201).send({ message: "Reservation created successfully!" });
+    res.status(201).send({
+      reservation: result,
+      message: "Reservation created successfully!",
+    });
   } catch (error) {
     winston.error("Error creating reservation:", error);
     res.status(500).send({ error: "Internal Server Error" });
@@ -67,8 +71,8 @@ router.put("/", async (req, res) => {
     const overlappingReservation = await Reservation.findOne({
       _id: { $ne: bookingId },
       roomId: roomId,
-      startTime: { $lt: endTime },
-      endTime: { $gt: startTime },
+      startTime: { $lte: endTime },
+      endTime: { $gte: startTime },
     });
 
     if (overlappingReservation) {

@@ -3,6 +3,7 @@ import { booksmodel, validateBook } from "../models/bookModel.js";
 import { productsModel } from "../models/productModel.js";
 import multer from "multer";
 import { join } from "path";
+import staff_auth from "../middlewares/staff_auth.js";
 
 const router = Router();
 
@@ -58,7 +59,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-router.post("/add", upload.single("file"), async (req, res) => {
+router.post("/add", staff_auth, upload.single("file"), async (req, res) => {
     // Creating a JSON object
     const reqData = {
         name: req.body.name,
@@ -98,7 +99,7 @@ router.post("/add", upload.single("file"), async (req, res) => {
     }
 });
 
-router.put("/:id", upload.single("file"), async (req, res) => {
+router.put("/:id", staff_auth, upload.single("file"), async (req, res) => {
     const imgPath = req.file ? uniqueFilename : req.body.fileName;
     // Creating a JSON object
     const reqData = {
@@ -138,23 +139,23 @@ router.put("/:id", upload.single("file"), async (req, res) => {
     }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", staff_auth, async (req, res) => {
     try {
         const book = await booksmodel.findOneAndDelete({
             bookId: req.params.id,
         });
         if (!book) return res.status(404).send("No book found");
 
-        const product = await productsModel.deleteMany({
-            bookId: req.params.id,
-        });
-        if (!product)
-            return res.status(404).send("Issue with product deletion");
+        // const product = await productsModel.deleteMany({
+        //     bookId: req.params.id,
+        // });
+        // if (!product)
+        //     return res.status(404).send("Issue with product deletion");
 
         res.send("Deleted successfully, " + book.name);
     } catch (ex) {
-        return res.status(400).send(ex.message);
         console.log(ex);
+        return res.status(400).send(ex.message);
     }
 });
 

@@ -43,8 +43,8 @@ function ChatsPane({
             sx={{
                 borderRight: "1px solid",
                 borderColor: "divider",
-                maxHeight: "90dvh",
-                minHeight: "90dvh",
+                maxHeight: "85dvh",
+                minHeight: "85dvh",
                 overflowY: "auto",
             }}
         >

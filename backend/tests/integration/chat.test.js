@@ -37,7 +37,7 @@ describe("Chat Integration Test [WebSocket]", () => {
     beforeEach(() => {
         // generate jwt token
         const token = jwt.sign(
-            users[0]?._id.toString(),
+            { _id: users[0]?._id },
             process.env.JWT_PRIVATE_KEY
         );
         options.extraHeaders.user = token;

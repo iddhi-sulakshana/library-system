@@ -10,7 +10,7 @@ router.post("/", async (req, res) => {
         if (user) {
             if (user.password === password) {
                 const token = jwt.sign(
-                    { _id: user._id },
+                    { _id: user._id, isAdmin: false },
                     process.env.JWT_PRIVATE_KEY,
                     {
                         expiresIn: "1h",
