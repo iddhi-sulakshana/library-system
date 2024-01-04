@@ -1,7 +1,7 @@
 import request from "supertest";
 import server, { db } from "../server.js";
-import Reservation from "../../models/Reservation.js";
-import StudyRoom from "../../models/StudyRoom.js";
+import { Reservation } from "../../models/Reservation.js";
+import { StudyRoom } from "../../models/StudyRoom.js";
 import mongoose from "mongoose";
 
 describe("Reservations Integration Tests", () => {
@@ -26,8 +26,6 @@ describe("Reservations Integration Tests", () => {
   afterAll(() => {
     mongoose.disconnect();
   });
-
-  console.log("After each:", studyRoomId);
 
   describe("GET /reservations", () => {
     it("should fetch all reservations", async () => {
@@ -61,8 +59,6 @@ describe("Reservations Integration Tests", () => {
         .post("/api/reservations")
         .send(reservationData)
         .expect(201);
-
-      console.log("POSTTTTT:", response.body);
 
       expect(response.body).toHaveProperty(
         "message",

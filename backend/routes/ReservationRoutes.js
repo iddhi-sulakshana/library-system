@@ -1,7 +1,7 @@
 import express from "express";
 import winston from "winston";
-import Reservation from "../models/Reservation.js";
-import StudyRoom from "../models/StudyRoom.js";
+import { validateReservation, Reservation } from "../models/Reservation.js";
+import { StudyRoom } from "../models/StudyRoom.js";
 import { ioServer } from "../configs/websocket.js";
 const router = express.Router();
 
@@ -12,6 +12,9 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
+    const error = validateReservation(req.body);
+    if (error) return res.status(400).send(error);
+
     const { userId, roomId, startTime, endTime } = req.body;
 
     const overlappingReservation = await Reservation.findOne({
@@ -66,6 +69,8 @@ router.post("/", async (req, res) => {
 
 router.put("/", async (req, res) => {
   try {
+    const error = validateReservation(req.body);
+    if (error) return res.status(400).send(error);
     const { bookingId, roomId, startTime, endTime } = req.body;
 
     const overlappingReservation = await Reservation.findOne({

@@ -1,6 +1,6 @@
 import request from "supertest";
 import server from "../server.js";
-import StudyRoom from "../../models/StudyRoom.js";
+import { StudyRoom } from "../../models/StudyRoom.js";
 import mongoose from "mongoose";
 
 describe("StudyRooms Integration Tests", () => {
