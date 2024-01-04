@@ -12,8 +12,8 @@ describe("User Login Integration Tests", () => {
     mongoose.disconnect();
   });
   const userData = {
-    name: "badda",
-    email: "badda@gmail.com",
+    name: "User",
+    email: "User@gmail.com",
     password: "123456",
   };
 
@@ -43,8 +43,8 @@ describe("User Login Integration Tests", () => {
       await user.save();
 
       const WronguserData = {
-        name: "badda",
-        email: "badda@gmail.com",
+        name: "User",
+        email: "User@gmail.com",
         password: "12345",
       };
 
@@ -60,8 +60,8 @@ describe("User Login Integration Tests", () => {
       await user.save();
 
       const WronguserData = {
-        name: "badda",
-        email: "badd@gmail.com",
+        name: "User",
+        email: "User1@gmail.com",
         password: "1234567",
       };
 
