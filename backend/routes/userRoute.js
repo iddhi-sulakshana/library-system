@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
         await chatUser.save();
         res.json(user);
     } catch (error) {
-        console.error("Error saving to the database:", error);
+        console.error("Error saving to the database:", error.message);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
