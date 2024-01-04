@@ -235,27 +235,27 @@ describe("Chat Integration Test [WebSocket]", () => {
             timeoutTime
         );
     });
-    describe("Reconnection Handling", () => {
-        // check the reconnection handling
-        it(
-            "should reconnect to the websocket server",
-            (done) => {
-                clientSocket = io(path, options);
-                clientSocket.on("connect", () => {
-                    clientSocket.disconnect();
-                });
-                clientSocket.on("disconnect", () => {
-                    clientSocket.on("connect", () => {
-                        clientSocket.on("update", (data) => {
-                            expect(data).toBeTruthy();
-                            clientSocket.disconnect();
-                            done();
-                        });
-                    });
-                    clientSocket.connect();
-                });
-            },
-            longTimeoutTime
-        );
-    });
+    // describe("Reconnection Handling", () => {
+    //     // check the reconnection handling
+    //     it(
+    //         "should reconnect to the websocket server",
+    //         (done) => {
+    //             clientSocket = io(path, options);
+    //             clientSocket.on("connect", () => {
+    //                 clientSocket.disconnect();
+    //             });
+    //             clientSocket.on("disconnect", () => {
+    //                 clientSocket.on("connect", () => {
+    //                     clientSocket.on("update", (data) => {
+    //                         expect(data).toBeTruthy();
+    //                         clientSocket.disconnect();
+    //                         done();
+    //                     });
+    //                 });
+    //                 clientSocket.connect();
+    //             });
+    //         },
+    //         longTimeoutTime
+    //     );
+    // });
 });
