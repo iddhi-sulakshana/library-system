@@ -85,6 +85,16 @@ const Profile = () => {
                     <button className="edit-profile" onClick={handleClick}>
                         Edit Profile
                     </button>
+                    <button
+                        className="delete-profile"
+                        onClick={() => {
+                            setId(null);
+                            sessionStorage.removeItem("id");
+                            navigate("/login");
+                        }}
+                    >
+                        Logout
+                    </button>
                     <button className="delete-profile" onClick={handleDelete}>
                         Delete Profile
                     </button>
