@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { formatDate, getURL } from "../../utils";
+import { useUserContext } from "../../contexts/UserContext";
 
 const BorrowBookTable = () => {
     const history = useNavigate();
     const [BorrowBookData, setBorrowBookData] = useState([]);
+    const { id } = useUserContext();
 
     const handleUpdate = (row) => {
         // Navigate to the BorrowBook form and pass selected row data as state
@@ -17,7 +19,11 @@ const BorrowBookTable = () => {
 
     useEffect(() => {
         axios
-            .get(getURL("borrowbook"))
+            .get(getURL("borrowbook"), {
+                headers: {
+                    "x-auth-token": id,
+                },
+            })
             .then((response) => {
                 console.log(response.data);
                 setBorrowBookData(response.data);
@@ -30,7 +36,11 @@ const BorrowBookTable = () => {
 
     const handleDelete = (_id) => {
         axios
-            .delete(getURL(`borrowbook/${_id}`))
+            .delete(getURL(`borrowbook/${_id}`), {
+                headers: {
+                    "x-auth-token": id,
+                },
+            })
             .then((response) => {
                 // Update the state after successful deletion
                 const updatedData = BorrowBookData.filter(
