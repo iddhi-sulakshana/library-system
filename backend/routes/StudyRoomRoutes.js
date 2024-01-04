@@ -1,5 +1,5 @@
 import express from "express";
-import StudyRoom from "../models/StudyRoom.js";
+import { validateStudyRoom, StudyRoom } from "../models/StudyRoom.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -13,12 +13,14 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
+    const error = validateStudyRoom(req.body);
+    if (error) return res.status(400).send(error);
+    console.log(error);
+
     const { roomId, capacity, facilities } = req.body;
 
     const existingRoom = await StudyRoom.findOne({ roomId: roomId });
-    console.log("before if", existingRoom);
     if (existingRoom) {
-      console.log(existingRoom);
       return res
         .status(400)
         .send({ message: "Room with that ID already exists." });
