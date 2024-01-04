@@ -26,7 +26,7 @@ describe("User Login Integration Tests", () => {
         .send(userData)
         .expect(200);
       expect(response.text).toEqual("Successfully logged in");
-      console.log(response.body);
+    //   console.log(response.body);
     });
     it("Should return jwt token", async () => {
       const user = new UserModel(userData);
@@ -36,7 +36,7 @@ describe("User Login Integration Tests", () => {
         .send(userData)
         .expect(200);
       expect(response.headers["x-auth-token"]).toBeDefined();
-      console.log(response.body);
+    //   console.log(response.body);
     });
     it("Should return 400 for invalid password", async () => {
       const user = new UserModel(userData);
