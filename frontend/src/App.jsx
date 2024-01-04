@@ -17,11 +17,11 @@ import StaffSignIn from "./pages/StaffSignIn";
 import StaffDashboard from "./pages/StaffDashboard";
 import Navbar from "./components/navigation/NavBar";
 import NotFound from "./pages/NotFound";
+import BookListFrontend from "./pages/BookListFrontend";
 
 import { useUserContext } from "./contexts/UserContext";
 import React, { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-import { Box } from "@mui/joy";
 
 function App() {
     const { id } = useUserContext();
@@ -51,6 +51,7 @@ function App() {
                     {/* All the logged users routes */}
                     {id && (
                         <>
+                            <Route path="/book-collection" element={<BookListFrontend />} />
                             <Route path="/chat" element={<Chat />} />
                             <Route
                                 path="/studyrooms"
