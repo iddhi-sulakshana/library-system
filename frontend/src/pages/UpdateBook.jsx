@@ -96,7 +96,10 @@ const UpdateBook = () => {
 
     return (
         <>
-            <div className="mx-24 mt-10 mb-10">
+            <div
+                className="container"
+                style={{ paddingTop: "6rem", paddingBottom: "2rem" }}
+            >
                 <form
                     className="space-y-8 divide-y divide-gray-200"
                     encType="multipart/form-data"

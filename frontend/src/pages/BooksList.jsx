@@ -62,7 +62,7 @@ const BooksList = () => {
     };
 
     return (
-        <div className="mx-10 mt-10">
+        <div className="container" style={{ paddingTop: "5rem" }}>
             <div className="px-4 sm:px-6 lg:px-8">
                 <div className="sm:flex sm:items-center">
                     <div className="sm:flex-auto">
