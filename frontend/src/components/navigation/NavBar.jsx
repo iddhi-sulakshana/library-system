@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import { jwtDecode } from "jwt-decode";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
     const slug = useLocation();
@@ -103,6 +103,17 @@ export default function Navbar() {
                                         {/* All the logged users routes */}
                                         {id && (
                                             <>
+                                              <Link
+                                                    to="/book-collection"
+                                                    className={
+                                                        slug.pathname ===
+                                                        "/book-collection"
+                                                            ? activeClass
+                                                            : inactiveClass
+                                                    }
+                                                >
+                                                    Books
+                                                </Link>
                                                 <Link
                                                     to="/studyrooms"
                                                     className={
