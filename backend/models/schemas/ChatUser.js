@@ -11,7 +11,7 @@ export default new Schema(
             type: String,
             required: false,
             default: function () {
-                return Math.random().toString(36).substring(2, 15);
+                return Math.random();
             },
         },
         isAdmin: {
