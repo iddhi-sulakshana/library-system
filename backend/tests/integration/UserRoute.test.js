@@ -14,8 +14,8 @@ describe("User Routes Integration Tests", () => {
   });
 
   const UserData = {
-    name: "badda",
-    email: "badda@gmail.com",
+    name: "User",
+    email: "User@gmail.com",
     password: "123456",
   };
 
@@ -27,8 +27,8 @@ describe("User Routes Integration Tests", () => {
         .send(UserData)
         .expect(200);
 
-      expect(response.body.name).toBe("badda");
-      expect(response.body.email).toBe("badda@gmail.com");
+      expect(response.body.name).toBe("User");
+      expect(response.body.email).toBe("User@gmail.com");
       expect(response.body.password).toBe("123456");
     });
   });
@@ -64,7 +64,7 @@ describe("User Routes Integration Tests", () => {
       );
 
       const updatedUserData = {
-        name: "pky",
+        name: "User1",
         email: newUser.email,
         password: newUser.password,
       };
@@ -75,7 +75,7 @@ describe("User Routes Integration Tests", () => {
         .send(updatedUserData)
         .expect(200);
 
-      expect(response.body.name).toBe("pky");
+      expect(response.body.name).toBe("User1");
     });
 
     it("Should return 401 for unauthorized update", async () => {
@@ -84,7 +84,7 @@ describe("User Routes Integration Tests", () => {
       await newUser.save();
 
       const updatedUserData = {
-        name: "pky",
+        name: "User1",
         email: newUser.email,
         password: newUser.password,
       };
