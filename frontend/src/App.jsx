@@ -16,10 +16,12 @@ import EditProfile from "./components/profile/editProfile";
 import StaffSignIn from "./pages/StaffSignIn";
 import StaffDashboard from "./pages/StaffDashboard";
 import Navbar from "./components/navigation/NavBar";
+import NotFound from "./pages/NotFound";
 
 import { useUserContext } from "./contexts/UserContext";
 import React, { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
+import { Box } from "@mui/joy";
 
 function App() {
     const { id } = useUserContext();
@@ -32,60 +34,70 @@ function App() {
     }, [id]);
     return (
         <>
-        <Navbar/>
-            
-            <Routes>
-                {/* all users routes */}
-                <Route path="/" element={<Home />} />
-                <Route path="/example" element={<Example />} />
-                {/* not logged users */}
-                {!id && (
-                    <>
-                        <Route path="/signup" element={<SignUpForm />} />
-                        <Route path="/login" element={<LoginForm />} />
-                        <Route path="/ssign" element={<StaffSignIn />} />
-                    </>
-                )}
-                {/* All the logged users routes */}
-                {id && (
-                    <>
-                        <Route path="/chat" element={<Chat />} />
-                        <Route path="/studyrooms" element={<StudyRooms />} />
-                    </>
-                )}
-                {/* All the loged non admins routes */}
-                {id && !isAdmin && (
-                    <>
-                        <Route path="/profile" element={<Profile />} />
-                        <Route
-                            path="/editProfile/:email"
-                            element={<EditProfile />}
-                        />
-                        <Route
-                            path="/reservations"
-                            element={<StudyRoomReservations userId={119900} />}
-                        />
-                        <Route
-                            exact
-                            path="/reserve/:id"
-                            element={<StudyRoomReservationForm />}
-                        />
-                    </>
-                )}
-                {/* Admin routes */}
-                {id && isAdmin && (
-                    <>
-                        <Route path="/sdash" element={<StaffDashboard />} />
-                        <Route path="/booklist" element={<BooksList />} />
-                        <Route
-                            path="/updatebook/:id"
-                            element={<UpdateBook />}
-                        />
-                        <Route path="/addbook" element={<AddBook />} />
-                        <Route path="/borrowbook" element={<BorrowBook />} />
-                    </>
-                )}
-            </Routes>
+            <Navbar />
+            <div className="h-screen">
+                <Routes>
+                    {/* all users routes */}
+                    <Route path="/" element={<Home />} />
+                    <Route path="/example" element={<Example />} />
+                    {/* not logged users */}
+                    {!id && (
+                        <>
+                            <Route path="/signup" element={<SignUpForm />} />
+                            <Route path="/login" element={<LoginForm />} />
+                            <Route path="/ssign" element={<StaffSignIn />} />
+                        </>
+                    )}
+                    {/* All the logged users routes */}
+                    {id && (
+                        <>
+                            <Route path="/chat" element={<Chat />} />
+                            <Route
+                                path="/studyrooms"
+                                element={<StudyRooms />}
+                            />
+                        </>
+                    )}
+                    {/* All the loged non admins routes */}
+                    {id && !isAdmin && (
+                        <>
+                            <Route path="/profile" element={<Profile />} />
+                            <Route
+                                path="/editProfile/:email"
+                                element={<EditProfile />}
+                            />
+                            <Route
+                                path="/reservations"
+                                element={
+                                    <StudyRoomReservations userId={119900} />
+                                }
+                            />
+                            <Route
+                                exact
+                                path="/reserve/:id"
+                                element={<StudyRoomReservationForm />}
+                            />
+                        </>
+                    )}
+                    {/* Admin routes */}
+                    {id && isAdmin && (
+                        <>
+                            <Route path="/sdash" element={<StaffDashboard />} />
+                            <Route path="/booklist" element={<BooksList />} />
+                            <Route
+                                path="/updatebook/:id"
+                                element={<UpdateBook />}
+                            />
+                            <Route path="/addbook" element={<AddBook />} />
+                            <Route
+                                path="/borrowbook"
+                                element={<BorrowBook />}
+                            />
+                        </>
+                    )}
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </div>
         </>
     );
 }

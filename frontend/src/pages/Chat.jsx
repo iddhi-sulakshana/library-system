@@ -43,48 +43,49 @@ function Chat() {
             <CssBaseline />
             <Box
                 sx={{
-                    minHeight: "90dvh",
-                    backgroundColor: "#00008B",
                     padding: "1rem 5rem",
+                    paddingTop: "12dvh",
                 }}
                 component="main"
                 className="MainContent"
             >
-                <Sheet
-                    sx={{
-                        flex: 1,
-                        width: "100%",
-                        mx: "auto",
-                        display: "grid",
-                        gridTemplateColumns: {
-                            xs: "1fr",
-                            sm: "minmax(min-content, min(30%, 400px)) 1fr",
-                        },
-                    }}
-                >
-                    <ChatsPane
-                        selectedChatId={selectedChat}
-                        setSelectedChat={setSelectedChat}
-                        chats={chats}
-                        setChats={setChats}
-                        loading={loading}
-                        error={error}
-                        update={update}
-                        setUpdate={setUpdate}
-                    />
-                    <MessagePane
-                        selectedChat={
-                            chats &&
-                            chats.length !== 0 &&
-                            chats.filter((chat) => chat._id === selectedChat)[0]
-                        }
-                        setSelectedChat={setSelectedChat}
-                        refresh={refresh}
-                        setRefresh={setRefresh}
-                        update={update}
-                        setUpdate={setUpdate}
-                    />
-                </Sheet>
+                <Box className="shadow">
+                    <Sheet
+                        sx={{
+                            flex: 1,
+                            width: "100%",
+                            mx: "auto",
+                            display: "grid",
+                            gridTemplateColumns:
+                                "minmax(min-content, min(30%, 400px)) 1fr",
+                        }}
+                    >
+                        <ChatsPane
+                            selectedChatId={selectedChat}
+                            setSelectedChat={setSelectedChat}
+                            chats={chats}
+                            setChats={setChats}
+                            loading={loading}
+                            error={error}
+                            update={update}
+                            setUpdate={setUpdate}
+                        />
+                        <MessagePane
+                            selectedChat={
+                                chats &&
+                                chats.length !== 0 &&
+                                chats.filter(
+                                    (chat) => chat._id === selectedChat
+                                )[0]
+                            }
+                            setSelectedChat={setSelectedChat}
+                            refresh={refresh}
+                            setRefresh={setRefresh}
+                            update={update}
+                            setUpdate={setUpdate}
+                        />
+                    </Sheet>
+                </Box>
             </Box>
         </CssVarsProvider>
     );
