@@ -46,7 +46,6 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
     try {
         // Check if both user and book exist
-        // remove userid.password
         const Borrow = await BorrowBook.find({})
             .populate("userid", {
                 password: 0,

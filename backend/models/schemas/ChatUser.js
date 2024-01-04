@@ -10,6 +10,9 @@ export default new Schema(
         avatar: {
             type: String,
             required: false,
+            default: function () {
+                return Math.random().toString(36).substring(2, 15);
+            },
         },
         isAdmin: {
             type: Boolean,

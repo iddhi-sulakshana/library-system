@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import iziToast from "izitoast";
 import axios from "axios";
 import { getRootURL, getURL } from "../utils";
+import { useUserContext } from "../contexts/UserContext";
 
 const UpdateBook = () => {
     const location = useLocation();
@@ -10,6 +11,7 @@ const UpdateBook = () => {
 
     const [book, setBook] = useState([]);
     const [selectedFile, setSelectedFile] = useState(null);
+    const { id } = useUserContext();
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -25,7 +27,7 @@ const UpdateBook = () => {
             const response = await axios.get(getURL("books/" + slug));
             setBook(response.data);
         } catch (err) {
-            console.error(err.message);
+            console.log(err);
         }
     };
 
@@ -71,7 +73,11 @@ const UpdateBook = () => {
         }
 
         try {
-            await axios.put(getURL("books/" + slug), formData);
+            await axios.put(getURL("books/" + slug), formData, {
+                headers: {
+                    "x-auth-token": id,
+                },
+            });
             setSelectedFile(null);
             iziToast.success({
                 title: "Success!",

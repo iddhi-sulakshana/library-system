@@ -3,50 +3,61 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "./profile.css";
 import { getURL } from "../../utils";
+import { useUserContext } from "../../contexts/UserContext";
 const Profile = () => {
     // usertoke
     // is usertoken  != redirecte
-
-    const { email } = useParams();
-    console.log(email);
-
     const navigate = useNavigate();
+    const { email } = useParams();
+    const { id, setId } = useUserContext();
+    useEffect(() => {
+        if (!id) {
+            navigate("/login");
+        }
+    }, [id, navigate]);
+
     const [userData, setUserData] = useState();
 
     useEffect(() => {
+        if (!id) {
+            return;
+        }
         // Fetch user data when the component mounts
         const fetchUserData = async () => {
             try {
                 // headers =  token
-                const response = await axios.get(getURL(`users/${email}`));
-                console.log(response.data);
+                const response = await axios.request({
+                    method: "GET",
+                    headers: {
+                        "x-auth-token": id,
+                    },
+                    url: getURL("users"),
+                });
                 setUserData(response.data);
-                console.log(userData.email, userData.name);
             } catch (error) {
                 console.error(error.message);
             }
         };
         fetchUserData();
-    }, []);
+    }, [id]);
 
     function handleClick() {
         navigate(`/editProfile/${userData.email}`);
     }
     async function handleDelete() {
-        try {
-            // Make a DELETE request to delete the user
-            const response = await axios.delete(getURL(`users/${email}`));
-
-            // Handle the response as needed (e.g., show a success message)
-            console.log(response.data);
-
-            // Redirect to the signup page
-            navigate("/");
-            alert("Your account has been deleted");
-        } catch (error) {
-            console.error(error.message);
-            // Handle errors (e.g., show an error message to the user)
-        }
+        // Make a DELETE request to delete the user
+        axios
+            .request({
+                method: "DELETE",
+                headers: {
+                    "x-auth-token": id,
+                },
+                url: getURL(`users`),
+            })
+            .then((result) => {
+                setId(null);
+            })
+            .catch((err) => alert(err.response.data));
     }
 
     return (

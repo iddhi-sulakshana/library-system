@@ -35,7 +35,10 @@ function MessagePaneHeader({
         >
             <Stack direction="row" spacing={2} alignItems="center">
                 {/* Display User Picture */}
-                <Avatar size="lg" src={sender?.avatar} />
+                <Avatar
+                    size="lg"
+                    src={`https://robohash.org/${sender?.avatar}`}
+                />
                 {/* Display User Online Status and Name */}
                 <Typography
                     fontWeight="lg"
