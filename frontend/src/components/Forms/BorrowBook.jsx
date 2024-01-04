@@ -114,7 +114,7 @@ const BorrowBook = () => {
     };
 
     return (
-        <div className="container mt-5">
+        <div className="container" style={{ paddingTop: "5rem" }}>
             <h2 className="mb-4">
                 {isUpdateMode ? "Update Book" : "Book Registration"}
             </h2>

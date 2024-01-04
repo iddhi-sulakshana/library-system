@@ -12,7 +12,8 @@ function StaffDashboard() {
                 display: "flex",
                 mx: "auto",
                 px: 6,
-                py: 3,
+                pt: 10,
+                pb: 5,
             }}
         >
             <Grid container spacing={4}>
