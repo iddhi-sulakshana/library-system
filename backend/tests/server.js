@@ -7,12 +7,13 @@ import routes from "../configs/routes.js";
 envConfig();
 // initialize database connection
 const databaseString = process.env.NODE_ENV
-    ? `${process.env.DB}_${process.env.NODE_ENV}?retryWrites=true&w=majority`
-    : process.env.DB;
+  ? `${process.env.DB}_${process.env.NODE_ENV}?retryWrites=true&w=majority`
+  : process.env.DB;
 // connect to database
+console.log(databaseString);
 mongoose.connect(databaseString).catch((ex) => {
-    console.error("Failed to connect to MongoDB");
-    process.exit(1);
+  console.error("Failed to connect to MongoDB");
+  process.exit(1);
 });
 // intialize application
 const app = express();

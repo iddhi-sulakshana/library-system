@@ -14,6 +14,16 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const { roomId, capacity, facilities } = req.body;
+
+    const existingRoom = await StudyRoom.findOne({ roomId: roomId });
+    console.log("before if", existingRoom);
+    if (existingRoom) {
+      console.log(existingRoom);
+      return res
+        .status(400)
+        .send({ message: "Room with that ID already exists." });
+    }
+
     const studyroom = new StudyRoom({
       roomId: roomId,
       capacity: capacity,
