@@ -39,6 +39,7 @@ const LoginForm = () => {
 
                     // save intothe locastorage || appcontext
                     // usetoken
+                    localStorage.setItem("id", result.headers["x-auth-token"]);
                     setId(result.headers["x-auth-token"]);
                     navigate(`/profile`);
                 })
