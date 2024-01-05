@@ -9,6 +9,7 @@ import {
 import React from "react";
 
 function AdminCard({ handleDelete, staff }) {
+    console.log(staff);
     return (
         <Card
             variant="outlined"
@@ -17,10 +18,12 @@ function AdminCard({ handleDelete, staff }) {
         >
             <Avatar
                 src={"https://robohash.org/" + staff?.image}
-                alt={staff?.name}
+                alt={staff?.firstname}
             />
             <CardContent>
-                <Typography level="title-md">Siriwat K.</Typography>
+                <Typography level="title-md">
+                    {staff?.firstname} {staff?.lastname}
+                </Typography>
                 <Typography level="body-xs" color="textSecondary">
                     {staff?.role}
                 </Typography>
