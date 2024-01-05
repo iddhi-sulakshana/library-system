@@ -33,4 +33,9 @@ export default new Schema({
         type: String,
         required: true,
     },
+    availability: {
+        type: Boolean,
+        required: true,
+        default: true,
+    },
 });

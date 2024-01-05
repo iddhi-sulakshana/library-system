@@ -5,13 +5,16 @@ import BorrowBookTable from "../Tables/BorrowBookTable";
 import { useNavigate, useLocation } from "react-router-dom"; // Import useHistory and useLocation from react-router-dom
 import { getURL } from "../../utils";
 import { useUserContext } from "../../contexts/UserContext";
+import useGetAllUsersEmail from "../../hooks/useGetAllUsersEmail";
+import useGetAvailableBooks from "../../hooks/useGetAvailableBooks";
 
 const BorrowBook = () => {
     const history = useNavigate();
     const location = useLocation();
-    const isUpdateMode = location.state && location.state.isUpdateMode; // Check if in update mode
-    const [availabilityMessage, setAvailabilityMessage] = useState("");
+    const isUpdateMode = location.state && location.state.isUpdateMode; // Check' if in update mode'
     const { id } = useUserContext();
+    const userEmails = useGetAllUsersEmail();
+    const availableBooks = useGetAvailableBooks();
 
     const [formData, setBookData] = useState({
         bookid: "",
@@ -32,40 +35,6 @@ const BorrowBook = () => {
     const handleChange = async (e) => {
         const { name, value } = e.target;
         setBookData({ ...formData, [name]: value });
-
-        if (name === "email" && value.trim() !== "") {
-            setBookData({
-                ...formData,
-                email: value,
-            });
-        }
-
-        if (name === "bookid" && value.trim() !== "") {
-            try {
-                const response = await axios.get(
-                    getURL(`borrowbook/availability/${value}`),
-                    {
-                        headers: {
-                            "x-auth-token": id,
-                        },
-                    }
-                );
-                const isBookAvailable = response.data.available;
-
-                if (!isBookAvailable) {
-                    setAvailabilityMessage(
-                        "This book is not available for borrowing."
-                    );
-                } else {
-                    setAvailabilityMessage("");
-                }
-            } catch (error) {
-                setAvailabilityMessage(
-                    "This book is not available for borrowing."
-                );
-                console.error("Error checking book availability:", error);
-            }
-        }
         if (name === "tackdate" && value.trim() !== "") {
             // Add 10 days to tackdate and set deliverydate
             const tackDate = new Date(value);
@@ -82,12 +51,6 @@ const BorrowBook = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (availabilityMessage) {
-            // Book is not available, show a message and prevent submission
-            console.error("Cannot borrow the book. It is not available.");
-            window.alert("Cannot borrow the book. It is not available.");
-            return;
-        }
 
         if (isUpdateMode) {
             // If in update mode, send an update request
@@ -142,30 +105,61 @@ const BorrowBook = () => {
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label className="form-label">User Email:</label>
-                    <input
-                        type="email"
-                        className="form-control"
+                    <select
+                        className="form-select"
                         name="email"
                         value={formData.email || ""}
                         onChange={handleChange}
                         required
-                    />
+                    >
+                        {userEmails?.length === 0 && (
+                            <option value="" disabled>
+                                No users found
+                            </option>
+                        )}
+                        {userEmails?.length > 0 && (
+                            <>
+                                <option value="">Select User Email</option>
+                                {userEmails?.map((user) => (
+                                    <option key={user.email} value={user.email}>
+                                        {user.name} - {user.email}
+                                    </option>
+                                ))}
+                            </>
+                        )}
+                    </select>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Book ID:</label>
-                    <input
-                        type="text"
-                        className="form-control"
+                    <select
+                        className="form-select"
                         name="bookid"
                         value={formData.bookid || ""}
                         onChange={handleChange}
                         required
-                    />
+                    >
+                        {availableBooks?.length === 0 && (
+                            <option value="" disabled>
+                                No books found
+                            </option>
+                        )}
+                        {availableBooks?.length > 0 && (
+                            <>
+                                <option value="">Select Book ID</option>
+                                {availableBooks?.map((book) => (
+                                    <option key={book._id} value={book.bookId}>
+                                        {book.bookId} - {book.name}
+                                    </option>
+                                ))}
+                            </>
+                        )}
+                    </select>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Tack Date:</label>
                     <input
                         type="date"
+                        min={new Date().toLocaleDateString("fr-ca")}
                         className="form-control"
                         name="tackdate"
                         value={formData.tackdate || ""}

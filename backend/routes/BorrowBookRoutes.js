@@ -9,7 +9,10 @@ router.post("/", staff_auth, async (req, res) => {
     try {
         // Check if both user and book exist
         const existingUser = await User.findOne({ email: req.body.email });
-        const existingBook = await Book.findOne({ bookId: req.body.bookid });
+        const existingBook = await Book.findOne({
+            bookId: req.body.bookid,
+            availability: true,
+        });
 
         if (existingUser && existingBook) {
             // Check if a document with the same userid already exists
@@ -31,6 +34,9 @@ router.post("/", staff_auth, async (req, res) => {
                 deliverydate: req.body.deliverydate,
             });
             await newBorrowBook.save();
+            // update availability
+            existingBook.availability = false;
+            await existingBook.save();
 
             return res.status(201).send(newBorrowBook);
         } else {
@@ -104,6 +110,10 @@ router.delete("/:_id", staff_auth, async (req, res) => {
         if (!deletedBorrowBook) {
             return res.status(404).json({ message: "BorrowBook not found" });
         }
+        // update availability
+        const existingBook = await Book.findById(deletedBorrowBook.bookid);
+        existingBook.availability = true;
+        await existingBook.save();
         res.json({ message: "BorrowBook deleted successfully" });
     } catch (error) {
         console.error("Error deleting BorrowBook:", error);

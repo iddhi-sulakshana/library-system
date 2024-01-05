@@ -12,6 +12,7 @@ const schema = new Joi.object({
     description: Joi.string().required(),
     imagePath: Joi.string().required(),
     category: Joi.string().required(),
+    availability: Joi.boolean(),
 });
 // function for validating the schema
 function validate(book) {

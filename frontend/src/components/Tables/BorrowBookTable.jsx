@@ -25,7 +25,6 @@ const BorrowBookTable = () => {
                 },
             })
             .then((response) => {
-                console.log(response.data);
                 setBorrowBookData(response.data);
             })
 
