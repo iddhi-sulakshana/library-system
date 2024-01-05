@@ -7,7 +7,6 @@ import { Message, validateMessage } from "../models/Message.js";
 export default function chatSocket(io) {
     io.of("/socket/chat")
         .on("connection", async (socket) => {
-            console.log("Socket Connected");
             const user = socket.handshake.headers.user;
 
             // Implementation
