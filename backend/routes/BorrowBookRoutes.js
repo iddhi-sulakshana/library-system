@@ -2,9 +2,10 @@ import express from "express";
 import { booksmodel as Book } from "../models/bookModel.js";
 import User from "../models/users.js";
 import BorrowBook from "../models/BorrowBook.js";
+import staff_auth from "../middlewares/staff_auth.js";
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/", staff_auth, async (req, res) => {
     try {
         // Check if both user and book exist
         const existingUser = await User.findOne({ email: req.body.email });
@@ -43,7 +44,7 @@ router.post("/", async (req, res) => {
     }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", staff_auth, async (req, res) => {
     try {
         // Check if both user and book exist
         const Borrow = await BorrowBook.find({})
@@ -60,7 +61,7 @@ router.get("/", async (req, res) => {
 });
 
 // Check the availability of a book based on its ID
-router.get("/availability/:bookid", async (req, res) => {
+router.get("/availability/:bookid", staff_auth, async (req, res) => {
     try {
         const bookId = req.params.bookid;
 
@@ -95,7 +96,7 @@ router.get("/availability/:bookid", async (req, res) => {
 });
 
 // Inside your backend route file
-router.delete("/:_id", async (req, res) => {
+router.delete("/:_id", staff_auth, async (req, res) => {
     try {
         const deletedBorrowBook = await BorrowBook.findByIdAndDelete(
             req.params._id
@@ -111,7 +112,7 @@ router.delete("/:_id", async (req, res) => {
 });
 
 // Add a route for updating a BorrowBook record
-router.put("/:_id", async (req, res) => {
+router.put("/:_id", staff_auth, async (req, res) => {
     try {
         // Check if the BorrowBook with the given ID exists
         const existingBorrowBook = await BorrowBook.findById(req.params._id);

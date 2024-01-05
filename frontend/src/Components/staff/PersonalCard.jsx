@@ -78,7 +78,9 @@ function PersonalCard() {
             });
     };
     const handleLogout = () => {
+        localStorage.removeItem("id");
         setId(null);
+        navigate("/ssign");
     };
 
     return (

@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Link, useLocation } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import { jwtDecode } from "jwt-decode";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
     const slug = useLocation();
@@ -36,7 +36,7 @@ export default function Navbar() {
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
                             <div className="flex h-16 justify-between">
                                 <div className="flex flex-shrink-0 items-center">
-                                    <a href="/">
+                                    <Link to="/">
                                         <img
                                             className="block h-8 w-auto lg:hidden"
                                             src="/src/assets/lib_logo.png"
@@ -47,7 +47,7 @@ export default function Navbar() {
                                             src="/src/assets/lib_logo.png"
                                             alt="logo"
                                         />
-                                    </a>
+                                    </Link>
                                 </div>
                                 <div className="flex">
                                     <div className="hidden md:ml-6 md:flex md:space-x-8">
@@ -103,6 +103,17 @@ export default function Navbar() {
                                         {/* All the logged users routes */}
                                         {id && (
                                             <>
+                                              <Link
+                                                    to="/book-collection"
+                                                    className={
+                                                        slug.pathname ===
+                                                        "/book-collection"
+                                                            ? activeClass
+                                                            : inactiveClass
+                                                    }
+                                                >
+                                                    Books
+                                                </Link>
                                                 <Link
                                                     to="/studyrooms"
                                                     className={

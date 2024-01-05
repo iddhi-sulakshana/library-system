@@ -5,6 +5,7 @@ import staff_auth from "../middlewares/staff_auth.js";
 import jwt from "jsonwebtoken";
 import { ChatUser } from "../models/ChatUser.js";
 import { Chat } from "../models/Chat.js";
+import mongoose from "mongoose";
 const router = Router();
 
 router.post("/login", async (req, res) => {
@@ -55,7 +56,7 @@ router.post("/", async (req, res) => {
             isAdmin: true,
         });
         await chatUser.save();
-        res.send(staff);
+        res.send("Successfully registered staff.");
     } catch (ex) {
         if (ex.code && ex.code === 11000)
             return res.status(400).send("Staff already registered with email.");
@@ -94,6 +95,8 @@ router.patch("/personal", staff_auth, async (req, res) => {
 router.patch("/password", staff_auth, async (req, res) => {
     const staff = await Staff.findById(req.user._id);
     if (!staff) return res.status(404).send("Staff not found.");
+    if (!req.body.currentPassword)
+        return res.status(400).send("Current password is required.");
     const isValidPassword = await validPassword(
         req.body.currentPassword,
         staff.password
@@ -121,6 +124,9 @@ router.patch("/password", staff_auth, async (req, res) => {
 });
 
 router.delete("/:id", staff_auth, async (req, res) => {
+    const isValidObjectId = mongoose.Types.ObjectId.isValid(req.params.id);
+    if (!isValidObjectId)
+        return res.status(400).send("Invalid staff id provided.");
     const staff = await Staff.findByIdAndDelete(req.params.id);
     if (!staff) return res.status(404).send("Staff not found.");
     // delete chat user
@@ -129,7 +135,8 @@ router.delete("/:id", staff_auth, async (req, res) => {
     const chats = await Chat.deleteMany({
         participants: { $in: [req.params.id] },
     });
-    res.send(staff);
-});
+    res.send("Successfully deleted staff.");
+})
+;
 
 export default router;
