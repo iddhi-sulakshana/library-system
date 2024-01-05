@@ -2,19 +2,20 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import BorrowBookTable from "../Tables/BorrowBookTable";
-import { useNavigate, useLocation } from "react-router-dom"; // Import useHistory and useLocation from react-router-dom
+import { useNavigate, useLocation } from "react-router-dom"; // Import usenavigate and useLocation from react-router-dom
 import { getURL } from "../../utils";
 import { useUserContext } from "../../contexts/UserContext";
 import useGetAllUsersEmail from "../../hooks/useGetAllUsersEmail";
 import useGetAvailableBooks from "../../hooks/useGetAvailableBooks";
 
 const BorrowBook = () => {
-    const history = useNavigate();
+    const navigate = useNavigate();
     const location = useLocation();
     const isUpdateMode = location.state && location.state.isUpdateMode; // Check' if in update mode'
     const { id } = useUserContext();
+    const [refresh, setRefresh] = useState(false);
     const userEmails = useGetAllUsersEmail();
-    const availableBooks = useGetAvailableBooks();
+    const availableBooks = useGetAvailableBooks(refresh);
 
     const [formData, setBookData] = useState({
         bookid: "",
@@ -24,8 +25,28 @@ const BorrowBook = () => {
     });
 
     useEffect(() => {
+        if (!isUpdateMode) {
+            setBookData({
+                bookid: "",
+                email: "",
+                tackdate: "",
+                deliverydate: "",
+            });
+        }
         if (isUpdateMode && location.state && location.state.selectedRow) {
-            setBookData(location.state.selectedRow);
+            const { selectedRow } = location.state;
+            console.log(selectedRow);
+            setBookData({
+                _id: selectedRow._id,
+                bookid: selectedRow.bookid.bookId,
+                email: selectedRow.userid.email,
+                tackdate: new Date(selectedRow.tackdate).toLocaleDateString(
+                    "fr-ca"
+                ),
+                deliverydate: new Date(
+                    selectedRow.deliverydate
+                ).toLocaleDateString("fr-ca"),
+            });
         }
         if (location.state?.bookId) {
             setBookData({ ...formData, bookid: location.state.bookId });
@@ -49,24 +70,24 @@ const BorrowBook = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    function handleSubmit(e) {
         e.preventDefault();
 
         if (isUpdateMode) {
             // If in update mode, send an update request
+            console.log(formData._id);
             axios
-                .put(
-                    getURL(`borrowbook/${formData._id}`, {
-                        headers: {
-                            "x-auth-token": id,
-                        },
-                    }),
-                    formData
-                )
+                .put(getURL(`borrowbook/${formData._id}`), formData, {
+                    headers: {
+                        "x-auth-token": id,
+                    },
+                })
                 .then((response) => {
                     console.log("Book Updated successfully");
                     window.alert("Book Updated successfully");
-                    history.push("/borrowbook"); // Redirect to the BorrowBookTable after update
+                    navigate("/borrowbook", {
+                        state: { isUpdateMode: null, selectedRow: null },
+                    }); // Redirect to the BorrowBookTable after update
                 })
                 .catch((error) => {
                     console.error("Error updating Borrow Book:", error);
@@ -82,6 +103,7 @@ const BorrowBook = () => {
                     // Handle success (e.g., show a success message, reset the form)
                     console.log("Book Borrowed successfully");
                     window.alert("Book Borrowed successfully");
+                    setRefresh(!refresh);
                     // Reset the form fields
                     setBookData({
                         bookid: "",
@@ -95,7 +117,7 @@ const BorrowBook = () => {
                     console.error("Error adding Borrow Book:", error);
                 });
         }
-    };
+    }
 
     return (
         <div className="container" style={{ paddingTop: "5rem" }}>
@@ -111,13 +133,19 @@ const BorrowBook = () => {
                         value={formData.email || ""}
                         onChange={handleChange}
                         required
+                        disabled={isUpdateMode}
                     >
-                        {userEmails?.length === 0 && (
+                        {isUpdateMode && (
+                            <option value={formData.email} disabled>
+                                {formData.email}
+                            </option>
+                        )}
+                        {!isUpdateMode && userEmails?.length === 0 && (
                             <option value="" disabled>
                                 No users found
                             </option>
                         )}
-                        {userEmails?.length > 0 && (
+                        {!isUpdateMode && userEmails?.length > 0 && (
                             <>
                                 <option value="">Select User Email</option>
                                 {userEmails?.map((user) => (
@@ -137,13 +165,19 @@ const BorrowBook = () => {
                         value={formData.bookid || ""}
                         onChange={handleChange}
                         required
+                        disabled={isUpdateMode}
                     >
-                        {availableBooks?.length === 0 && (
+                        {isUpdateMode && (
+                            <option value={formData.bookid} disabled>
+                                {formData.bookid}
+                            </option>
+                        )}
+                        {!isUpdateMode && availableBooks?.length === 0 && (
                             <option value="" disabled>
                                 No books found
                             </option>
                         )}
-                        {availableBooks?.length > 0 && (
+                        {!isUpdateMode && availableBooks?.length > 0 && (
                             <>
                                 <option value="">Select Book ID</option>
                                 {availableBooks?.map((book) => (
@@ -187,7 +221,7 @@ const BorrowBook = () => {
                 <br />
                 <br />
                 <br />
-                <BorrowBookTable />
+                <BorrowBookTable refresh={refresh} setRefresh={setRefresh} />
             </div>
         </div>
     );
