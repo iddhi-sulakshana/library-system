@@ -2,18 +2,22 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import PropTypes from "prop-types";
-import { getURL } from "../utils";
+import { formatDate, getURL, formatTimestampWithTZ } from "../utils";
+import { useUserContext } from "../contexts/UserContext";
 
-function StudyRoomReservations({ userId }) {
+function StudyRoomReservations() {
     const [reservations, setReservations] = useState([]);
     const navigate = useNavigate();
-
+    const { id } = useUserContext();
     useEffect(() => {
+        if (!id) navigate("/login");
         const fetchUserReservations = async () => {
             try {
-                const response = await axios.get(
-                    getURL(`reservations/user/${userId}`)
-                );
+                const response = await axios.get(getURL(`reservations/user`), {
+                    headers: {
+                        "x-auth-token": id,
+                    },
+                });
                 setReservations(response.data);
             } catch (error) {
                 console.error("Error fetching user reservations:", error);
@@ -21,7 +25,7 @@ function StudyRoomReservations({ userId }) {
         };
 
         fetchUserReservations();
-    }, [userId]);
+    }, [id]);
 
     const handleUpdate = (reservation) => {
         let path = `/reserve/${reservation.roomId}-${reservation.studyRoomId}-${reservation._id}`;
@@ -63,10 +67,22 @@ function StudyRoomReservations({ userId }) {
                                         Room ID: {reservation.roomId}
                                     </p>
                                     <p className="card-text">
-                                        Start Time: {reservation.startTime}
+                                        Start Time:{" "}
+                                        {formatDate(reservation.startTime) +
+                                            " " +
+                                            formatTimestampWithTZ(
+                                                reservation.startTime,
+                                                "UTC"
+                                            )}
                                     </p>
                                     <p className="card-text">
-                                        End Time: {reservation.endTime}
+                                        End Time:{" "}
+                                        {formatDate(reservation.endTime) +
+                                            " " +
+                                            formatTimestampWithTZ(
+                                                reservation.endTime,
+                                                "UTC"
+                                            )}
                                     </p>
                                     <div className="mt-3">
                                         <button
@@ -95,9 +111,5 @@ function StudyRoomReservations({ userId }) {
         </div>
     );
 }
-
-StudyRoomReservations.propTypes = {
-    userId: PropTypes.number.isRequired,
-};
 
 export default StudyRoomReservations;

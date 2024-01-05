@@ -88,7 +88,7 @@ async function FirstRun() {
 
     //insert reservations to database
     const reservation = new Reservation({
-        userId: 11990,
+        userId: user._id,
         roomId: 1001,
         startTime: "2023-12-22T10:00:00.000+00:00",
         endTime: "2023-12-22T12:00:00.000+00:00",
@@ -103,7 +103,7 @@ async function FirstRun() {
     await studyRoom.save();
 
     const reservation2 = new Reservation({
-        userId: 11009,
+        userId: user._id,
         roomId: 1002,
         startTime: "2023-12-22T08:00:00.000+00:00",
         endTime: "2023-12-22T10:00:00.000+00:00",
@@ -118,7 +118,7 @@ async function FirstRun() {
     await studyRoom2.save();
 
     const reservation3 = new Reservation({
-        userId: 11009,
+        userId: user._id,
         roomId: 1003,
         startTime: "2023-12-22T12:00:00.000+00:00",
         endTime: "2023-12-22T14:00:00.000+00:00",
@@ -133,7 +133,7 @@ async function FirstRun() {
     await studyRoom3.save();
 
     const reservation4 = new Reservation({
-        userId: 11009,
+        userId: user._id,
         roomId: 1004,
         startTime: "2023-12-22T14:00:00.000+00:00",
         endTime: "2023-12-22T16:00:00.000+00:00",
