@@ -9,7 +9,6 @@ import {
 import React from "react";
 
 function AdminCard({ handleDelete, staff }) {
-    console.log(staff);
     return (
         <Card
             variant="outlined"
