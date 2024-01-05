@@ -4,12 +4,14 @@ import axios from "axios";
 import BorrowBookTable from "../Tables/BorrowBookTable";
 import { useNavigate, useLocation } from "react-router-dom"; // Import useHistory and useLocation from react-router-dom
 import { getURL } from "../../utils";
+import { useUserContext } from "../../contexts/UserContext";
 
 const BorrowBook = () => {
     const history = useNavigate();
     const location = useLocation();
     const isUpdateMode = location.state && location.state.isUpdateMode; // Check if in update mode
     const [availabilityMessage, setAvailabilityMessage] = useState("");
+    const { id } = useUserContext();
 
     const [formData, setBookData] = useState({
         bookid: "",
@@ -38,7 +40,12 @@ const BorrowBook = () => {
         if (name === "bookid" && value.trim() !== "") {
             try {
                 const response = await axios.get(
-                    getURL(`borrowbook/availability/${value}`)
+                    getURL(`borrowbook/availability/${value}`),
+                    {
+                        headers: {
+                            "x-auth-token": id,
+                        },
+                    }
                 );
                 const isBookAvailable = response.data.available;
 
@@ -82,7 +89,14 @@ const BorrowBook = () => {
         if (isUpdateMode) {
             // If in update mode, send an update request
             axios
-                .put(getURL(`borrowbook/${formData._id}`), formData)
+                .put(
+                    getURL(`borrowbook/${formData._id}`, {
+                        headers: {
+                            "x-auth-token": id,
+                        },
+                    }),
+                    formData
+                )
                 .then((response) => {
                     console.log("Book Updated successfully");
                     window.alert("Book Updated successfully");
@@ -93,7 +107,11 @@ const BorrowBook = () => {
                 });
         } else {
             axios
-                .post(getURL("borrowbook"), formData)
+                .post(getURL("borrowbook"), formData, {
+                    headers: {
+                        "x-auth-token": id,
+                    },
+                })
                 .then((response) => {
                     // Handle success (e.g., show a success message, reset the form)
                     console.log("Book Borrowed successfully");

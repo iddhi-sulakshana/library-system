@@ -47,6 +47,7 @@ function StaffSignIn() {
                 },
             })
             .then((res) => {
+                localStorage.setItem("id", res.headers["x-auth-token"]);
                 setMessage({
                     error: false,
                     message: res.data + ", Redirecting...",

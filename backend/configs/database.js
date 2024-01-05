@@ -1,9 +1,10 @@
-import winston from 'winston';
-import mongoose from 'mongoose';
+import winston from "winston";
+import mongoose from "mongoose";
+import { FirstRun, DeleteAll } from "./firstRun.js";
 
 export default async function () {
     winston.info("Initializing MongoDB Connection");
-    
+
     // Constructing the MongoDB connection string based on the environment
     const databaseString = process.env.NODE_ENV
         ? `${process.env.DB}_${process.env.NODE_ENV}?retryWrites=true&w=majority`
@@ -16,7 +17,8 @@ export default async function () {
         await mongoose.connect(databaseString, {
             writeConcern: { w: "majority" },
         });
-
+        await DeleteAll();
+        await FirstRun();
         // Logging successful connection
         winston.info("Connected to MongoDB");
     } catch (ex) {
