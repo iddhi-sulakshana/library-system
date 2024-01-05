@@ -1,7 +1,7 @@
 import { Staff } from "../models/staff.js";
 import jwt from "jsonwebtoken";
 
-export default async function (req, res, next) {s
+export default async function (req, res, next) {
     // Get the token from the header if present
     const token = req.header("x-auth-token");
     // If no token found, return response (without going to the next middelware)
