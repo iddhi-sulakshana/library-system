@@ -40,6 +40,10 @@ function App() {
                     {/* all users routes */}
                     <Route path="/" element={<Home />} />
                     <Route path="/example" element={<Example />} />
+                    <Route
+                        path="/book-collection"
+                        element={<BookListFrontend />}
+                    />
                     {/* not logged users */}
                     {!id && (
                         <>
@@ -51,7 +55,6 @@ function App() {
                     {/* All the logged users routes */}
                     {id && (
                         <>
-                            <Route path="/book-collection" element={<BookListFrontend />} />
                             <Route path="/chat" element={<Chat />} />
                             <Route
                                 path="/studyrooms"

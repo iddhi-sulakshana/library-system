@@ -61,6 +61,17 @@ export default function Navbar() {
                                             }
                                         >
                                             Home
+                                        </Link>{" "}
+                                        <Link
+                                            to="/book-collection"
+                                            className={
+                                                slug.pathname ===
+                                                "/book-collection"
+                                                    ? activeClass
+                                                    : inactiveClass
+                                            }
+                                        >
+                                            Books
                                         </Link>
                                         {/* not logged users */}
                                         {!id && (
@@ -103,17 +114,6 @@ export default function Navbar() {
                                         {/* All the logged users routes */}
                                         {id && (
                                             <>
-                                                <Link
-                                                    to="/book-collection"
-                                                    className={
-                                                        slug.pathname ===
-                                                        "/book-collection"
-                                                            ? activeClass
-                                                            : inactiveClass
-                                                    }
-                                                >
-                                                    Books
-                                                </Link>
                                                 <Link
                                                     to="/studyrooms"
                                                     className={
@@ -232,6 +232,17 @@ export default function Navbar() {
                                 >
                                     Home
                                 </Disclosure.Button>
+                                <Disclosure.Button
+                                    as={Link}
+                                    to="/book-collection"
+                                    className={
+                                        slug.pathname === "/book-collection"
+                                            ? activeMobileClass
+                                            : inactiveMobileClass
+                                    }
+                                >
+                                    Books
+                                </Disclosure.Button>
                                 {/* not logged users */}
                                 {!id && (
                                     <>
@@ -273,18 +284,6 @@ export default function Navbar() {
                                 {/* All the logged users routes */}
                                 {id && (
                                     <>
-                                        <Disclosure.Button
-                                            as={Link}
-                                            to="/book-collection"
-                                            className={
-                                                slug.pathname ===
-                                                "/book-collection"
-                                                    ? activeMobileClass
-                                                    : inactiveMobileClass
-                                            }
-                                        >
-                                            Books
-                                        </Disclosure.Button>
                                         <Disclosure.Button
                                             as={Link}
                                             to="/studyrooms"

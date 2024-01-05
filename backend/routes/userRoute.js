@@ -2,6 +2,7 @@ import express from "express";
 import UserModel from "../models/users.js";
 import { ChatUser } from "../models/ChatUser.js";
 import user_auth from "../middlewares/user_auth.js";
+import staff_auth from "../middlewares/staff_auth.js";
 
 const router = express.Router();
 
@@ -29,6 +30,15 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.get("/all", staff_auth, async (req, res) => {
+    try {
+        const users = await UserModel.find({}).select("email name");
+        res.json(users);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 router.get("/", user_auth, async (req, res) => {
     req.user.password = undefined;
     return res.json(req.user);
