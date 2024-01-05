@@ -4,7 +4,6 @@ import jwt from "jsonwebtoken";
 export default function chatSocket(socket, next) {
     // check if the user header is present
     if (!socket.handshake.headers.user) {
-        console.log("User not present in the header");
         return next(new Error("User not present in the header"));
     }
     const decoded = jwt.verify(
@@ -14,7 +13,6 @@ export default function chatSocket(socket, next) {
     socket.handshake.headers.user = decoded._id;
     // check if the user is valid mongoose object id
     if (!mongoose.isValidObjectId(socket.handshake.headers.user)) {
-        console.log("Invalid user id");
         return next(new Error("Invalid user id"));
     }
     next();
