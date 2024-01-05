@@ -3,7 +3,7 @@ import { useUserContext } from "../contexts/UserContext";
 import axios from "axios";
 import { getURL } from "../utils";
 
-export default function useGetAvailableBooks() {
+export default function useGetAvailableBooks(refresh) {
     const [availableBooks, setAvailableBooks] = useState([]);
     const { id } = useUserContext();
     useEffect(() => {
@@ -22,7 +22,7 @@ export default function useGetAvailableBooks() {
             .catch((err) => {
                 console.log(err);
             });
-    }, []);
+    }, [refresh]);
 
     return availableBooks;
 }

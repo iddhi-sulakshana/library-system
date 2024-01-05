@@ -130,9 +130,9 @@ router.put("/:_id", staff_auth, async (req, res) => {
         if (!existingBorrowBook) {
             return res.status(404).json({ message: "BorrowBook not found" });
         }
-
-        // Update the BorrowBook data
-        Object.assign(existingBorrowBook, req.body);
+        // update the dates
+        existingBorrowBook.tackdate = req.body.tackdate;
+        existingBorrowBook.deliverydate = req.body.deliverydate;
         await existingBorrowBook.save();
 
         return res.status(200).json(existingBorrowBook);
