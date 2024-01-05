@@ -13,7 +13,6 @@ import AdminCard from "./AdminCard";
 import NewAdminModal from "./NewAdminModal";
 import SnackBar from "./SnackBar";
 import useGetStaffs from "../../hooks/useGetStaffs";
-import staff from "../../../../backend/models/schemas/staff";
 import axios from "axios";
 import { getURL } from "../../utils";
 import { useUserContext } from "../../contexts/UserContext";

@@ -50,6 +50,17 @@ function NewAdminModal({
                 },
             })
             .then((res) => {
+                // clear the form
+                setFName("");
+                setLName("");
+                setEmail("");
+                setRole("");
+                setPassword("");
+                setMessage({
+                    error: false,
+                    message: "Staff added successfully",
+                });
+                setSnackOpen(true);
                 setOpen(false);
                 setRefresh(!refresh);
             })

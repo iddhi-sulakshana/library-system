@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import iziToast from "izitoast";
 import axios from "axios";
@@ -7,6 +7,7 @@ import { useUserContext } from "../contexts/UserContext";
 
 const UpdateBook = () => {
     const location = useLocation();
+    const navigate = useNavigate();
     const slug = location.pathname.split("/")[2];
 
     const [book, setBook] = useState([]);
@@ -84,6 +85,7 @@ const UpdateBook = () => {
                 message: "Book updated successfully.",
                 position: "topRight",
             });
+            navigate("/booklist");
         } catch (err) {
             console.error(err.message);
             iziToast.error({

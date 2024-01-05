@@ -3,8 +3,10 @@ import axios from "axios";
 import iziToast from "izitoast";
 import { getURL } from "../utils";
 import { useUserContext } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const AddBook = () => {
+    const navigate = useNavigate();
     const [selectedFile, setSelectedFile] = useState(null);
     const { id } = useUserContext();
 
@@ -12,28 +14,6 @@ const AddBook = () => {
         const file = e.target.files[0];
         setSelectedFile(file);
     };
-
-    // const handleSubmit = async (e) => {
-    //   e.preventDefault();
-
-    //   try {
-    //     const formData = new FormData();
-    //     formData.append('name', e.target.elements['book-name'].value);
-    //     formData.append('file', selectedFile);
-
-    //     // Make a POST request using Axios with FormData
-    //     const response = await axios.post(window.host + '/api/books/add', formData, {
-    //       headers: {
-    //         'Content-Type': 'multipart/form-data',
-    //       },
-    //     });
-
-    //     console.log('Response:', response.data);
-    //   } catch (error) {
-    //     // Handle errors (e.g., show an error message)
-    //     console.error('Error:', error);
-    //   }
-    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -89,6 +69,7 @@ const AddBook = () => {
                 message: "Successfully added the book!",
                 position: "topRight",
             });
+            navigate("/booklist");
         } catch (error) {
             if (error.response.status === 403) {
                 iziToast.error({
