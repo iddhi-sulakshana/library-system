@@ -32,7 +32,6 @@ describe("StudyRoom", () => {
 
   it("roomId should be unique", () => {
     const duplicatedStudyRoom = studyRoom;
-    // duplicatedStudyRoom.save();
     expect(duplicatedStudyRoom.save()).rejects.toThrow(
       "Path `roomId` is not unique."
     );
@@ -63,11 +62,9 @@ describe("StudyRoom", () => {
   });
 
   it("bookedSlots should contain objects with bookId, startTime, and endTime properties", () => {
-    // Ensure that bookedSlots is defined and is an array
     expect(studyRoom.bookedSlots).toBeDefined();
     expect(Array.isArray(studyRoom.bookedSlots)).toBe(true);
-  
-    // If bookedSlots is defined and not empty, check its properties
+
     if (studyRoom.bookedSlots.length > 0) {
       const bookedSlot = studyRoom.bookedSlots[0];
       expect(bookedSlot).toHaveProperty("bookId");
