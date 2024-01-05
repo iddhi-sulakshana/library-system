@@ -24,6 +24,9 @@ const BorrowBook = () => {
         if (isUpdateMode && location.state && location.state.selectedRow) {
             setBookData(location.state.selectedRow);
         }
+        if (location.state?.bookId) {
+            setBookData({ ...formData, bookid: location.state.bookId });
+        }
     }, [isUpdateMode, location.state]);
 
     const handleChange = async (e) => {
