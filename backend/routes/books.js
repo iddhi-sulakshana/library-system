@@ -31,7 +31,17 @@ router.get("/", async (req, res) => {
         res.send(books);
     } catch (ex) {
         return res.status(400).send(ex.message);
-        console.log(ex);
+    }
+});
+router.get("/available", async (req, res) => {
+    try {
+        const books = await booksmodel.find(
+            { availability: true },
+            "bookId name"
+        );
+        res.send(books);
+    } catch (ex) {
+        return res.status(400).send(ex.message);
     }
 });
 
@@ -45,7 +55,6 @@ router.get("/page/:id", async (req, res) => {
         res.send(books);
     } catch (ex) {
         return res.status(400).send(ex.message);
-        console.log(ex);
     }
 });
 router.get("/:id", async (req, res) => {
@@ -55,7 +64,6 @@ router.get("/:id", async (req, res) => {
         res.send(book);
     } catch (ex) {
         return res.status(400).send(ex.message);
-        console.log(ex);
     }
 });
 
@@ -135,7 +143,6 @@ router.put("/:id", staff_auth, upload.single("file"), async (req, res) => {
         res.status(200).send("Book Updated successfully");
     } catch (ex) {
         return res.status(400).send(ex.message);
-        console.log(ex);
     }
 });
 

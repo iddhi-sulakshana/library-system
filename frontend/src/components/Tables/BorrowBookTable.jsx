@@ -4,15 +4,14 @@ import axios from "axios";
 import { formatDate, getURL } from "../../utils";
 import { useUserContext } from "../../contexts/UserContext";
 
-const BorrowBookTable = () => {
-    const history = useNavigate();
+const BorrowBookTable = ({ refresh, setRefresh }) => {
+    const navigate = useNavigate();
     const [BorrowBookData, setBorrowBookData] = useState([]);
     const { id } = useUserContext();
 
     const handleUpdate = (row) => {
         // Navigate to the BorrowBook form and pass selected row data as state
-        history.push({
-            pathname: "/borrowbook",
+        navigate("/borrowbook", {
             state: { isUpdateMode: true, selectedRow: row },
         });
     };
@@ -25,14 +24,13 @@ const BorrowBookTable = () => {
                 },
             })
             .then((response) => {
-                console.log(response.data);
                 setBorrowBookData(response.data);
             })
 
             .catch((error) => {
                 console.error("Error fetching vehicles:", error);
             });
-    }, []);
+    }, [refresh]);
 
     const handleDelete = (_id) => {
         axios
@@ -46,6 +44,8 @@ const BorrowBookTable = () => {
                 const updatedData = BorrowBookData.filter(
                     (row) => row._id !== _id
                 );
+                alert("Book Returned Successfully");
+                setRefresh(!refresh);
                 setBorrowBookData(updatedData);
             })
             .catch((error) => {

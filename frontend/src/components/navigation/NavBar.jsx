@@ -61,6 +61,17 @@ export default function Navbar() {
                                             }
                                         >
                                             Home
+                                        </Link>{" "}
+                                        <Link
+                                            to="/book-collection"
+                                            className={
+                                                slug.pathname ===
+                                                "/book-collection"
+                                                    ? activeClass
+                                                    : inactiveClass
+                                            }
+                                        >
+                                            Books
                                         </Link>
                                         {/* not logged users */}
                                         {!id && (
@@ -103,17 +114,6 @@ export default function Navbar() {
                                         {/* All the logged users routes */}
                                         {id && (
                                             <>
-                                              <Link
-                                                    to="/book-collection"
-                                                    className={
-                                                        slug.pathname ===
-                                                        "/book-collection"
-                                                            ? activeClass
-                                                            : inactiveClass
-                                                    }
-                                                >
-                                                    Books
-                                                </Link>
                                                 <Link
                                                     to="/studyrooms"
                                                     className={
@@ -220,9 +220,10 @@ export default function Navbar() {
                         {/* Mobile Links */}
                         <Disclosure.Panel className="md:hidden">
                             <div className="space-y-1 pt-2 pb-3">
+                                {/* Non logged users routes */}
                                 <Disclosure.Button
-                                    as="a"
-                                    href="/"
+                                    as={Link}
+                                    to="/"
                                     className={
                                         slug.pathname === "/"
                                             ? activeMobileClass
@@ -232,16 +233,147 @@ export default function Navbar() {
                                     Home
                                 </Disclosure.Button>
                                 <Disclosure.Button
-                                    as="a"
-                                    href="/books"
+                                    as={Link}
+                                    to="/book-collection"
                                     className={
-                                        slug.pathname === "/books"
+                                        slug.pathname === "/book-collection"
                                             ? activeMobileClass
                                             : inactiveMobileClass
                                     }
                                 >
                                     Books
                                 </Disclosure.Button>
+                                {/* not logged users */}
+                                {!id && (
+                                    <>
+                                        <Disclosure.Button
+                                            as={Link}
+                                            to="/signup"
+                                            className={
+                                                slug.pathname === "/signup"
+                                                    ? activeMobileClass
+                                                    : inactiveMobileClass
+                                            }
+                                        >
+                                            SignUp
+                                        </Disclosure.Button>
+                                        <Disclosure.Button
+                                            as={Link}
+                                            to="/login"
+                                            className={
+                                                slug.pathname === "/login"
+                                                    ? activeMobileClass
+                                                    : inactiveMobileClass
+                                            }
+                                        >
+                                            Login
+                                        </Disclosure.Button>
+                                        <Disclosure.Button
+                                            as={Link}
+                                            to="/ssign"
+                                            className={
+                                                slug.pathname === "/ssign"
+                                                    ? activeMobileClass
+                                                    : inactiveMobileClass
+                                            }
+                                        >
+                                            Staff Sign In
+                                        </Disclosure.Button>
+                                    </>
+                                )}
+                                {/* All the logged users routes */}
+                                {id && (
+                                    <>
+                                        <Disclosure.Button
+                                            as={Link}
+                                            to="/studyrooms"
+                                            className={
+                                                slug.pathname === "/studyrooms"
+                                                    ? activeMobileClass
+                                                    : inactiveMobileClass
+                                            }
+                                        >
+                                            Study Rooms
+                                        </Disclosure.Button>
+                                        <Disclosure.Button
+                                            as={Link}
+                                            to="/chat"
+                                            className={
+                                                slug.pathname === "/chat"
+                                                    ? activeMobileClass
+                                                    : inactiveMobileClass
+                                            }
+                                        >
+                                            Chat
+                                        </Disclosure.Button>
+                                    </>
+                                )}
+                                {/* All the loged non admins routes */}
+                                {id && !isAdmin && (
+                                    <>
+                                        <Disclosure.Button
+                                            as={Link}
+                                            to="/profile"
+                                            className={
+                                                slug.pathname === "/profile"
+                                                    ? activeMobileClass
+                                                    : inactiveMobileClass
+                                            }
+                                        >
+                                            Profile
+                                        </Disclosure.Button>
+                                        <Disclosure.Button
+                                            as={Link}
+                                            to="/reservations"
+                                            className={
+                                                slug.pathname ===
+                                                "/reservations"
+                                                    ? activeMobileClass
+                                                    : inactiveMobileClass
+                                            }
+                                        >
+                                            My Reservations
+                                        </Disclosure.Button>
+                                    </>
+                                )}
+                                {/* Admin routes */}
+                                {id && isAdmin && (
+                                    <>
+                                        <Disclosure.Button
+                                            as={Link}
+                                            to="/sdash"
+                                            className={
+                                                slug.pathname === "/sdash"
+                                                    ? activeMobileClass
+                                                    : inactiveMobileClass
+                                            }
+                                        >
+                                            Staff Dashboard
+                                        </Disclosure.Button>
+                                        <Disclosure.Button
+                                            as={Link}
+                                            to="/booklist"
+                                            className={
+                                                slug.pathname === "/booklist"
+                                                    ? activeMobileClass
+                                                    : inactiveMobileClass
+                                            }
+                                        >
+                                            Manage Books
+                                        </Disclosure.Button>
+                                        <Disclosure.Button
+                                            as={Link}
+                                            to="/borrowbook"
+                                            className={
+                                                slug.pathname === "/borrowbook"
+                                                    ? activeMobileClass
+                                                    : inactiveMobileClass
+                                            }
+                                        >
+                                            Borrow Book
+                                        </Disclosure.Button>
+                                    </>
+                                )}
                             </div>
                         </Disclosure.Panel>
                     </>
