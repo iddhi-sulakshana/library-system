@@ -6,6 +6,7 @@ import { Staff } from "../models/staff.js";
 import { StudyRoom } from "../models/StudyRoom.js";
 import { Reservation } from "../models/Reservation.js";
 import { encrypt } from "../utils/hash.js";
+// import {BorrowBook} from "../models/BorrowBook.js";
 
 async function DeleteAll() {
     // delete all the collection data from
@@ -17,6 +18,7 @@ async function DeleteAll() {
     await UserModel.deleteMany({});
     await Reservation.deleteMany({});
     await StudyRoom.deleteMany({});
+    // await BorrowBook.deleteMany({});
 }
 async function FirstRun() {
     const hashedPassword = await encrypt("admin");

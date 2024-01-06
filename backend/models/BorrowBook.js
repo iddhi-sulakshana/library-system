@@ -1,4 +1,5 @@
-import { model } from "mongoose";
-import borrowbookSchema from "./schemas/BorrowBook.js";
+import mongoose from "mongoose";
+import BorrowBookSchema from "./schemas/BorrowBook.js";
 
-export default model("BorrowBook", borrowbookSchema);
+const Borrowbooka = mongoose.model("Borrowbook", BorrowBookSchema);
+export default Borrowbooka;
