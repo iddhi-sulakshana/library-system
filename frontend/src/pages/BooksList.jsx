@@ -166,12 +166,12 @@ const BooksList = () => {
                                                     in progress
                                                 </td> */}
                                                 <td className="relative space-x-3 whitespace-nowrap py-4 pl-3 text-sm font-medium">
-                                                    <button
-                                                        type="button"
-                                                        className="inline-flex items-center rounded border border-transparent bg-yellow-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+                                                    <Link
+                                                        to={`/show-book/${book.bookId}`}
+                                                        className="inline-flex items-center rounded border border-transparent bg-yellow-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 no-underline"
                                                     >
                                                         Show
-                                                    </button>
+                                                    </Link>
                                                     <Link
                                                         to={`/updatebook/${book.bookId}`}
                                                         className="inline-flex items-center rounded border border-transparent bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 no-underline"
