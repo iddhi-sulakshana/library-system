@@ -23,11 +23,44 @@ const ShowBook = () => {
   };
   return (
     <>
-      <div className='py-16 px-10'>
-        <div className="pt-16 pl-10">
-          <img src={getRootURL("bookCovers/" + book.imagePath)} className="w-72 rounded-lg" alt='book-cover-image' />
+      <div className='py-16 xl:px-32 xl:flex'>
+        <div className='pt-16 pl-10 w-full xl:w-1/3'>
+          <a
+            target='_blank'
+            rel='noreferrer'
+            href={getRootURL("bookCovers/" + book.imagePath)}
+          >
+            <img
+              src={getRootURL("bookCovers/" + book.imagePath)}
+              className='w-[350px] h-[500px] rounded-lg object-cover'
+              alt='book-cover-image'
+            />
+          </a>
         </div>
-        <div></div>
+        <div className='mt-[68px] ml-10 w-full xl:w-2/3'>
+          <p className='text-4xl font-bold'>{book.name}</p>
+          <p className='text-md font-semibold capitalize'>
+            Author:&nbsp;&nbsp;&nbsp;{" "}
+            <span className='font-normal'>{book.author}</span>
+          </p>
+          <p className='text-md font-semibold capitalize'>
+            Market Price:&nbsp;&nbsp;&nbsp;{" "}
+            <span className='font-normal'>{book.price} LKR</span>
+          </p>
+          <p className='text-md font-semibold'>
+            Book ID :&nbsp;&nbsp;&nbsp;{" "}
+            <span className='font-normal'>{book.bookId}</span>
+          </p>
+          <p className='text-md font-semibold'>
+            Genere :&nbsp;&nbsp;&nbsp;{" "}
+            <span className='font-normal bg-green-400 px-2 py-1 rounded-lg capitalize'>
+              {book.category}
+            </span>
+          </p>
+          <br />
+          <p className='text-md font-semibold'>Description :</p>
+          <p className='text-md font-normal italic pr-12'>{book.description}</p>
+        </div>
       </div>
     </>
   );
