@@ -10,10 +10,28 @@ const BooksList = () => {
   const [books, setBooks] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const { id: userId } = useUserContext();
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredBooks, setFilteredBooks] = useState([]);
 
   useEffect(() => {
     getBooks();
   }, [refresh]);
+
+  useEffect(() => {
+    // Update filtered books when searchInput or books change
+    filterBooks();
+  }, [searchInput, books]);
+
+  const filterBooks = () => {
+    const lowerCaseSearch = searchInput.toLowerCase();
+    const filtered = books.filter(
+      (book) =>
+        book.name.toLowerCase().includes(lowerCaseSearch) ||
+        String(book.bookId).includes(lowerCaseSearch) ||
+        book.author.toLowerCase().includes(lowerCaseSearch)
+    );
+    setFilteredBooks(filtered);
+  };
 
   const getBooks = async () => {
     try {
@@ -86,6 +104,14 @@ const BooksList = () => {
           <div className='-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8'>
             <div className='inline-block min-w-full py-2 align-middle'>
               <div className='overflow-hidden shadow-sm ring-1 ring-black ring-opacity-5'>
+                {/* Add search input field */}
+                <input
+                  type='text'
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  placeholder='Search by Book Name, Author or ID'
+                  className='p-2 mb-4 border border-gray-300 rounded-md'
+                />
                 <table className='min-w-full divide-y divide-gray-300'>
                   <thead className='bg-gray-50'>
                     <tr>
@@ -134,7 +160,7 @@ const BooksList = () => {
                     </tr>
                   </thead>
                   <tbody className='divide-y divide-gray-200 bg-white'>
-                    {books.map((book) => (
+                    {filteredBooks.map((book) => (
                       <tr key={book.bookId}>
                         <td className='whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8'>
                           {book.bookId}
