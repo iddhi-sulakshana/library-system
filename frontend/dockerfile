@@ -14,6 +14,8 @@ FROM nginx:latest
 
 COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
 
-EXPOSE 80
+ENV PORT=80
+
+EXPOSE ${PORT}
 
 CMD ["nginx", "-g", "daemon off;"]

@@ -1,0 +1,28 @@
+name: CD:Docker Build and Publish
+on:
+    push:
+        branches: ["main"]
+
+jobs:
+    build:
+        name: Build and Publish Docker Image
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout the Repo
+              uses: actions/checkout@v4
+
+            - name: Login to the Dockehub
+              uses: docker/login-action@v3
+              with:
+                  username: ${{ secrets.DOCKERHUB_USERNAME }}
+                  password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+            - name: Build and push frontend image
+              run: |
+                  docker-compose -f ./docker-compose.build.yaml build frontend
+                  docker-compose -f ./docker-compose.build.yaml push frontend
+
+            - name: Build and push backend image
+              run: |
+                  docker-compose -f ./docker-compose.build.yaml build backend
+                  docker-compose -f ./docker-compose.build.yaml push backend

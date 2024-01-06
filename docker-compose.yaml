@@ -1,13 +1,10 @@
-version: "5"
+version: "3"
 services:
     frontend:
-        build:
-            context: ./frontend
-            dockerfile: Dockerfile
+        image: iddhi/library-system:frontend
         ports:
             - "5000:80"
         volumes:
-            - ./frontend:/usr/src/app
             - /usr/src/app/node_modules
         environment:
             - NODE_ENV=development
@@ -15,14 +12,12 @@ services:
             - VITE_PORT=http://localhost:3000
         stdin_open: true
         tty: true
+
     backend:
-        build:
-            context: ./backend
-            dockerfile: Dockerfile
+        image: iddhi/library-system:backend
         ports:
             - "3000:3000"
         volumes:
-            - ./backend:/usr/src/app
             - /usr/src/app/node_modules
         environment:
             - NODE_ENV=development
@@ -36,11 +31,9 @@ services:
         tty: true
 
     database:
-        image: mongo
+        image: mongo:latest
         ports:
             - "27017:27017"
-        volumes:
-            - mongo-data:/data/db
         networks:
             - mern-app
         environment:
@@ -50,7 +43,3 @@ services:
 networks:
     mern-app:
         driver: bridge
-
-volumes:
-    mongo-data:
-        driver: local
