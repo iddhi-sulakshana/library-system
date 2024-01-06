@@ -17,6 +17,7 @@ const ShowBook = () => {
     try {
       const response = await axios.get(getURL("books/" + slug));
       setBook(response.data);
+      console.log(response.data);
     } catch (err) {
       console.log(err);
     }
@@ -50,12 +51,22 @@ const ShowBook = () => {
           <p className='text-md font-semibold'>
             Book ID :&nbsp;&nbsp;&nbsp;{" "}
             <span className='font-normal'>{book.bookId}</span>
-          </p>
+          </p>{" "}
           <p className='text-md font-semibold'>
             Genere :&nbsp;&nbsp;&nbsp;{" "}
-            <span className='font-normal bg-green-400 px-2 py-1 rounded-lg capitalize'>
-              {book.category}
-            </span>
+            <span className='font-normal'>{book.category}</span>
+          </p>
+          <p className='text-md font-semibold'>
+            Availability :&nbsp;&nbsp;&nbsp;{" "}
+            {book.availability ? (
+              <span className='font-normal bg-green-400 px-2 py-1 rounded-lg capitalize'>
+                Available
+              </span>
+            ) : (
+              <span className='font-normal bg-red-400 px-2 py-1 rounded-lg capitalize'>
+                Not-Available
+              </span>
+            )}
           </p>
           <br />
           <p className='text-md font-semibold'>Description :</p>
