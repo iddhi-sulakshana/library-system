@@ -1,0 +1,13 @@
+version: "5"
+services:
+    frontend:
+        build:
+            context: ./frontend
+            dockerfile: Dockerfile
+        image: iddhi/library-system:frontend
+
+    backend:
+        build:
+            context: ./backend
+            dockerfile: Dockerfile
+        image: iddhi/library-system:backend
