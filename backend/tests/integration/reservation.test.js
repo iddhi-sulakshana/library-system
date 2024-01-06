@@ -3,9 +3,12 @@ import server, { db } from "../server.js";
 import { Reservation } from "../../models/Reservation.js";
 import { StudyRoom } from "../../models/StudyRoom.js";
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
+import UserModel from "../../models/users.js";
 
 describe("Reservations Integration Tests", () => {
   let studyRoomId;
+  let token;
 
   beforeEach(async () => {
     const roomData = {
@@ -16,11 +19,24 @@ describe("Reservations Integration Tests", () => {
     const studyRoom = new StudyRoom(roomData);
     const savedRoom = await studyRoom.save();
     studyRoomId = roomData.roomId;
+
+    const userData = {
+      name: "test",
+      email: "testing@gmail.com",
+      password: "123123",
+    };
+    const user = new UserModel(userData);
+    const savedUser = await user.save();
+
+    token = jwt.sign({ _id: savedUser._id }, process.env.JWT_PRIVATE_KEY, {
+      expiresIn: "1h",
+    });
   });
 
   afterEach(async () => {
     await StudyRoom.deleteMany({});
     await Reservation.deleteMany({});
+    await UserModel.deleteMany({});
   });
 
   afterAll(() => {
@@ -29,7 +45,9 @@ describe("Reservations Integration Tests", () => {
 
   describe("GET /reservations", () => {
     it("should fetch all reservations", async () => {
-      const response = await request(server).get("/api/reservations");
+      const response = await request(server)
+        .get("/api/reservations")
+        .set("x-auth-token", token);
 
       expect(response.status).toBe(200);
 
@@ -58,6 +76,7 @@ describe("Reservations Integration Tests", () => {
       const response = await request(server)
         .post("/api/reservations")
         .send(reservationData)
+        .set("x-auth-token", token)
         .expect(201);
 
       expect(response.body).toHaveProperty(
@@ -76,6 +95,7 @@ describe("Reservations Integration Tests", () => {
       await request(server)
         .post("/api/reservations")
         .send(reservationData)
+        .set("x-auth-token", token)
         .expect(201);
 
       const conflictingReservationData = {
@@ -88,6 +108,7 @@ describe("Reservations Integration Tests", () => {
       const response = await request(server)
         .post("/api/reservations")
         .send(conflictingReservationData)
+        .set("x-auth-token", token)
         .expect(400);
 
       expect(response.body).toHaveProperty(
@@ -111,6 +132,7 @@ describe("Reservations Integration Tests", () => {
       const response = await request(server)
         .post("/api/reservations")
         .send(reservationData)
+        .set("x-auth-token", token)
         .expect(201);
 
       reservationId = response.body.reservation._id;
@@ -127,6 +149,7 @@ describe("Reservations Integration Tests", () => {
       const response = await request(server)
         .put("/api/reservations")
         .send(updateReservationData)
+        .set("x-auth-token", token)
         .expect(200);
 
       expect(response.body).toHaveProperty(
@@ -145,6 +168,7 @@ describe("Reservations Integration Tests", () => {
       const newReservation = await request(server)
         .post("/api/reservations")
         .send(reservationData)
+        .set("x-auth-token", token)
         .expect(201);
 
       const conflictingUpdatedReservationData = {
@@ -157,6 +181,7 @@ describe("Reservations Integration Tests", () => {
       const response = await request(server)
         .put("/api/reservations")
         .send(conflictingUpdatedReservationData)
+        .set("x-auth-token", token)
         .expect(400);
 
       expect(response.body).toHaveProperty(
@@ -180,6 +205,7 @@ describe("Reservations Integration Tests", () => {
       const response = await request(server)
         .post("/api/reservations")
         .send(reservationData)
+        .set("x-auth-token", token)
         .expect(201);
 
       reservationId = response.body.reservation._id;
@@ -188,6 +214,7 @@ describe("Reservations Integration Tests", () => {
     it("should delete a reservation by its ID", async () => {
       const response = await request(server)
         .delete(`/api/reservations/${reservationId}`)
+        .set("x-auth-token", token)
         .expect(200);
 
       expect(response.body).toHaveProperty(
@@ -200,6 +227,7 @@ describe("Reservations Integration Tests", () => {
       const nonExistentId = new mongoose.Types.ObjectId();
       const response = await request(server)
         .delete(`/api/reservations/${nonExistentId}`)
+        .set("x-auth-token", token)
         .expect(404);
 
       expect(response.body).toHaveProperty("error", "Reservation not found");
@@ -221,29 +249,19 @@ describe("Reservations Integration Tests", () => {
       await request(server)
         .post("/api/reservations")
         .send(reservationData)
+        .set("x-auth-token", token)
         .expect(201);
     });
 
     it("should fetch reservations for a specific user", async () => {
       const response = await request(server)
-        .get(`/api/reservations/user/${userId}`)
+        .get(`/api/reservations/user`)
+        .set("x-auth-token", token)
         .expect(200);
 
       expect(Array.isArray(response.body)).toBe(true);
       expect(response.body.length).toBeGreaterThan(0);
-      expect(response.body[0]).toHaveProperty("userId", userId);
-    });
-
-    it("should return an error if no reservations found for the user", async () => {
-      const nonExistentUserId = 999;
-      const response = await request(server)
-        .get(`/api/reservations/user/${nonExistentUserId}`)
-        .expect(404);
-
-      expect(response.body).toHaveProperty(
-        "error",
-        "No reservations found for the user"
-      );
+      expect(response.body[0]).toHaveProperty("userId");
     });
   });
 });

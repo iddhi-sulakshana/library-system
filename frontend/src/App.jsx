@@ -72,9 +72,7 @@ function App() {
                             />
                             <Route
                                 path="/reservations"
-                                element={
-                                    <StudyRoomReservations userId={119900} />
-                                }
+                                element={<StudyRoomReservations />}
                             />
                             <Route
                                 exact

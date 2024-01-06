@@ -3,6 +3,7 @@ import winston from "winston";
 import { validateReservation, Reservation } from "../models/Reservation.js";
 import { StudyRoom } from "../models/StudyRoom.js";
 import { ioServer } from "../configs/websocket.js";
+import user_auth from "../middlewares/user_auth.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -10,13 +11,14 @@ router.get("/", async (req, res) => {
   res.send(reservations);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", user_auth, async (req, res) => {
   try {
+    delete req.body.userId;
     const error = validateReservation(req.body);
     if (error) return res.status(400).send(error);
 
-    const { userId, roomId, startTime, endTime } = req.body;
-
+    const { roomId, startTime, endTime } = req.body;
+    const userId = req.user._id;
     const overlappingReservation = await Reservation.findOne({
       roomId,
       startTime: { $lt: endTime },
@@ -67,7 +69,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/", user_auth, async (req, res) => {
   try {
     const error = validateReservation(req.body);
     if (error) return res.status(400).send(error);
@@ -117,7 +119,7 @@ router.put("/", async (req, res) => {
   }
 });
 
-router.delete("/:bookingId", async (req, res) => {
+router.delete("/:bookingId", user_auth, async (req, res) => {
   try {
     const { bookingId } = req.params;
 
@@ -151,11 +153,10 @@ router.delete("/:bookingId", async (req, res) => {
   }
 });
 
-router.get("/user/:userId", async (req, res) => {
+router.get("/user", user_auth, async (req, res) => {
   try {
-    const { userId } = req.params;
+    const userId = req.user._id;
     const reservations = await Reservation.find({ userId });
-
     if (!reservations || reservations.length === 0) {
       return res
         .status(404)

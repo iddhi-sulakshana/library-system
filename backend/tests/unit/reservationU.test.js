@@ -63,7 +63,7 @@ describe('Reservation', () => {
 
     it('should have a valid userId', () => {
         const reservation = new ReservationM({
-            userId: 123,
+            userId: new mongoose.Types.ObjectId(),
             roomId: 456,
             studyRoomId: new mongoose.Types.ObjectId(),
             startTime: new Date(),
@@ -71,7 +71,7 @@ describe('Reservation', () => {
         });
 
         expect(reservation.userId).toBeDefined();
-        expect(typeof reservation.userId).toBe('number');
+        expect(reservation.userId).toBeInstanceOf(mongoose.Types.ObjectId);
     });
 
     it('should have a valid roomId', () => {
