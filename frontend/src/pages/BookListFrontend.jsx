@@ -32,7 +32,7 @@ const BookListFrontend = () => {
                                 keyBy(book, "id"),
                                 (
                                     <Link
-                                        to={`/borrowbook`}
+                                        to={`/show-book/${book.bookId}`}
                                         className="text-black no-underline"
                                         state={{ bookId: book.bookId }}
                                     >

@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { getURL, getRootURL } from "../utils";
+import { useUserContext } from "../contexts/UserContext";
+import { jwtDecode } from "jwt-decode";
 
 const ShowBook = () => {
+  const { id } = useUserContext();
+  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
   const slug = location.pathname.split("/")[2];
 
@@ -12,6 +16,13 @@ const ShowBook = () => {
   useEffect(() => {
     getSingleBooks();
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      const decoded = jwtDecode(id);
+      setIsAdmin(decoded.isAdmin);
+    }
+  }, [id]);
 
   const getSingleBooks = async () => {
     try {
@@ -37,6 +48,19 @@ const ShowBook = () => {
               alt='book-cover-image'
             />
           </a>
+          {}
+
+          {id && isAdmin && (
+            <>
+              <br />
+              <Link
+                to={`/borrowbook/${book.bookId}`}
+                className='mt-10 ml-20 px-10 py-3 bg-[#2d2d2d] text-white rounded-lg hover:bg-gray-800 no-underline'
+              >
+                Borrow Now ➤
+              </Link>
+            </>
+          )}
         </div>
         <div className='mt-[68px] ml-10 w-full xl:w-2/3'>
           <p className='text-4xl font-bold'>{book.name}</p>
