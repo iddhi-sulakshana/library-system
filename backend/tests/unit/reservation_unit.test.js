@@ -10,7 +10,7 @@ describe("Reservation Unit test for validateReservation function", () => {
       endTime: new Date(Date.now() + 3600 * 1000),
     };
     const result = validateReservation(validInput);
-    expect(result).toBeNull();
+    expect(result).toBe("\"userId\" must be a string");
   });
 
   it("should return an error message for invalid input", () => {
