@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaUser, FaLock } from "react-icons/fa";
-import validateForm from "../FormValidation";
+import validateForm from "../FormValidation.jsx";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "../Form.css";
