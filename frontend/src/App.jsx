@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Example from "./pages/Example";
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import BorrowBook from "./components/Forms/BorrowBook";
 import StudyRooms from "./pages/StudyRooms";
 import StudyRoomReservations from "./pages/StudyRoomReservations";

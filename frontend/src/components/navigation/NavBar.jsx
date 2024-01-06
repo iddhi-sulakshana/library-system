@@ -39,12 +39,12 @@ export default function Navbar() {
                                     <Link to="/">
                                         <img
                                             className="block h-8 w-auto lg:hidden"
-                                            src="/src/assets/lib_logo.png"
+                                            src="/lib_logo.png"
                                             alt="logo"
                                         />
                                         <img
                                             className="hidden h-11 w-auto lg:block"
-                                            src="/src/assets/lib_logo.png"
+                                            src="/lib_logo.png"
                                             alt="logo"
                                         />
                                     </Link>
