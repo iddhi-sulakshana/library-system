@@ -1,9 +1,11 @@
+const URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000";
+
 export const getURL = (subPart) => {
-    return "http://localhost:3000/api/" + subPart;
+    return `${URL}/api/${subPart}`;
 };
 
 export const getRootURL = (subPart) => {
-    return "http://localhost:3000/" + subPart;
+    return `${URL}/${subPart}`;
 };
 
 export function formatTimestamp(timestamp) {
