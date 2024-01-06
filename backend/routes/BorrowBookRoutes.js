@@ -17,7 +17,7 @@ router.post("/", staff_auth, async (req, res) => {
         if (existingUser && existingBook) {
             // Check if a document with the same userid already exists
             const existingBorrow = await BorrowBook.findOne({
-                id: req.body.id,
+                bookId: existingBook._id,
             });
 
             if (existingBorrow) {
