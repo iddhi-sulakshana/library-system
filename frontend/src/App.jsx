@@ -22,6 +22,7 @@ import BookListFrontend from "./pages/BookListFrontend";
 import { useUserContext } from "./contexts/UserContext";
 import React, { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
+import ShowBook from "./pages/ShowBook";
 
 function App() {
     const { id } = useUserContext();
@@ -40,6 +41,7 @@ function App() {
                     {/* all users routes */}
                     <Route path="/" element={<Home />} />
                     <Route path="/example" element={<Example />} />
+                    <Route path="/show-book/:id" element={<ShowBook />} />
                     <Route
                         path="/book-collection"
                         element={<BookListFrontend />}
