@@ -18,6 +18,18 @@ export function formatTimestamp(timestamp) {
 
     return formattedTime;
 }
+export function formatTimestampWithTZ(timestamp, timeZone) {
+    if (!timestamp) return null;
+    const date = new Date(timestamp);
+    const formattedTime = new Intl.DateTimeFormat("en-US", {
+        hour: "numeric",
+        minute: "numeric",
+        timeZone: timeZone,
+        hour12: false,
+    }).format(date);
+
+    return formattedTime;
+}
 export function formatDate(timestamp) {
     if (!timestamp) return null;
     const date = new Date(timestamp);

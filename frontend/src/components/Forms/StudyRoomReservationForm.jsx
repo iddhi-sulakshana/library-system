@@ -3,6 +3,8 @@ import { useParams, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router";
 import _ from "lodash";
 import axios from "axios";
+import { getURL } from "../../utils";
+import { useUserContext } from "../../contexts/UserContext";
 
 function StudyRoomReservationForm() {
   const [selectedSlot, setSelectedSlot] = useState([null, null]);
@@ -23,10 +25,11 @@ function StudyRoomReservationForm() {
     : false;
 
   const [roomNumber, studyRoomId, bookingId] = _.split(roomId, "-");
+  const { id } = useUserContext();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/studyrooms/${studyRoomId}/reservedTimes`)
+      .get(getURL(`studyrooms/${studyRoomId}/reservedTimes`))
       .then((response) => {
         setBookedTimes(response.data);
       })
@@ -61,7 +64,7 @@ function StudyRoomReservationForm() {
     );
 
     const formData = {
-      ...(isInitialBooking ? { userId: userID } : { bookingId: bookingId }),
+      ...(isInitialBooking ? { userId: id } : { bookingId: bookingId }),
       roomId: roomNumber,
       startTime: startTimeDate,
       endTime: endTimeDate,
@@ -71,16 +74,18 @@ function StudyRoomReservationForm() {
     try {
       if (isInitialBooking) {
         request = "POST";
-        response = await axios.post(
-          "http://localhost:3000/api/reservations",
-          formData
-        );
+        response = await axios.post(getURL("reservations"), formData, {
+          headers: {
+            "x-auth-token": id,
+          },
+        });
       } else {
         request = "PUT";
-        response = await axios.put(
-          "http://localhost:3000/api/reservations",
-          formData
-        );
+        response = await axios.put(getURL("reservations"), formData, {
+          headers: {
+            "x-auth-token": id,
+          },
+        });
       }
       console.log(`Response from ${request} request:`, response.data);
 
@@ -91,7 +96,7 @@ function StudyRoomReservationForm() {
   };
 
   return (
-    <div className="container mt-5">
+    <div className="container" style={{ paddingTop: "5rem" }}>
       <form onSubmit={handleFormSubmit} className="border p-4 rounded">
         <div className="mb-3">
           <label className="form-label">Room ID:</label>
