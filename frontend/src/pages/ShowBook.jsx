@@ -52,7 +52,7 @@ const ShowBook = () => {
             Book ID :&nbsp;&nbsp;&nbsp;{" "}
             <span className='font-normal'>{book.bookId}</span>
           </p>{" "}
-          <p className='text-md font-semibold'>
+          <p className='text-md font-semibold capitalize'>
             Genere :&nbsp;&nbsp;&nbsp;{" "}
             <span className='font-normal'>{book.category}</span>
           </p>
