@@ -18,12 +18,12 @@ jobs:
                   username: ${{ secrets.DOCKERHUB_USERNAME }}
                   password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-            - name: Build and push backend image
-              run: |
-                  docker-compose -f ./docker-compose.build.yaml build backend
-                  docker-compose -f ./docker-compose.build.yaml push backend
-
             - name: Build and push frontend image
               run: |
                   docker-compose -f ./docker-compose.build.yaml build frontend
                   docker-compose -f ./docker-compose.build.yaml push frontend
+
+            - name: Build and push backend image
+              run: |
+                  docker-compose -f ./docker-compose.build.yaml build backend
+                  docker-compose -f ./docker-compose.build.yaml push backend
