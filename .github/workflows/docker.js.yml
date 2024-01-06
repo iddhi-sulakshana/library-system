@@ -1,8 +1,7 @@
 name: CD:Docker Build and Publish
 on:
-    push:
-        branches:
-            - pipelines
+    pull_request:
+        branches: ["main"]
 
 jobs:
     build:
