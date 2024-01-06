@@ -9,7 +9,7 @@ import Chat from "./pages/Chat";
 import BooksList from "./pages/BooksList";
 import AddBook from "./pages/AddBook";
 import UpdateBook from "./pages/UpdateBook";
-import SignUpForm from "./components/SignUPForm/SignUpForm";
+import SignUpForm from "./components/signupform/signup";
 import LoginForm from "./components/LoginForm/LoginForm";
 import Profile from "./components/profile/profile";
 import EditProfile from "./components/profile/editProfile";
