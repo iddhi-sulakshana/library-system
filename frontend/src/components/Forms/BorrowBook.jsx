@@ -122,7 +122,7 @@ const BorrowBook = () => {
     return (
         <div className="container" style={{ paddingTop: "5rem" }}>
             <h2 className="mb-4">
-                {isUpdateMode ? "Update Book" : "Book Registration"}
+                {isUpdateMode ? "Update Book" : "Borrow Book"}
             </h2>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">

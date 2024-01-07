@@ -55,6 +55,8 @@ const Profile = () => {
                 url: getURL(`users`),
             })
             .then((result) => {
+                navigate("/login");
+                sessionStorage.removeItem("id");
                 setId(null);
             })
             .catch((err) => alert(err.response.data));
@@ -88,9 +90,9 @@ const Profile = () => {
                     <button
                         className="btn logout-profile"
                         onClick={() => {
+                            navigate("/login");
                             setId(null);
                             sessionStorage.removeItem("id");
-                            navigate("/login");
                         }}
                     >
                         Logout
