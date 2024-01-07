@@ -44,13 +44,20 @@ async function FirstRun() {
 
     // insert default user to database
     const user = new UserModel({
-        name: "User",
+        name: "User 1",
         email: "asd1@asd.com",
         password: "asdasd",
     });
     await user.save();
+    const chatUser1 = new ChatUser({
+        _id: user._id,
+        name: user.name,
+        avatar: Math.random(),
+        isAdmin: false,
+    });
+    await chatUser1.save();
     const user2 = new UserModel({
-        name: "User",
+        name: "User 2",
         email: "asd2@asd.com",
         password: "asdasd",
     });
