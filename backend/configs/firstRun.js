@@ -20,6 +20,7 @@ async function DeleteAll() {
     await Reservation.deleteMany({});
     await StudyRoom.deleteMany({});
     await BorrowBook.deleteMany({});
+    await booksmodel.deleteMany({});
 }
 async function FirstRun() {
     const hashedPassword = await encrypt("admin");
@@ -156,7 +157,8 @@ async function FirstRun() {
             name: "Generative AI",
             author: "Jeff Dummine",
             price: 2500,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
             imagePath: "b1.jpg",
             category: "fiction",
             bookId: 193974,
@@ -165,7 +167,8 @@ async function FirstRun() {
             name: "Revenant",
             author: "R. Valentine",
             price: 5500,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
             imagePath: "b2.jpg",
             category: "other",
             bookId: 293974,
@@ -174,7 +177,8 @@ async function FirstRun() {
             name: "Playing by her Rules",
             author: "Sapna Bhog",
             price: 6000,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
             imagePath: "b3.jpg",
             category: "poetry",
             bookId: 393974,
@@ -183,7 +187,8 @@ async function FirstRun() {
             name: "The Lucky Puppy",
             author: "Mike Grylls",
             price: 1200,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
             imagePath: "b4.jpg",
             category: "other",
             bookId: 493974,
@@ -192,7 +197,8 @@ async function FirstRun() {
             name: "The Book Thief",
             author: "Markus Zusak",
             price: 6200,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
             imagePath: "b5.jpg",
             category: "non-fiction",
             bookId: 593974,
@@ -201,7 +207,8 @@ async function FirstRun() {
             name: "Silly Christmas",
             author: "Will Peter",
             price: 2700,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
             imagePath: "b6.jpg",
             category: "other",
             bookId: 693974,
@@ -210,7 +217,8 @@ async function FirstRun() {
             name: "Tuesday with Morrie",
             author: "Mitch Albom",
             price: 7700,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
             imagePath: "b7.jpg",
             category: "Drama/Play",
             bookId: 793974,
@@ -219,7 +227,8 @@ async function FirstRun() {
             name: "Over My Dead Body",
             author: "Jeff Archer",
             price: 10750,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
             imagePath: "b8.jpg",
             category: "fiction",
             bookId: 893974,
@@ -228,7 +237,8 @@ async function FirstRun() {
             name: "Forever Yours",
             author: "Neha Chenani",
             price: 3750,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
             imagePath: "b9.jpg",
             category: "other",
             bookId: 993974,
@@ -237,17 +247,14 @@ async function FirstRun() {
             name: "The Armour of Light",
             author: "Ken Follett",
             price: 12500,
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam ultrices sagittis orci a scelerisque purus semper. Ut tellus elementum sagittis vitae et leo duis ut. Non odio euismod lacinia at quis risus sed vulputate. Id ornare arcu odio ut sem nulla pharetra diam sit. Risus nec feugiat in fermentum posuere urna. Aliquet nibh praesent tristique magna sit. Et leo duis ut diam quam nulla porttitor massa id. Habitasse platea dictumst quisque sagittis purus sit amet. Senectus et netus et malesuada fames. Metus dictum at tempor commodo ullamcorper. Condimentum vitae sapien pellentesque habitant morbi tristique senectus. Fermentum et sollicitudin ac orci phasellus egestas. Accumsan sit amet nulla facilisi morbi tempus. Id donec ultrices tincidunt arcu non sodales neque sodales. Vestibulum morbi blandit cursus risus at ultrices mi.",
             imagePath: "b10.jpg",
             category: "non-fiction",
             bookId: 1093974,
         },
     ];
     await booksmodel.insertMany(booksmodelData);
-
-
-
-
 }
 
 export { FirstRun, DeleteAll };
