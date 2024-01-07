@@ -30,10 +30,7 @@ function StudyRoomCard({
 
                 {isBooked ? (
                     room.bookedSlots.some(isSlotOverlappingForTimeSlot) ? (
-                        <button
-                            className="btn btn-danger w-100 mt-auto "
-                            disabled
-                        >
+                        <button className="btn btn-danger mt-auto " disabled>
                             Booked Out
                         </button>
                     ) : (

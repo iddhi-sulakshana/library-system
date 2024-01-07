@@ -49,13 +49,25 @@ async function FirstRun() {
         password: "asdasd",
     });
     await user.save();
+    const user2 = new UserModel({
+        name: "User",
+        email: "asd2@asd.com",
+        password: "asdasd",
+    });
+    await user2.save();
     const chatUser2 = new ChatUser({
-        _id: user._id,
-        name: user.name,
+        _id: user2._id,
+        name: user2.name,
         avatar: Math.random(),
         isAdmin: false,
     });
     await chatUser2.save();
+    const chatUser3 = new ChatUser({
+        _id: user2._id,
+        name: user2.name,
+        avatar: Math.random(),
+        isAdmin: false,
+    });
 
     // insert study rooms to database
     const studyRoom = new StudyRoom({
@@ -162,6 +174,7 @@ async function FirstRun() {
             imagePath: "b1.jpg",
             category: "fiction",
             bookId: 193974,
+            availability: false,
         },
         {
             name: "Revenant",
@@ -254,7 +267,18 @@ async function FirstRun() {
             bookId: 1093974,
         },
     ];
-    await booksmodel.insertMany(booksmodelData);
+    const books = await booksmodel.insertMany(booksmodelData);
+    const borrowBook = new BorrowBook({
+        userid: user2._id,
+        bookid: books[0]._id,
+        tackdate: new Date(
+            new Date().setDate(new Date().getDate() - 14)
+        ).toISOString(),
+        deliverydate: new Date(
+            new Date().setDate(new Date().getDate() - 7)
+        ).toISOString(),
+    });
+    await borrowBook.save();
 }
 
 export { FirstRun, DeleteAll };
