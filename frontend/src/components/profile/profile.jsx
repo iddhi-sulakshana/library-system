@@ -82,11 +82,11 @@ const Profile = () => {
                     </div>
                 </div>
                 <div className="button-section">
-                    <button className="edit-profile" onClick={handleClick}>
+                    <button className="btn edit-profile" onClick={handleClick}>
                         Edit Profile
                     </button>
                     <button
-                        className="delete-profile"
+                        className="btn logout-profile"
                         onClick={() => {
                             setId(null);
                             sessionStorage.removeItem("id");
@@ -95,7 +95,10 @@ const Profile = () => {
                     >
                         Logout
                     </button>
-                    <button className="delete-profile" onClick={handleDelete}>
+                    <button
+                        className="btn delete-profile"
+                        onClick={handleDelete}
+                    >
                         Delete Profile
                     </button>
                 </div>
