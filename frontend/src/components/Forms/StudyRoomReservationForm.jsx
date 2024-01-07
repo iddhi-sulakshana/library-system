@@ -120,60 +120,100 @@ function StudyRoomReservationForm() {
                     <label className="form-label">Available Times:</label>
                 </div>
                 <div className="mb-3">
-                    <input
-                        type="radio"
-                        name="timeSlot"
-                        value="08:00-10:00"
-                        onChange={() => handleRadioChange("08", "10")}
-                        disabled={bookedTimes.some(
-                            (timeSlot) =>
-                                timeSlot.startTime === "8" &&
-                                timeSlot.endTime === "10"
-                        )}
-                    />{" "}
-                    <label className="ms-2">8am-10am</label>
+                    <table>
+                        <tr>
+                            <td>
+                                <input
+                                    type="radio"
+                                    name="timeSlot"
+                                    value="08:00-10:00"
+                                    onChange={() =>
+                                        handleRadioChange("08", "10")
+                                    }
+                                    disabled={bookedTimes.some(
+                                        (timeSlot) =>
+                                            timeSlot.startTime === "8" &&
+                                            timeSlot.endTime === "10"
+                                    )}
+                                />
+                            </td>
+                            <td>
+                                <label className="ms-2">8am-10am</label>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div className="mb-3">
-                    <input
-                        type="radio"
-                        name="timeSlot"
-                        value="10:00-12:00"
-                        onChange={() => handleRadioChange("10", "12")}
-                        disabled={bookedTimes.some(
-                            (timeSlot) =>
-                                timeSlot.startTime === "10" &&
-                                timeSlot.endTime === "12"
-                        )}
-                    />{" "}
-                    <label className="ms-2">10am-12pm</label>
+                    <table>
+                        <tr>
+                            <td>
+                                <input
+                                    type="radio"
+                                    name="timeSlot"
+                                    value="10:00-12:00"
+                                    onChange={() =>
+                                        handleRadioChange("10", "12")
+                                    }
+                                    disabled={bookedTimes.some(
+                                        (timeSlot) =>
+                                            timeSlot.startTime === "10" &&
+                                            timeSlot.endTime === "12"
+                                    )}
+                                />
+                            </td>
+                            <td>
+                                <label className="ms-2">10am-12pm</label>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div className="mb-3">
-                    <input
-                        type="radio"
-                        name="timeSlot"
-                        value="12:00-14:00"
-                        onChange={() => handleRadioChange("12", "14")}
-                        disabled={bookedTimes.some(
-                            (timeSlot) =>
-                                timeSlot.startTime === "12" &&
-                                timeSlot.endTime === "14"
-                        )}
-                    />{" "}
-                    <label className="ms-2">12pm-2pm</label>
+                    <table>
+                        <tr>
+                            <td>
+                                <input
+                                    type="radio"
+                                    name="timeSlot"
+                                    value="12:00-14:00"
+                                    onChange={() =>
+                                        handleRadioChange("12", "14")
+                                    }
+                                    disabled={bookedTimes.some(
+                                        (timeSlot) =>
+                                            timeSlot.startTime === "12" &&
+                                            timeSlot.endTime === "14"
+                                    )}
+                                />{" "}
+                            </td>
+                            <td>
+                                <label className="ms-2">12pm-2pm</label>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div className="mb-3">
-                    <input
-                        type="radio"
-                        name="timeSlot"
-                        value="14:00-16:00"
-                        onChange={() => handleRadioChange("14", "16")}
-                        disabled={bookedTimes.some(
-                            (timeSlot) =>
-                                timeSlot.startTime === "14" &&
-                                timeSlot.endTime === "16"
-                        )}
-                    />{" "}
-                    <label className="ms-2">2pm-4pm</label>
+                    <table>
+                        <tr>
+                            <td>
+                                <input
+                                    type="radio"
+                                    name="timeSlot"
+                                    value="14:00-16:00"
+                                    onChange={() =>
+                                        handleRadioChange("14", "16")
+                                    }
+                                    disabled={bookedTimes.some(
+                                        (timeSlot) =>
+                                            timeSlot.startTime === "14" &&
+                                            timeSlot.endTime === "16"
+                                    )}
+                                />{" "}
+                            </td>
+                            <td>
+                                <label className="ms-2">2pm-4pm</label>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <button type="submit" className="btn btn-primary">
                     Book Room
