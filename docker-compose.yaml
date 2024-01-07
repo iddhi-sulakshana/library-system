@@ -7,7 +7,7 @@ services:
         volumes:
             - /usr/src/app/node_modules
         environment:
-            - NODE_ENV=development
+            - NODE_ENV=production
             - PORT=80
             - VITE_PORT=http://localhost:3000
         stdin_open: true
@@ -20,7 +20,7 @@ services:
         volumes:
             - /usr/src/app/node_modules
         environment:
-            - NODE_ENV=development
+            - NODE_ENV=production
             - PORT=3000
             - DB=${DB:-mongodb://admin:password@database:27017/librarysystem}
         depends_on:

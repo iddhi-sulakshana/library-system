@@ -68,7 +68,7 @@ const EditProfile = () => {
     }
 
     return (
-        <div className="container1">
+        <div className="container container1 pt-5">
             <div className="wrappers">
                 <h1>User Profile</h1>
                 <div className="wrapper-profile">
@@ -78,6 +78,7 @@ const EditProfile = () => {
                             <h2>
                                 Username :{" "}
                                 <input
+                                    className="input"
                                     type="text"
                                     name="name"
                                     value={userData.name || ""}
@@ -90,6 +91,7 @@ const EditProfile = () => {
                             <h2>
                                 Email :{" "}
                                 <input
+                                    className="input"
                                     type="text"
                                     name="email"
                                     value={userData.email || ""}
@@ -102,6 +104,7 @@ const EditProfile = () => {
                             <h2>
                                 Password :{" "}
                                 <input
+                                    className="input"
                                     type="password"
                                     name="password"
                                     placeholder="New password"
@@ -116,6 +119,7 @@ const EditProfile = () => {
                             <h2>
                                 Confirm Password :{" "}
                                 <input
+                                    className="input"
                                     type="password"
                                     name="confirmPassword"
                                     placeholder="Confirm password"
@@ -131,7 +135,7 @@ const EditProfile = () => {
                     </div>
                 </div>
                 <div className="button-section">
-                    <button className="edit-profile" onClick={handleClick}>
+                    <button className="btn edit-profile" onClick={handleClick}>
                         Update
                     </button>
                 </div>
