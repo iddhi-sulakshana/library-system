@@ -83,6 +83,16 @@ Login Creadinitals for the frontend
 
 This project was a collaborative effort, with six developers contributing to its successful completion. Each team member played a crucial role in different aspects of the development process, ensuring a well-rounded and feature-rich Library Management System.
 
+Meet the contributors who made this project possible:
+
+-   <img src="https://avatars.githubusercontent.com/u/97652887?s=64&v=4" width="50" height="50"> [Iddhi Sulakshana](https://github.com/iddhi-sulakshana)
+-   <img src="https://avatars.githubusercontent.com/u/96408353?s=64&v=4" width="50" height="50"> [Pramod Mannapperuma
+    ](https://github.com/PramodMannapperuma)
+-   <img src="https://avatars.githubusercontent.com/u/91274532?s=64&v=4" width="50" height="50"> [Buddhima Wijesooriya](https://github.com/buddhimac111)
+-   <img src="https://avatars.githubusercontent.com/u/78548533?s=64&v=4" width="50" height="50"> [Chamodh Perera](https://github.com/chamodhpereira)
+-   <img src="https://avatars.githubusercontent.com/u/100758036?s=64&v=4" width="50" height="50"> [VihansiPerera](https://github.com/VihansiPerera)
+-   <img src="https://avatars.githubusercontent.com/u/115582110?s=64&v=4" width="50" height="50"> [gncranasingha](https://github.com/gncranasingha)
+
 ## CI/CD Integration
 
 The project is equipped with Docker and utilizes Docker Hub for containerization. GitHub Actions have been implemented for continuous integration and continuous deployment (CI/CD), ensuring a smooth and automated workflow for development, testing, and deployment processes.
