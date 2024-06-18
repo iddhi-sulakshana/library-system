@@ -93,6 +93,24 @@ Meet the contributors who made this project possible:
 -   <img src="https://avatars.githubusercontent.com/u/100758036?s=64&v=4" width="50" height="50"> [VihansiPerera](https://github.com/VihansiPerera)
 -   <img src="https://avatars.githubusercontent.com/u/115582110?s=64&v=4" width="50" height="50"> [gncranasingha](https://github.com/gncranasingha)
 
+## Screenshots
+
+### Home Page
+
+![Home Page](/screenshots/home.png)
+
+### Admin Dashboard
+
+![Staff Dashboard](/screenshots/dashboard.png)
+
+### Book Management
+
+![Book Management](/screenshots/managebook.png)
+
+### Books List
+
+![Books List](/screenshots/books.png)
+
 ## CI/CD Integration
 
 The project is equipped with Docker and utilizes Docker Hub for containerization. GitHub Actions have been implemented for continuous integration and continuous deployment (CI/CD), ensuring a smooth and automated workflow for development, testing, and deployment processes.
